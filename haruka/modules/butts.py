@@ -25,6 +25,6 @@ __help__ = """
  - /boobs: Sends Random Boobs pic.
  - /butts: Sends Random Butts pic.
 """
-__mod_name__ = "NSFW"
+__mod_name__ = "Porn"
 BUTTS_HANDLER = DisableAbleCommandHandler("butts", butts)
 dispatcher.add_handler(BUTTS_HANDLER)
