@@ -1,7 +1,7 @@
 import logging
 import os
 import sys
-
+from telethon import TelegramClient
 import telegram.ext as tg
 
 print("haruka")
@@ -67,6 +67,7 @@ if ENV:
     BAN_STICKER = os.environ.get('BAN_STICKER', 'CAADAgADEAgAAgi3GQL9YQyT_kBpQwI')
     ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
     SUDO_USERS.add(OWNER_ID)
+    tbot = TelegramClient("haruka", API_KEY, API_HASH)
     updater = tg.Updater(TOKEN, workers=WORKERS)
     dispatcher = updater.dispatcher
     SUDO_USERS = list(SUDO_USERS)
