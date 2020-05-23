@@ -62,7 +62,7 @@ def broadcast(bot: Bot, update: Update):
         failed = 0
         for chat in chats:
             try:
-                bot.sendMessage(int(chat.chat_id), to_send[1])
+                bot.sendMessage(int(chat.chat_id), "THIS IS A BROADCASTED MESSAGE SORRY BUT I CAN'T REVEAL THE SENDER\n\n"+to_send[1])
                 sleep(0.1)
             except TelegramError:
                 failed += 1
@@ -216,7 +216,6 @@ __help__ = """
 /wlist: List my whitelist users [These people are immortal I can never mute/kick/ban them]
 /broadcast: Globally broadcast a message in those chats having this bot
 /leavechat: Leave the current chat you are in
-/chatlist: List all the chats I am in
 """
 __mod_name__ = "Chats"
 
