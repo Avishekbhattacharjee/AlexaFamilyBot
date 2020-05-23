@@ -33,7 +33,7 @@ from haruka.modules.helper_funcs.extraction import extract_user_and_text
 from haruka.modules.helper_funcs.string_handling import extract_time
 from haruka.modules.log_channel import loggable
 
-from haruka.modules.tr_engine.strings import tld
+from haruka.modules.translations.strings import tld
 import re
 from pyDownload import Downloader
 import datetime
