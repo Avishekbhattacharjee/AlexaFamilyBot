@@ -212,7 +212,8 @@ def __migrate__(old_chat_id, new_chat_id):
 
 
 __help__ = """ 
-/slist: List my sudo users.
+/slist: List my sudo users & support users [These People have rights to gban/gmute/gkick anyone]
+/wlist: List my whitelist users [These people are immortal I can never mute/kick/ban them]
 /broadcast: Globally broadcast a message in those chats having this bot
 /leavechat: Leave the current chat you are in
 /chatlist: List all the chats I am in
