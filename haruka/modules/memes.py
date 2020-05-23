@@ -327,7 +327,7 @@ Some memes command, find it all out yourself!
 /zalgofy: reply to a message to g̫̞l̼̦i̎͡tͫ͢c̘ͭh̛̗ it out!
 """
 
-__mod_name__ = "Memes and etc."
+__mod_name__ = "Memes"
 
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
 STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
