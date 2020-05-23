@@ -49,6 +49,6 @@ __help__ = """
 """
 __mod_name__ = "Teleport"
 
-TELEPORT_HANDLER = DisableAbleCommandHandler("teleport", snipe, pass_args=True)
+TELEPORT_HANDLER = DisableAbleCommandHandler("teleport", teleport, pass_args=True)
 dispatcher.add_handler(TELEPORT _HANDLER)
 
