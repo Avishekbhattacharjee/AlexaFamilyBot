@@ -272,6 +272,7 @@ def reaction(bot: Bot, update: Update, args: List[str]) -> str:
 
 __help__ = """
  - /adminlist | /admins: list of admins in the chat
+ - /users: List all the users in the chat
 
 *Admin only:*
  - /pin: silently pins the message replied to - add 'loud' or 'notify' to give notifs to users.
