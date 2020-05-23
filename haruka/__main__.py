@@ -20,13 +20,16 @@ from haruka.modules.helper_funcs.misc import paginate_modules
 from haruka.modules.translations.strings import tld, tld_help 
 from haruka.modules.connection import connected
 
-PM_START = """Hello {}, My Name is {}!
+PM_START = """Hello my name is *Alexa* 👩‍🔧
 
-You know how hard it is sometimes to manage group so here is the solution for you
+I'mma group management bot 🤖
 
-I'm group manager bot 🃏
+I have all the possible commands that you need to control your group 😊
 
-Click /help or Help button below to find out more about how to use me to my full potential.
+Take me to your group, and start giving me commands I am always at your service ♥️
+
+`#include <std/disclaimer.h>`
+*[https://telegra.ph/ALEXA](https://telegra.ph/ALEXA-05-19)*
 """
 
 
@@ -144,9 +147,7 @@ def send_start(bot, update):
     first_name = update.effective_user.first_name 
     text = PM_START
 
-    keyboard = [[InlineKeyboardButton(text="🇮🇳 Language", callback_data="set_lang_")]]
-    keyboard += [[InlineKeyboardButton(text="🛠 Reporting", callback_data="cntrl_panel_M"), 
-        InlineKeyboardButton(text="❔ Help", callback_data="help_back")]]
+    keyboard = [[InlineKeyboardButton(text="Help ❓", callback_data="help_back")]]
 
     update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN)
 
