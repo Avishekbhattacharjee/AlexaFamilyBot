@@ -4,4 +4,4 @@ __help__ = """
  - /figlet: Another Style art	
  - /dice: Roll A dice	
 """
-__mod_name__ = "Just4Fun
+__mod_name__ = "Just4Fun"
