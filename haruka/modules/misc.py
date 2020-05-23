@@ -9,17 +9,13 @@ from pyowm import timeutils, exceptions
 from random import randint
 from datetime import datetime
 from typing import Optional, List
-from pythonping import ping as ping3
 from typing import Optional, List
-from PyLyrics import *
 from hurry.filesize import size
-
 import requests
 from telegram import Message, Chat, Update, Bot, MessageEntity
 from telegram import ParseMode, ReplyKeyboardRemove, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
-
 from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, BAN_STICKER
 from haruka.__main__ import GDPR
 from haruka.__main__ import STATS, USER_INFO
@@ -28,45 +24,9 @@ from haruka.modules.helper_funcs.extraction import extract_user
 from haruka.modules.helper_funcs.filters import CustomFilters
 from haruka.modules.rextester.api import Rextester, CompilerError
 from haruka.modules.rextester.langs import languages
-
 from haruka.modules.sql.translation import prev_locale
-
 from haruka.modules.translations.strings import tld
-
 from requests import get
-
-BOT_STRINGS = (
-    "ｷﾀﾜァ*･゜ﾟ･*:.｡..｡.:*･゜(n‘∀‘)ηﾟ･*:.｡. .｡.:*･゜ﾟ･* !!!!! oh my god i'm a Bot!!!",
-)    
-
-RAPE_STRINGS = (
-     "Rape Done Drink The Cum",
-     "The user has been successfully raped",
-     "Dekho Bhaiyya esa hai! Izzat bachailo apni warna Gaand maar lenge tumhari",
-     "Relax your Rear, ders nothing to fear,The Rape train is finally here",
-     "Dont Rape Too much Bsdk.",
-     "Rape coming... Raped! haha :p",
-     "Lodu Andha hai kya Yaha tera rape ho raha hai aur tu abhi tak yahi gaand mara raha hai lulz",
-)    
-    
-    
-@run_async
-def bot(bot: Bot, update: Update):
-    update.effective_message.reply_text(random.choice(BOT_STRINGS))
-    
-
-@run_async
-def pubg(bot: Bot, update: Update):
-    # reply to correct message
-    reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
-    reply_text("PUBG Chutiyo ka Game! Be lyk moi Use Tik-Tok and become Chakka")
-    
-    
-@run_async
-def rape(bot: Bot, update: Update):
-    # reply to correct message
-    reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
-    reply_text(random.choice(RAPE_STRINGS)) 
 
 
 @run_async
@@ -225,7 +185,7 @@ def reply_keyboard_remove(bot: Bot, update: Update):
     )
     old_message = bot.send_message(
         chat_id=update.message.chat_id,
-        text='trying',
+        text='Bot Keyboard removed successfully !',
         reply_markup=reply_markup,
         reply_to_message_id=update.message.message_id
     )
@@ -258,25 +218,6 @@ def markdown_help(bot: Bot, update: Update):
 def stats(bot: Bot, update: Update):
     update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
 
-
-def ping(bot: Bot, update: Update):
-    tg_api = ping3('api.telegram.org', count=4)
-    google = ping3('google.com', count=4)
-    print(google)
-    text = "*Pong!*\n"
-    text += "Average speed to Telegram bot API server - `{}` ms\n".format(tg_api.rtt_avg_ms)
-    if google.rtt_avg:
-        gspeed = google.rtt_avg
-    else:
-        gspeed = google.rtt_avg
-    text += "Average speed to Google - `{}` ms".format(gspeed)
-    update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
-
-#def google(bot: Bot, update: Update):
-#        query = update.effective_message.text.split(" ",1)
-#        result_ = subprocess.run(['gsearch', str(query[1])], stdout=subprocess.PIPE)
-#        result = str(result_.stdout.decode())
-#        update.effective_message.reply_text('*Searching:*\n`' + str(query[1]) + '`\n\n*RESULTS:*\n' + result, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
 
 @run_async
@@ -323,43 +264,11 @@ def github(bot: Bot, update: Update):
 def repo(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     text = message.text[len('/repo '):]
-    usr = get(f'https://api.github.com/users/{text}/repos?per_page=40').json()
+    usr = get(f'https://api.github.com/users/{text}/repos?per_page=200').json()
     reply_text = "*Repo*\n"
     for i in range(len(usr)):
         reply_text += f"[{usr[i]['name']}]({usr[i]['html_url']})\n"
     message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
-
-
-LYRICSINFO = "\n[Full Lyrics](http://lyrics.wikia.com/wiki/%s:%s)"
-
-
-@run_async
-def lyrics(bot: Bot, update: Update, args: List[str]):
-    message = update.effective_message
-    text = message.text[len('/lyrics '):]
-    song = " ".join(args).split("- ")
-    reply_text = f'Looks up for lyrics'
-    
-    if len(song) == 2:
-        while song[1].startswith(" "):
-            song[1] = song[1][1:]
-        while song[0].startswith(" "):
-            song[0] = song[0][1:]
-        while song[1].endswith(" "):
-            song[1] = song[1][:-1]
-        while song[0].endswith(" "):
-            song[0] = song[0][:-1]
-        try:
-            lyrics = "\n".join(PyLyrics.getLyrics(
-                song[0], song[1]).split("\n")[:20])
-        except ValueError as e:
-            return update.effective_message.reply_text("Song %s not found :(" % song[1], failed=True)
-        else:
-            lyricstext = LYRICSINFO % (song[0].replace(
-                " ", "_"), song[1].replace(" ", "_"))
-            return update.effective_message.reply_text(lyrics + lyricstext, parse_mode="MARKDOWN")
-    else:
-        return update.effective_message.reply_text("Invalid syntax! Try Artist - Song name .For example, Luis Fonsi - Despacito", failed=True)
 
 
 BASE_URL = 'https://del.dog'
@@ -470,43 +379,6 @@ def get_paste_stats(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-def execute(bot: Bot, update: Update, args: List[str]):
-
-    message = update.effective_message
-    text = ' '.join(args)
-    regex = re.search('^([\w.#+]+)\s+([\s\S]+?)(?:\s+\/stdin\s+([\s\S]+))?$', text, re.IGNORECASE)
-
-    if not regex:
-        available_languages = ', '.join(languages.keys())
-        message.reply_text('*The availale languages are:*\n`{}`'.format(available_languages), parse_mode=ParseMode.MARKDOWN)
-        return
-
-    language = regex.group(1)
-    code = regex.group(2)
-    stdin = regex.group(3)
-
-    try:
-        regexter = Rextester(language, code, stdin)
-    except CompilerError as exc: # Exception on empy code or missing output
-        message.reply_text(exc)
-        return
-
-    output = ""
-    output += "*Language:*\n`{}`".format(language)
-    output += "*\n\nSource:*\n`{}`".format(code)
-
-    if regexter.result:
-        output += "*\n\nResult:*\n`{}`".format(regexter.result)
-
-    if regexter.warnings:
-        output += "\n\n*Warnings:*\n`{}`\n".format(regexter.warnings)
-
-    if regexter.errors:
-        output += "\n\n*Errors:*\n'{}`".format(regexter.errors)
-
-    message.reply_text(output, parse_mode=ParseMode.MARKDOWN)
-
-
 def wiki(bot: Bot, update: Update):
     kueri = re.split(pattern="wiki", string=update.effective_message.text)
     wikipedia.set_lang("en")
@@ -522,51 +394,6 @@ def wiki(bot: Bot, update: Update):
         except BadRequest as et :
             update.effective_message.reply_text(f"⚠ Error: {et}")
             
-@run_async
-def get_time(bot: Bot, update: Update, args: List[str]):
-    if len(args) == 0:
-        update.effective_message.reply_text("Write a location to check the time.")
-        return
-
-    location = " ".join(args)
-    if location.lower() == bot.first_name.lower():
-        update.effective_message.reply_text("Its always banhammer time for me!")
-        bot.send_sticker(update.effective_chat.id, BAN_STICKER)
-        return
-
-    res = requests.get(GMAPS_LOC, params=dict(address=location))
-
-    if res.status_code == 200:
-        loc = json.loads(res.text)
-        if loc.get('status') == 'OK':
-            bot.sendChatAction(update.effective_chat.id, "typing") # Bot typing before send messages
-            lat = loc['results'][0]['geometry']['location']['lat']
-            long = loc['results'][0]['geometry']['location']['lng']
-
-            country = None
-            city = None
-
-            address_parts = loc['results'][0]['address_components']
-            for part in address_parts:
-                if 'country' in part['types']:
-                    country = part.get('long_name')
-                if 'administrative_area_level_1' in part['types'] and not city:
-                    city = part.get('long_name')
-                if 'locality' in part['types']:
-                    city = part.get('long_name')
-
-            if city and country:
-                location = "{}, {}".format(city, country)
-            elif country:
-                location = country
-
-            timenow = int(datetime.utcnow().timestamp())
-            res = requests.get(GMAPS_TIME, params=dict(location="{},{}".format(lat, long), timestamp=timenow))
-            if res.status_code == 200:
-                offset = json.loads(res.text)['dstOffset']
-                timestamp = json.loads(res.text)['rawOffset']
-                time_there = datetime.fromtimestamp(timenow + timestamp + offset).strftime("%H:%M:%S on %A %d %B")
-                update.message.reply_text("It's {} in {}".format(time_there, location))
             
 @run_async
 def shrug(bot: Bot, update: Update):
@@ -577,7 +404,7 @@ def shrug(bot: Bot, update: Update):
     else:
         message.reply_text(default_msg)
         
-        
+@run_async     
 def ud(bot: Bot, update: Update, args):
         term = ' '.join(args)
         ud_api = "http://api.urbandictionary.com/v0/define?term=" + term
@@ -602,47 +429,31 @@ __help__ = """
  - /info: get information about a user.
  - /gdpr: deletes your information from the bot's database. Private chats only.
  - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
-
  - /git: Returns info about a GitHub user or organization.
- - /repo: Return the GitHub user or organization repository list (Limited at 40)
- - /lyrics: Find your favorite songs lyrics!
+ - /repo: Return the GitHub user or organization repository list
  - /paste: Create a paste or a shortened url using [dogbin](https://del.dog)
  - /getpaste: Get the content of a paste or shortened url from [dogbin](https://del.dog)
  - /pastestats: Get stats of a paste or shortened url from [dogbin](https://del.dog)
- - /ud: Type the word or expression you want to search. For example /ud Gay
  - /removebotkeyboard: Got a nasty bot keyboard stuck in your group?
- - /exec <language> <code> [/stdin <stdin>]: Execute a code in a specified language. Send an empty command to get the supported languages.
  - /shrug: try and check it out yourself.
- - /bot: try and check it out yourself.
  - /time <place>: gives the local time at the given place.
 """
 
 __mod_name__ = "Misc"
 
 ID_HANDLER = DisableAbleCommandHandler("id", get_id, pass_args=True, admin_ok=True)
-TIME_HANDLER = CommandHandler("time", get_time, pass_args=True)
-PING_HANDLER = DisableAbleCommandHandler("ping", ping, admin_ok=True)
-#GOOGLE_HANDLER = DisableAbleCommandHandler("google", google)
-LYRICS_HANDLER = DisableAbleCommandHandler("lyrics", lyrics, pass_args=True, admin_ok=True)
-
-
 RUNS_HANDLER = DisableAbleCommandHandler("runs", runs, admin_ok=True)
 BOT_HANDLER = DisableAbleCommandHandler("bot", bot, admin_ok=True)
-RAPE_HANDLER = DisableAbleCommandHandler("rape", rape, admin_ok=True)
 SHRUG_HANDLER = DisableAbleCommandHandler("shrug", shrug, admin_ok=True)
 PUBG_HANDLER = DisableAbleCommandHandler("pubg", pubg, admin_ok=True)
 SLAP_HANDLER = DisableAbleCommandHandler("slap", slap, pass_args=True, admin_ok=True)
 INFO_HANDLER = DisableAbleCommandHandler("info", info, pass_args=True, admin_ok=True)
 GITHUB_HANDLER = DisableAbleCommandHandler("git", github, admin_ok=True)
 REPO_HANDLER = DisableAbleCommandHandler("repo", repo, pass_args=True, admin_ok=True)
-
-ECHO_HANDLER = CommandHandler("echo", echo, filters=CustomFilters.sudo_filter)
+ECHO_HANDLER = CommandHandler("echo", echo)
 MD_HELP_HANDLER = CommandHandler("markdownhelp", markdown_help, filters=Filters.private)
-
-STATS_HANDLER = CommandHandler("stats", stats, filters=Filters.user(OWNER_ID))
+STATS_HANDLER = CommandHandler("stats", stats)
 GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.private)
-EXECUTE_HANDLER = CommandHandler("exec", execute, pass_args=True, filters=CustomFilters.sudo_filter)
-
 PASTE_HANDLER = DisableAbleCommandHandler("paste", paste, pass_args=True)
 GET_PASTE_HANDLER = DisableAbleCommandHandler("getpaste", get_paste_content, pass_args=True)
 PASTE_STATS_HANDLER = DisableAbleCommandHandler("pastestats", get_paste_stats, pass_args=True)
@@ -654,8 +465,6 @@ dispatcher.add_handler(GET_PASTE_HANDLER)
 dispatcher.add_handler(PASTE_STATS_HANDLER)
 dispatcher.add_handler(ID_HANDLER)
 dispatcher.add_handler(RUNS_HANDLER)
-dispatcher.add_handler(BOT_HANDLER)
-dispatcher.add_handler(PUBG_HANDLER)
 dispatcher.add_handler(RAPE_HANDLER)
 dispatcher.add_handler(SLAP_HANDLER)
 dispatcher.add_handler(INFO_HANDLER)
@@ -665,10 +474,7 @@ dispatcher.add_handler(CommandHandler('ud', ud, pass_args=True))
 dispatcher.add_handler(MD_HELP_HANDLER)
 dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(GDPR_HANDLER)
-dispatcher.add_handler(PING_HANDLER)
-#dispatcher.add_handler(GOOGLE_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
-dispatcher.add_handler(LYRICS_HANDLER)
 dispatcher.add_handler(REPO_HANDLER)
 dispatcher.add_handler(DisableAbleCommandHandler("removebotkeyboard", reply_keyboard_remove))
-dispatcher.add_handler(EXECUTE_HANDLER)
+
