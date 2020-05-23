@@ -117,41 +117,6 @@ def chats(bot: Bot, update: Update):
         update.effective_message.reply_document(document=output, filename="chatlist.txt",
                                                 caption="Here is the list of chats in my database.")
 
-
-@run_async
-def banall(bot: Bot, update: Update, args: List[int]):
-    if args:
-        chat_id = str(args[0])
-        all_mems = sql.get_chat_members(chat_id)
-    else:
-        chat_id = str(update.effective_chat.id)
-        all_mems = sql.get_chat_members(chat_id)
-    for mems in all_mems:
-        try:
-            bot.kick_chat_member(chat_id, mems.user)
-            update.effective_message.reply_text("Tried banning " + str(mems.user))
-            sleep(0.1)
-        except BadRequest as excp:
-            update.effective_message.reply_text(excp.message + " " + str(mems.user))
-            continue
-
-
-@run_async
-def snipe(bot: Bot, update: Update, args: List[str]):
-    try:
-        chat_id = str(args[0])
-        del args[0]
-    except TypeError as excp:
-        update.effective_message.reply_text("Please give me a chat to echo to!")
-    to_send = " ".join(args)
-    if len(to_send) >= 2:
-        try:
-            bot.sendMessage(int(chat_id), str(to_send))
-        except TelegramError:
-            LOGGER.warning("Couldn't send to group %s", str(chat_id))
-            update.effective_message.reply_text("Couldn't send the message. Perhaps I'm not part of that group?")
-
-
 @run_async
 @bot_admin
 def getlink(bot: Bot, update: Update, args: List[int]):
@@ -246,9 +211,11 @@ def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-__help__ = ""  # no help string
-
-__mod_name__ = "Users"
+__help__ = """ 
+/slist: List my sudo users.
+/broadcast: Globally broadcast a message in those chats having this bot
+"""
+__mod_name__ = "Chats"
 
 BROADCAST_HANDLER = CommandHandler("broadcasts", broadcast, filters=Filters.user(OWNER_ID))
 USER_HANDLER = MessageHandler(Filters.all & Filters.group, log_user)
