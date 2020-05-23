@@ -1465,7 +1465,7 @@ async def _(event):
                 IBM_WATSON_CRED_URL + "/v1/recognize",
                 headers=headers,
                 data=data,
-                lang=lan, 
+                language=lan, 
                 auth=("apikey", IBM_WATSON_CRED_PASSWORD)
             )
             r = response.json()
@@ -1491,8 +1491,6 @@ async def _(event):
             os.remove(required_file_name)
     else:
         await event.reply("Reply to a voice message, to get the text out of it.")
-
-
 
 
 __help__ = """
