@@ -1089,11 +1089,10 @@ async def tor_search(event):
 	if " " in search_str:
 		search_str = search_str.replace(" ","+")
 		print(search_str)
-		res = requests.get("https://www.torrentdownloads.me/search/?new=1&s_cat=0&search="+search_str,headers)
+		res = requests.get("https://www.limetorrents.info/search/all/"+search_str,headers)
 
 	else:
-		res = requests.get("https://www.torrentdownloads.me/search/?search="+search_str,headers)
-
+            return
 	source = bs(res.text,'lxml')
 	with open("source.html",'w') as f:
 		f.write(str(source))
@@ -1105,7 +1104,7 @@ async def tor_search(event):
 	for a in source.find_all('a',{'class':'cloud'}):
 		# print("https://www.torrentdownloads.me"+a['href'])
 		try:
-			urls.append("https://www.torrentdownloads.me"+a['href'])
+			urls.append("https://www.limetorrents.info"+a['href'])
 		except:
 			pass
 		if counter == 30:
@@ -1466,6 +1465,7 @@ async def _(event):
                 IBM_WATSON_CRED_URL + "/v1/recognize",
                 headers=headers,
                 data=data,
+                lang=lan, 
                 auth=("apikey", IBM_WATSON_CRED_PASSWORD)
             )
             r = response.json()
@@ -1502,8 +1502,6 @@ __help__ = """
  - /info: get information about a user.
  - /gdpr: deletes your information from the bot's database. Private chats only.
  - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
- - /git: Returns info about a GitHub user or organization.
- - /repo: Return the GitHub user or organization repository list
  - /paste: Create a paste or a shortened url using [dogbin](https://del.dog)
  - /getpaste: Get the content of a paste or shortened url from [dogbin](https://del.dog)
  - /pastestats: Get stats of a paste or shortened url from [dogbin](https://del.dog)
