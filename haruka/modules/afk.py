@@ -78,7 +78,7 @@ def check_afk(bot, update, user_id, fst_name):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
         elapsed_time = time.time() - start_time
-            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
+        final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
         if not user.reason:
             res = tld(chat.id, f"{fst_name} is AFK !/n/nLast seen {final} ago ")
         else:
