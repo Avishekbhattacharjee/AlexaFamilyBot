@@ -39,6 +39,7 @@ def teleport(bot: Bot, update: Update, args: List[str]):
     if len(to_send) >= 2:
         try:
             bot.sendMessage(int(chat_id), "THIS IS A TELEPORTED MESSAGE SORRY BUT I CAN'T REVAEAL THE SENDER\n\n"+(to_send))
+            update.effective_message.reply_text("Teleport Done !")
         except TelegramError:
             LOGGER.warning("Couldn't send to group %s", str(chat_id))
             update.effective_message.reply_text("Couldn't send the message. Perhaps I'm not part of that group?")
@@ -50,5 +51,5 @@ __help__ = """
 __mod_name__ = "Teleport"
 
 TELEPORT_HANDLER = DisableAbleCommandHandler("teleport", teleport, pass_args=True)
-dispatcher.add_handler(TELEPORT _HANDLER)
+dispatcher.add_handler(TELEPORT_HANDLER)
 
