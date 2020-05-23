@@ -51,35 +51,33 @@ if ENV:
     URL = os.environ.get('URL', "")  # Does not contain token
     PORT = int(os.environ.get('PORT', 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
-
+    OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
+    GENIUS_API = os.environ.get('GENIUS_API', None)
     DB_URI = os.environ.get('DATABASE_URL')
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
     DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
     STRICT_ANTISPAM = bool(os.environ.get('STRICT_ANTISPAM', False))
+    DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN', "")
+    LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
+    YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
+    TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
+    OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
     WORKERS = int(os.environ.get('WORKERS', 8))
     BAN_STICKER = os.environ.get('BAN_STICKER', 'CAADAgADEAgAAgi3GQL9YQyT_kBpQwI')
     ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
-    API_WEATHER = os.environ.get('API_OPENWEATHER', None)
     SUDO_USERS.add(OWNER_ID)
-
     updater = tg.Updater(TOKEN, workers=WORKERS)
-
     dispatcher = updater.dispatcher
-
     SUDO_USERS = list(SUDO_USERS)
     WHITELIST_USERS = list(WHITELIST_USERS)
     SUPPORT_USERS = list(SUPPORT_USERS)
-
     # Load at end to ensure all prev variables have been set
     from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
-
     # make sure the regex handler can take extra kwargs
     tg.RegexHandler = CustomRegexHandler
-
     if ALLOW_EXCL:
        tg.CommandHandler = CustomCommandHandler
-
     tg.CommandHandler = GbanLockHandler
 
 else:
