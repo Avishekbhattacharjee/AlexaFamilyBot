@@ -10,11 +10,11 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryH
 from telegram.ext.dispatcher import run_async, DispatcherHandlerStop, Dispatcher
 from telegram.utils.helpers import escape_markdown
 
-from haruka import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, \
-    ALLOW_EXCL
+from haruka import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, ALLOW_EXCL, tbot
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from haruka.modules import ALL_MODULES
+from sys import argv
 from haruka.modules.helper_funcs.chat_status import is_user_admin
 from haruka.modules.helper_funcs.misc import paginate_modules
 from haruka.modules.translations.strings import tld, tld_help 
@@ -590,9 +590,19 @@ def main():
 
     else:
         LOGGER.info("Using long polling.")
-        updater.start_polling(timeout=15, read_latency=4)
+        # updater.start_polling(timeout=15, read_latency=4, clean=True)
+        updater.start_polling(poll_interval=0.0,
+                          timeout=10,
+                          clean=True,
+                          bootstrap_retries=-1,
+                          read_latency=3.0)
+    if len(argv) not in (1, 3, 4):
+        tbot.disconnect()
+    else:
+        tbot.run_until_disconnected()
 
     updater.idle()
+   
 
 CHATS_CNT = {}
 CHATS_TIME = {}
@@ -650,6 +660,7 @@ def process_update(self, update):
 
 
 if __name__ == '__main__':
+    tbot.start(bot_token=TOKEN)
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     LOGGER.info("Successfully loaded")
     main()
