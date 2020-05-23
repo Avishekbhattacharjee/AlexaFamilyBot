@@ -630,17 +630,16 @@ GBAN_HANDLER = CommandHandler("gban", gban, pass_args=True,
                               filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
 UNGBAN_HANDLER = CommandHandler("ungban", ungban, pass_args=True,
                                 filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
-GBAN_LIST = CommandHandler("gbanlist", gbanlist,
-                           filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
+GBAN_LIST = CommandHandler("gbanlist", gbanlist)
+                           
 GBAN_ENFORCER = MessageHandler(Filters.all & Filters.group, enforce_gban)
 
 
 GMUTE_HANDLER = CommandHandler("gmute", gmute, pass_args=True,
                               filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
-UNGMUTE_HANDLER = CommandHandler("ungmute", ungmute, pass_args=True,
-                                filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
-GMUTE_LIST = CommandHandler("gmutelist", gmutelist,
-                           filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
+UNGMUTE_HANDLER = CommandHandler("ungmute", ungmute, pass_args=True),
+                              filters=CustomFilters.sudo_filter | CustomFilters.support_filter)
+GMUTE_LIST = CommandHandler("gmutelist", gmutelist)
 
 
 GKICK_HANDLER = CommandHandler("gkick", gkick, pass_args=True,
