@@ -22,6 +22,7 @@ def butts(bot: Bot, update: Update):
     update.message.reply_photo(final)
 		
 __help__ = """
+*WARNING: USING THESE COMMANDS MAY LEAD TO YOUR GROUP BEING BANNED\n\n@AlexaSupport WILL BE NOT RESPONSIBLE FOR THIS\n\nUSE AT YOUR OWN RISK\n*	
  - /boobs: Sends Random Boobs pic.
  - /butts: Sends Random Butts pic.
 """
