@@ -29,7 +29,7 @@ I have all the possible commands that you need to control your group 😊
 Take me to your group, and start giving me commands I am always at your service ♥️
 
 `#include <std/disclaimer.h>`
-*[https://telegra.ph/ALEXA](https://telegra.ph/ALEXA-05-19)*
+[https://telegra.ph/ALEXA](https://telegra.ph/ALEXA-05-19)
 """
 
 
