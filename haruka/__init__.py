@@ -71,6 +71,8 @@ if ENV:
     dispatcher = updater.dispatcher
     SUDO_USERS = list(SUDO_USERS)
     WHITELIST_USERS = list(WHITELIST_USERS)
+    IBM_WATSON_CRED_URL = os.environ.get('IBM_WATSON_CRED_URL', None)
+    IBM_WATSON_CRED_PASSWORD = os.environ.get('IBM_WATSON_CRED_PASSWORD', None)
     SUPPORT_USERS = list(SUPPORT_USERS)
     # Load at end to ensure all prev variables have been set
     from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
