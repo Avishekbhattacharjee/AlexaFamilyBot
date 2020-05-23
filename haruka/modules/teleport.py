@@ -44,8 +44,8 @@ def teleport(bot: Bot, update: Update, args: List[str]):
             update.effective_message.reply_text("Couldn't send the message. Perhaps I'm not part of that group?")
 
 
-__help__ """
-- /teleport <chatid> <message>: Teleports a message to a specific chat without revealing the sender.Can even send to DM's but the user must have interacted at least once with the bot !
+__help__ = """
+/teleport <chatid> <message>: Teleports a message to a specific chat without revealing the sender.Can even send to DM's but the user must have interacted at least once with the bot !
 """
 __mod_name__ = "Teleport"
 
