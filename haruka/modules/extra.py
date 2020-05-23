@@ -220,7 +220,7 @@ def abuse(bot: Bot, update: Update):
 def bluetext(bot: Bot, update: Update):
     # reply to correct message
     reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
-    reply_text("`BLUE TEXT\n MUST CLICK\n I AM A STUPID ANIMAL THAT IS ATTRACTED TO COLORS`")		
+    reply_text("```BLUE TEXT\n MUST CLICK\n I AM A STUPID ANIMAL THAT IS ATTRACTED TO COLORS```")		
 
 @run_async
 def rlg(bot: Bot, update: Update):
@@ -254,8 +254,6 @@ __help__ = """
  - /decide : Randomly answers yes/no/maybe
  - /toss : Tosses A coin
  - /abuse : Abuses the cunt
- - /tts <any text> : Converts text to speech
- - /bluetext : check urself :V
  - /roll : Roll a dice.
  - /rlg : Join ears,nose,mouth and create an emo ;-;
 """
