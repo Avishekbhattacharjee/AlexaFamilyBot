@@ -1440,7 +1440,7 @@ import requests
 import os
 import datetime
 
-@register(pattern="^/stt (.*)")
+@register(pattern="^/stt$")
 async def _(event):
     if event.fwd_from:
         return
@@ -1465,7 +1465,6 @@ async def _(event):
                 IBM_WATSON_CRED_URL + "/v1/recognize",
                 headers=headers,
                 data=data,
-                language=lan, 
                 auth=("apikey", IBM_WATSON_CRED_PASSWORD)
             )
             r = response.json()
