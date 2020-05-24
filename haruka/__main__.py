@@ -28,7 +28,6 @@ Take me to your group, and start giving me commands I am always at your service 
 [https://telegra.ph/ALEXA](https://telegra.ph/ALEXA-05-19)
 """
 
-
 IMPORTED = {}
 MIGRATEABLE = []
 HELPABLE = {}
@@ -143,17 +142,11 @@ def send_start(bot, update):
     first_name = update.effective_user.first_name 
     text = PM_START
 
-    keyboard = [[
-        InlineKeyboardButton(text=tld(chat.id, "Add me to your group ♥️"),
-                             url="t.me/AlexaFamilyBot?startgroup=true")
-    ]]
+    keyboard = [[InlineKeyboardButton(text="🇮🇳 Language", callback_data="set_lang_")]]
+    keyboard += [[InlineKeyboardButton(text="🛠 Reporting", callback_data="cntrl_panel_M"), 
+        InlineKeyboardButton(text="❔ Help", callback_data="help_back")]]
 
-    keyboard += [[
-        InlineKeyboardButton(text=tld(chat.id, "Join our support group 🌍"),
-                             url="https://t.me/AlexaSupport")
-    ]]
-    keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
-    update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN)
 
 
 def control_panel(bot, update):
@@ -393,7 +386,7 @@ def get_help(bot: Bot, update: Update):
 
         update.effective_message.reply_text("Contact me in PM to get the list of possible commands.",
                                             reply_markup=InlineKeyboardMarkup(
-                                                [[InlineKeyboardButton(text="My Commands ⚙️",
+                                                [[InlineKeyboardButton(text="Help",
                                                                        url="t.me/{}?start=help".format(
                                                                            bot.username))]]))
         return
@@ -527,6 +520,7 @@ def get_settings(bot: Bot, update: Update):
         send_settings(chat.id, user.id, True)
 
 
+
 def migrate_chats(bot: Bot, update: Update):
     msg = update.effective_message  # type: Optional[Message]
     if msg.migrate_to_chat_id:
@@ -655,5 +649,4 @@ def process_update(self, update):
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     LOGGER.info("Successfully loaded")
-    tbot.start(bot_token=TOKEN)
     main()
