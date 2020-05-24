@@ -7,7 +7,8 @@ from telegram.ext import Filters, MessageHandler, run_async
 from haruka import dispatcher, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
 
-from py_translator import Translator
+from googletrans import LANGUAGES, Translator
+
 
 
 @run_async
