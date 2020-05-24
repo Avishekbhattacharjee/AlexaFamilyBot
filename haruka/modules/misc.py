@@ -1527,7 +1527,7 @@ def runclock(bot: Bot, update: Update):
         LT = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
         OT = LT.strftime("%H:%M")
         input = pyfiglet.figlet_format(OT, font = "3x5") # Better Font
-        final = f"`..{}`..".format(input)
+        final = '`..{}`..'.format(input)
         msg.edit_text(final)
         time.sleep(EDIT_SLEEP)
 
