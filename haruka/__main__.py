@@ -527,9 +527,8 @@ def get_settings(bot: Bot, update: Update):
         send_settings(chat.id, user.id, True)
 
 
-
 def migrate_chats(bot: Bot, update: Update):
-    msg = update.effective_message
+    msg = update.effective_message  # type: Optional[Message]
     if msg.migrate_to_chat_id:
         old_chat = update.effective_chat.id
         new_chat = msg.migrate_to_chat_id
@@ -539,53 +538,64 @@ def migrate_chats(bot: Bot, update: Update):
     else:
         return
 
+    LOGGER.info("Migrating from %s, to %s", str(old_chat), str(new_chat))
     for mod in MIGRATEABLE:
         mod.__migrate__(old_chat, new_chat)
 
+    LOGGER.info("Successfully migrated!")
     raise DispatcherHandlerStop
 
 
-
 def main():
-    # test_handler = CommandHandler("test", test) #Unused variable
+    test_handler = CommandHandler("test", test)
     start_handler = CommandHandler("start", start, pass_args=True)
 
     help_handler = CommandHandler("help", get_help)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_")
 
-    start_callback_handler = CallbackQueryHandler(send_start,
-                                                  pattern=r"bot_start")
+    start_callback_handler = CallbackQueryHandler(send_start, pattern=r"bot_start")
+    dispatcher.add_handler(start_callback_handler)
 
-    migrate_handler = MessageHandler(Filters.status_update.migrate,
-                                     migrate_chats)
+    cntrl_panel = CommandHandler("controlpanel", control_panel)
+    cntrl_panel_callback_handler = CallbackQueryHandler(control_panel, pattern=r"cntrl_panel")
+    dispatcher.add_handler(cntrl_panel_callback_handler)
+    dispatcher.add_handler(cntrl_panel)
+
+    settings_handler = CommandHandler("settings", get_settings)
+    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
+
+    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
     # dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler)
-    dispatcher.add_handler(start_callback_handler)
     dispatcher.add_handler(help_handler)
+    dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
+    dispatcher.add_handler(settings_callback_handler)
     dispatcher.add_handler(migrate_handler)
+
     # dispatcher.add_error_handler(error_callback)
 
     # add antiflood processor
     Dispatcher.process_update = process_update
 
-    LOGGER.info("Using long polling.")
-    # updater.start_polling(timeout=15, read_latency=4, clean=True)
-    updater.start_polling(poll_interval=0.0,
-                          timeout=10,
-                          clean=True,
-                          bootstrap_retries=-1,
-                          read_latency=3.0)
+    if WEBHOOK:
+        LOGGER.info("Using webhooks.")
+        updater.start_webhook(listen="0.0.0.0",
+                              port=PORT,
+                              url_path=TOKEN)
 
-    LOGGER.info("Successfully loaded")
-    if len(argv) not in (1, 3, 4):
-        tbot.disconnect()
+        if CERT_PATH:
+            updater.bot.set_webhook(url=URL + TOKEN,
+                                    certificate=open(CERT_PATH, 'rb'))
+        else:
+            updater.bot.set_webhook(url=URL + TOKEN)
+
     else:
-        tbot.run_until_disconnected()
+        LOGGER.info("Using long polling.")
+        updater.start_polling(timeout=15, read_latency=4)
 
     updater.idle()
-
 
 CHATS_CNT = {}
 CHATS_TIME = {}
@@ -597,18 +607,11 @@ def process_update(self, update):
         try:
             self.dispatch_error(None, update)
         except Exception:
-            self.logger.exception(
-                'An uncaught error was raised while handling the error')
+            self.logger.exception('An uncaught error was raised while handling the error')
         return
 
-    if update.effective_chat:  # Checks if update contains chat object
-        now = datetime.datetime.utcnow()
-    try:
-        cnt = CHATS_CNT.get(update.effective_chat.id, 0)
-    except AttributeError:
-        self.logger.exception(
-            'An uncaught error was raised while updating process')
-        return
+    now = datetime.datetime.utcnow()
+    cnt = CHATS_CNT.get(update.effective_chat.id, 0)
 
     t = CHATS_TIME.get(update.effective_chat.id, datetime.datetime(1970, 1, 1))
     if t and now > t + datetime.timedelta(0, 1):
@@ -621,24 +624,20 @@ def process_update(self, update):
         return
 
     CHATS_CNT[update.effective_chat.id] = cnt
-
     for group in self.groups:
         try:
-            for handler in (x for x in self.handlers[group]
-                            if x.check_update(update)):
+            for handler in (x for x in self.handlers[group] if x.check_update(update)):
                 handler.handle_update(update, self)
                 break
 
         # Stop processing with any other handler.
         except DispatcherHandlerStop:
-            self.logger.debug(
-                'Stopping further handlers due to DispatcherHandlerStop')
+            self.logger.debug('Stopping further handlers due to DispatcherHandlerStop')
             break
 
         # Dispatch any error.
         except TelegramError as te:
-            self.logger.warning(
-                'A TelegramError was raised while processing the Update')
+            self.logger.warning('A TelegramError was raised while processing the Update')
 
             try:
                 self.dispatch_error(update, te)
@@ -646,16 +645,15 @@ def process_update(self, update):
                 self.logger.debug('Error handler stopped further handlers')
                 break
             except Exception:
-                self.logger.exception(
-                    'An uncaught error was raised while handling the error')
+                self.logger.exception('An uncaught error was raised while handling the error')
 
         # Errors should not stop the thread.
         except Exception:
-            self.logger.exception(
-                'An uncaught error was raised while processing the update')
+            self.logger.exception('An uncaught error was raised while processing the update')
 
 
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
+    LOGGER.info("Successfully loaded")
     tbot.start(bot_token=TOKEN)
     main()
