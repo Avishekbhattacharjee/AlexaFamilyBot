@@ -18,7 +18,7 @@ from telegram import MessageEntity
 from telegram.ext import Filters, MessageHandler, run_async
 from deeppyer import deepfry
 
-from haruka import dispatcher
+from haruka import dispatcher, DEEPFRY_TOKEN
 from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
 
 WIDE_MAP = dict((i, i + 0xFEE0) for i in range(0x21, 0x7F))
@@ -48,6 +48,55 @@ def owo(bot: Bot, update: Update):
         reply_text = reply_text.replace("ｏｖｅ", "ｕｖ")
         reply_text += ' ' + random.choice(faces)
         message.reply_to_message.reply_text(reply_text)
+
+@run_async
+def copypasta(bot: Bot, update: Update):
+    message = update.effective_message
+    if not message.reply_to_message:
+        message.reply_text("I need a message to meme.")
+    else:
+        emojis = ["😂", "😂", "👌", "✌", "💞", "👍", "👌", "💯", "🎶", "👀", "😂", "👓", "👏", "👐", "🍕", "💥", "🍴", "💦", "💦", "🍑", "🍆", "😩", "😏", "👉👌", "👀", "👅", "😩", "🚰"]
+        reply_text = random.choice(emojis)
+        b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
+        for c in message.reply_to_message.text:
+            if c == " ":
+                reply_text += random.choice(emojis)
+            elif c in emojis:
+                reply_text += c
+                reply_text += random.choice(emojis)
+            elif c.lower() == b_char:
+                reply_text += "🅱️"
+            else:
+                if bool(random.getrandbits(1)):
+                    reply_text += c.upper()
+                else:
+                    reply_text += c.lower()
+        reply_text += random.choice(emojis)
+        message.reply_to_message.reply_text(reply_text)
+
+
+@run_async
+def bmoji(bot: Bot, update: Update):
+    message = update.effective_message
+    if not message.reply_to_message:
+        message.reply_text("I need a message to meme.")
+    else:
+        b_char = random.choice(message.reply_to_message.text).lower() # choose a random character in the message to be substituted with 🅱️
+        reply_text = message.reply_to_message.text.replace(b_char, "🅱️").replace(b_char.upper(), "🅱️")
+        message.reply_to_message.reply_text(reply_text)
+
+
+@run_async
+def clapmoji(bot: Bot, update: Update):
+    message = update.effective_message
+    if not message.reply_to_message:
+        message.reply_text("I need a message to meme.")
+    else:
+        reply_text = "👏 "
+        reply_text += message.reply_to_message.text.replace(" ", " 👏 ")
+        reply_text += " 👏"
+        message.reply_to_message.reply_text(reply_text)
+
 
 
 @run_async
@@ -272,12 +321,11 @@ def deepfryer(bot: Bot, update: Update):
     loop.run_until_complete(process_deepfry(image, message.reply_to_message, bot))
     loop.close()
 
-
 async def process_deepfry(image: Image, reply: Message, bot: Bot):
     # DEEPFRY IT
     image = await deepfry(
         img=image,
-        token=os.getenv('DEEPFRY_TOKEN', ''),
+        token=DEEPFRY_TOKEN,
         url_base='westeurope'
     )
 
@@ -316,8 +364,12 @@ def shout(bot: Bot, update: Update, args):
 # no help string
 __help__ = """
 Some memes command, find it all out yourself!
+
 /owo: OWO de text
 /stretch: STRETCH de text
+/clapmoji: Type in reply to a message and see magic
+/bmoji: Type in reply to a message and see magic
+/copypasta: Type in reply to a message and see magic
 /vapor: owo vapor dis
 /hitler: Quote a message and type this command to make a caption of hitler
 /mock: Does the same as /hitler but spongemock instead
@@ -328,7 +380,9 @@ Some memes command, find it all out yourself!
 """
 
 __mod_name__ = "Memes"
-
+COPYPASTA_HANDLER = DisableAbleCommandHandler("copypasta", copypasta, admin_ok=True)
+CLAPMOJI_HANDLER = DisableAbleCommandHandler("clapmoji", clapmoji, admin_ok=True)
+BMOJI_HANDLER = DisableAbleCommandHandler("bmoji", bmoji, admin_ok=True)
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
 STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
 VAPOR_HANDLER = DisableAbleCommandHandler("vapor", vapor, pass_args=True, admin_ok=True)
@@ -344,6 +398,9 @@ SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, pass_args=True)
 
 
 dispatcher.add_handler(MAFIA_HANDLER)
+dispatcher.add_handler(COPYPASTA_HANDLER)
+dispatcher.add_handler(CLAPMOJI_HANDLER)
+dispatcher.add_handler(BMOJI_HANDLER)
 dispatcher.add_handler(PIDOR_HANDLER)
 dispatcher.add_handler(SHOUT_HANDLER)
 dispatcher.add_handler(OWO_HANDLER)
