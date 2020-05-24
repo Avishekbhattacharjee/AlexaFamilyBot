@@ -5,9 +5,9 @@ from telegram.ext import CommandHandler, run_async, Filters
 import requests, logging
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 from telegram import Message, Chat, Update, Bot, MessageEntity
-from tg_bot import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
+from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from tg_bot.modules.helper_funcs.chat_status import user_admin
+from haruka.modules.helper_funcs.chat_status import user_admin
 
 count = 0
 @run_async
