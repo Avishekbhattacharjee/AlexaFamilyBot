@@ -12,7 +12,7 @@ from haruka import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CE
 from haruka.modules import ALL_MODULES
 from sys import argv
 from haruka.modules.helper_funcs.chat_status import is_user_admin
-from haruka.modules.helper_funcs.misc import paginate_modules
+from haruka.modules.helper_funcs.misc import *
 from haruka.modules.translations.strings import tld, tld_help 
 from haruka.modules.connection import connected
 
@@ -142,11 +142,17 @@ def send_start(bot, update):
     first_name = update.effective_user.first_name 
     text = PM_START
 
-    keyboard = [[InlineKeyboardButton(text="🇮🇳 Language", callback_data="set_lang_")]]
-    keyboard += [[InlineKeyboardButton(text="🛠 Reporting", callback_data="cntrl_panel_M"), 
-        InlineKeyboardButton(text="❔ Help", callback_data="help_back")]]
+    keyboard = [[
+        InlineKeyboardButton(text=tld(chat.id, "Add me to your group ♥️"),
+                             url="t.me/AlexaFamilyBot?startgroup=true")
+    ]]
+    keyboard += [[
+        InlineKeyboardButton(text=tld(chat.id, "Join our support group 🌍"),
+                             url="https://t.me/AlexaSupport")
+    ]]
+    keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
 
-    update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=True, parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN)
 
 
 def control_panel(bot, update):
