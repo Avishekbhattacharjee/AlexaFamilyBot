@@ -1503,6 +1503,34 @@ async def _(event):
         await event.reply("Reply to a voice message, to get the text out of it.")
 
 
+import html
+import random
+import time
+from typing import List
+from telegram.ext import CommandHandler, Filters
+from telegram import Bot, Update, ParseMode
+from telegram.ext import run_async
+import pyfiglet
+from haruka import dispatcher, OWNER_ID
+from haruka.modules.disable import DisableAbleCommandHandler
+from haruka.modules.helper_funcs.chat_status import is_user_admin, user_admin
+from haruka.modules.helper_funcs.extraction import extract_user
+
+#sleep how many times after each edit in 'police' 
+EDIT_SLEEP = 60
+
+
+@run_async
+def runclock(bot: Bot, update: Update):
+    while True:
+        LT = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
+        OT = LT.strftime("%H:%M")
+        input = pyfiglet.figlet_format(OT, font = "3x5") # Better Font
+        final = f"```..{input}```.." # . Is for controlling the pattern so the blocks don't overwrite each other
+        msg.edit_text(final)
+        time.sleep(EDIT_SLEEP)
+
+
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
  - /runs: reply a random string from an array of replies.
@@ -1536,7 +1564,7 @@ PASTE_HANDLER = DisableAbleCommandHandler("paste", paste, pass_args=True)
 GET_PASTE_HANDLER = DisableAbleCommandHandler("getpaste", get_paste_content, pass_args=True)
 PASTE_STATS_HANDLER = DisableAbleCommandHandler("pastestats", get_paste_stats, pass_args=True)
 LYRICS_HANDLER = CommandHandler("lyrics", lyrics, pass_args=True)
-
+RUNCLOCK_HANDLER = CommandHandler("runclock", runclock, filters=Filters.user(OWNER_ID))
 dispatcher.add_handler(PASTE_HANDLER)
 dispatcher.add_handler(GET_PASTE_HANDLER)
 dispatcher.add_handler(PASTE_STATS_HANDLER)
@@ -1553,4 +1581,5 @@ dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
 dispatcher.add_handler(REPO_HANDLER)
+dispatcher.add_handler(RUNCLOCK_HANDLER)
 dispatcher.add_handler(DisableAbleCommandHandler("removebotkeyboard", reply_keyboard_remove))
