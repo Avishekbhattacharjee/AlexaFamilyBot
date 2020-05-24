@@ -45,7 +45,7 @@ def wall(bot: Bot, update: Update, args):
 __help__ = """
  - /wall <topic>: Searches best wallpaper on the given topic and returns them 
 """
-__modname__ = "Wallpaper"
+__mod_name__ = "Wallpaper"
 
 
 WALLPAPER_HANDLER = DisableAbleCommandHandler("wall", wall, pass_args=True)
