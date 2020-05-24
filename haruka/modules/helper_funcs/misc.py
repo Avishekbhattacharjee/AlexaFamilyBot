@@ -5,7 +5,7 @@ from telegram import MAX_MESSAGE_LENGTH, InlineKeyboardButton, Bot, ParseMode, U
 from telegram.error import TelegramError
 
 from haruka import LOAD, NO_LOAD, OWNER_ID
-from haruka.modules.tr_engine.strings import tld
+from haruka.modules.translations.strings import tld
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
