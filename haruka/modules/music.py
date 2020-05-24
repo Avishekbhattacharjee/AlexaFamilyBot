@@ -69,8 +69,6 @@ def song(bot: Bot, update: Update, args):
 			     return
 
 __help__ = """ 
-Thanks to @Denzid for this module
-
 How to use ?
 
 First search your song with /yt command and then copy the video link from which you want to extract the audio then use the below command 👇 
