@@ -7,7 +7,7 @@ from telegram.ext import Filters, MessageHandler, run_async
 from haruka import dispatcher, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
 
-from googletrans import Translator
+from py_translator import Translator
 
 
 @run_async
@@ -22,7 +22,7 @@ def do_translate(bot: Bot, update: Update, args: List[str]):
         src_lang = translated.src
         translated_text = translated.text
         msg.reply_text("Translated from {} to {}.\n {}".format(src_lang, lan, translated_text))
-    except:
+    except :
         msg.reply_text("Error")
 
 
