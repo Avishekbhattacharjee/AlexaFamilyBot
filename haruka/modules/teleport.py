@@ -47,6 +47,7 @@ def teleport(bot: Bot, update: Update, args: List[str]):
 
 __help__ = """
  - /teleport <chatid> <message>: Teleports a message to a specific chat without revealing the sender.Can even send to DM's but the user must have interacted at least once with the bot !
+ - /broadcast: Globally broadcast a message in those chats having this bot
 """
 __mod_name__ = "Teleport"
 
