@@ -655,4 +655,5 @@ def process_update(self, update):
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     LOGGER.info("Successfully loaded")
+    tbot.start(bot_token=TOKEN)
     main()
