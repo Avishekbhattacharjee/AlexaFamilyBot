@@ -43,3 +43,4 @@ aria2p
 cowpy
 psutil 
 hachoir
+py-translate
