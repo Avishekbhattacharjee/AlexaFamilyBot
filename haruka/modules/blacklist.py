@@ -184,7 +184,7 @@ def __stats__():
                                                             sql.num_blacklist_filter_chats())
 
 
-__mod_name__ = "Word Blacklists"
+__mod_name__ = "Blacklists"
 
 __help__ = """
 You can set blacklist filters to take automatic action on people when they say certain things. This is done using:
