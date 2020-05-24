@@ -406,7 +406,7 @@ def get_help(bot: Bot, update: Update):
             help_txt = HELPABLE[module].__help__
 
         text = tld(chat.id, "Here is the help for the *{}* module:\n{}").format(mod_name, help_txt)
-        send_help(chat.id, text, InlineKeyboardMarkup([[InlineKeyboardButton(text=tld(chat.id, "🅱🅰🅲🅺"), callback_data="help_back")]]))
+        send_help(chat.id, text, InlineKeyboardMarkup([[InlineKeyboardButton(text=tld(chat.id, "🇧 🇦 🇨 🇰"), callback_data="help_back")]]))
 
     else:
         send_help(chat.id, tld(chat.id, "send-help").format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else tld(
@@ -594,7 +594,7 @@ def main():
     else:
         LOGGER.info("Using long polling.")
         updater.start_polling(timeout=15, read_latency=4)
-
+        tbot.run_until_disconnected()
     updater.idle()
 
 CHATS_CNT = {}
