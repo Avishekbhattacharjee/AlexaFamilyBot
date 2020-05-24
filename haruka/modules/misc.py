@@ -481,8 +481,6 @@ def markdown_help(bot: Bot, update: Update):
 def stats(bot: Bot, update: Update):
     update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
 
-
-
 @run_async
 def github(bot: Bot, update: Update):
     message = update.effective_message
@@ -532,14 +530,19 @@ def github(bot: Bot, update: Update):
                        parse_mode=ParseMode.MARKDOWN,
                        disable_web_page_preview=True)
 
+
+@run_async
 def repo(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     text = message.text[len('/repo '):]
-    usr = get(f'https://api.github.com/users/{text}/repos?per_page=200').json()
+    usr = get(f'https://api.github.com/users/{text}/repos?per_page=40').json()
     reply_text = "*Repo*\n"
     for i in range(len(usr)):
         reply_text += f"[{usr[i]['name']}]({usr[i]['html_url']})\n"
-    message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
+    message.reply_text(reply_text,
+                       parse_mode=ParseMode.MARKDOWN,
+                       disable_web_page_preview=True)
+
 
 
 BASE_URL = 'https://del.dog'
