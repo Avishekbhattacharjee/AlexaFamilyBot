@@ -11,7 +11,7 @@ from haruka.modules.helper_funcs.chat_status import user_admin
 
 count = 0
 @run_async
-def song(bot: Bot, update: Update, args):
+def video(bot: Bot, update: Update, args):
 	message = update.effective_message
 	global count
 
@@ -69,15 +69,13 @@ def song(bot: Bot, update: Update, args):
 			     return
 
 __help__ = """ 
-Thanks to @Denzid for this module
-
 How to use ?
 
-First search your song with /yt command and then copy the video link from which you want to extract the audio then use the below command 👇 
+First search your video with /yt command and then copy the video link and use the command below 👇 
 
- - /song <the youtube link> : Extract,Download and upload audio from a youtube video link 
+ - /video <the youtube link> : Extract,Download and upload audio from a youtube video link 
 """
 __mod_name__ = "Video Download" 
 
-music_handler = CommandHandler('song', song, pass_args=True)
+music_handler = CommandHandler('video', video, pass_args=True)
 dispatcher.add_handler(music_handler)
