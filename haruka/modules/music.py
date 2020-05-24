@@ -11,7 +11,7 @@ from haruka.modules.helper_funcs.chat_status import user_admin
 
 count = 0
 @run_async
-def music(bot: Bot, update: Update, args):
+def song(bot: Bot, update: Update, args):
 	message = update.effective_message
 	global count
 
