@@ -42,7 +42,11 @@ def wall(bot: Bot, update: Update, args):
                 filename='wallpaper', caption=caption, reply_to_message_id=msg_id,
                 timeout=60)
                     
-            
-            
+__help__ = """
+ - /wall <topic>: Searches best wallpaper on the given topic and returns them 
+"""
+__modname__ = "Wallpaper"
+
+
 WALLPAPER_HANDLER = DisableAbleCommandHandler("wall", wall, pass_args=True)
 dispatcher.add_handler(WALLPAPER_HANDLER)
