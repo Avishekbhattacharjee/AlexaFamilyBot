@@ -491,13 +491,20 @@ def github(bot: Bot, update: Update):
     if usr.get('login'):
         text = f"*Username:* [{usr['login']}](https://github.com/{usr['login']})"
 
-        whitelist = ['name', 'id', 'type', 'location', 'blog',
-                     'bio', 'followers', 'following', 'hireable',
-                     'public_gists', 'public_repos', 'email',
-                     'company', 'updated_at', 'created_at']
+        whitelist = [
+            'name', 'id', 'type', 'location', 'blog', 'bio', 'followers',
+            'following', 'hireable', 'public_gists', 'public_repos', 'email',
+            'company', 'updated_at', 'created_at'
+        ]
 
-        difnames = {'id': 'Account ID', 'type': 'Account type', 'created_at': 'Account created at',
-                    'updated_at': 'Last updated', 'public_repos': 'Public Repos', 'public_gists': 'Public Gists'}
+        difnames = {
+            'id': 'Account ID',
+            'type': 'Account type',
+            'created_at': 'Account created at',
+            'updated_at': 'Last updated',
+            'public_repos': 'Public Repos',
+            'public_gists': 'Public Gists'
+        }
 
         goaway = [None, 0, 'null', '']
 
@@ -521,8 +528,9 @@ def github(bot: Bot, update: Update):
         reply_text = text
     else:
         reply_text = "User not found. Make sure you entered valid username!"
-    message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
-
+    message.reply_text(reply_text,
+                       parse_mode=ParseMode.MARKDOWN,
+                       disable_web_page_preview=True)
 
 def repo(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
