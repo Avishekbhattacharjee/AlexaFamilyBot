@@ -58,7 +58,7 @@ def song(bot: Bot, update: Update, args):
 		if not json2_response['error']:
 			payload = json2_response['payload']
 
-			info = '*{0}* \nUploaded by @AlexaFamilyBot'.format(payload['fulltitle'])
+			info = '*{0}* \n\n*Uploaded by @AlexaFamilyBot*'.format(payload['fulltitle'])
 
 			try:
 			   bot.send_audio(chat_id=chatId, audio=json2_response['url'], parse_mode='Markdown', caption=info) 
@@ -66,6 +66,8 @@ def song(bot: Bot, update: Update, args):
                             return
 
 __help__ = """ 
+Thanks to @Denzid for this module
+
 How to use ?
 
 First search your song with /yt command and then copy the video link from which you want to extract the audio then use the below command 👇 
