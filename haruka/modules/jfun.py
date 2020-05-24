@@ -3,5 +3,6 @@ __help__ = """
  - /deepfry: Type this in reply to an image/sticker to roast the image/sticker	
  - /figlet: Another Style art	
  - /dice: Roll A dice	
+ - /deepfry: Roast a image/sticker
 """
 __mod_name__ = "Just4Fun"
