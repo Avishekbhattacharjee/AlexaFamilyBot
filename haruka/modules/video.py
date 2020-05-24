@@ -62,7 +62,7 @@ def video(bot: Bot, update: Update, args):
 
 			try:
 				
-				bot.sendVideo(chat_id=chatId, video=json2_response['url'], parse_mode='Markdown', caption=info)
+				bot.send_video(chat_id=chatId, video=json2_response['url'], parse_mode='Markdown', caption=info)
 				count += 1
 		
 			except:
