@@ -77,6 +77,7 @@ if ENV:
     IBM_WATSON_CRED_URL = os.environ.get('IBM_WATSON_CRED_URL', None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get('IBM_WATSON_CRED_PASSWORD', None)
     SUPPORT_USERS = list(SUPPORT_USERS)
+    WALL_API = os.environ.gey('WALL_API', None)
     # Load at end to ensure all prev variables have been set
     from haruka.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, GbanLockHandler
     # make sure the regex handler can take extra kwargs
