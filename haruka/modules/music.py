@@ -58,7 +58,7 @@ def music(bot: Bot, update: Update, args):
 		if not json2_response['error']:
 			payload = json2_response['payload']
 
-			info = '*{0}* \n\nUploaded by @AlexaFamilyBot'.format(payload['fulltitle'])
+			info = '*{0}* \n\n*Uploaded by @AlexaFamilyBot*'.format(payload['fulltitle'])
 
 			try:
 				
