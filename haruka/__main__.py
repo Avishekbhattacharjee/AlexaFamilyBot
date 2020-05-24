@@ -592,12 +592,7 @@ def main():
             updater.bot.set_webhook(url=URL + TOKEN)
 
     else:
-        updater.start_polling(poll_interval=0.0,
-                          timeout=10,
-                          clean=True,
-                          bootstrap_retries=-1,
-                          read_latency=3.0)
-
+        updater.start_polling(timeout=15, read_latency=4)
         LOGGER.info("Successfully loaded")
     if len(argv) not in (1, 3, 4):
         tbot.disconnect()
