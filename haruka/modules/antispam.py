@@ -96,7 +96,7 @@ def gban(bot: Bot, update: Update, args: List[str]):
     ok123 = mention_html(user_chat.id, user_chat.first_name)
 
 
-    text12 = f"*⚡️Another Bitch Goes Off⚡️* RIP {ok123}."
+    text12 = f"⚡️Another Bitch Goes Off⚡️\nRIP {ok123}."
     update.effective_message.reply_text(text12, parse_mode=ParseMode.HTML)
 
     banner = update.effective_user  # type: Optional[User]
@@ -138,7 +138,7 @@ def gban(bot: Bot, update: Update, args: List[str]):
     send_to_list(bot, SUDO_USERS + SUPPORT_USERS,
                    "{} has been successfully gbanned!".format(mention_html(user_chat.id, user_chat.first_name)),
                    html=True)
-    text13 = f"Successfully gbanned {ok123} 🙂 'He Deserve This'."
+    text13 = f"Successfully gbanned {ok123} 🙂\nHe Deserve This !"
     update.effective_message.reply_text(text13, parse_mode=ParseMode.HTML)
 
 
@@ -283,7 +283,7 @@ def gmute(bot: Bot, update: Update, args: List[str]):
 
         return
 
-    message.reply_text("*Gets duct tape ready* 😉")
+    message.reply_text("Get ready to get a duct tape 😉")
 
     muter = update.effective_user  # type: Optional[User]
     send_to_list(bot, SUDO_USERS + SUPPORT_USERS,
