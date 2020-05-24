@@ -75,7 +75,7 @@ First search your song with /yt command and then copy the video link from which 
 
  - /song <the youtube link> : Extract,Download and upload audio from a youtube video link 
 """
-__mod_name__ = "Song" 
+__mod_name__ = "Songs" 
 
 music_handler = CommandHandler('song', song, pass_args=True)
 dispatcher.add_handler(music_handler)
