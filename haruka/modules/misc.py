@@ -1523,6 +1523,7 @@ EDIT_SLEEP = 60
 @run_async
 def runclock(bot: Bot, update: Update):
     while True:
+        msg = update.effective_message.reply_text('starting clock') 
         LT = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
         OT = LT.strftime("%H:%M")
         input = pyfiglet.figlet_format(OT, font = "3x5") # Better Font
