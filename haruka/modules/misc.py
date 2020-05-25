@@ -1425,11 +1425,9 @@ async def _(event):
           b = news.link.text
           c = news.pubDate.text
           d = "--------------------------------------------------------------"
-          e = print(a+'\n'+b+'\n'+c+'\n'+d)
-    await event.reply(e)
+          e = print(a+'\n'+b+'\n'+c+'/n'+d)
+    await event.client.send_message(message=e)
     
-    
-
 
 
 __help__ = """
