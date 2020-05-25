@@ -1410,7 +1410,7 @@ import bs4
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
 
-@register(pattern="^/news (.*)")
+@register(pattern="^/news")
 async def _(event):
     if event.fwd_from:
         return
@@ -1422,9 +1422,9 @@ async def _(event):
     news_list=soup_page.findAll("item")
     for news in news_list:
         bs = print(news.title.text)
-        bs = print(news.link.text)
-        bs = print(news.pubDate.text)
-        bs = print("-"*60)
+        bs += print(news.link.text)
+        bs += print(news.pubDate.text)
+        bs += print("--------------------------------------------------------------")
     await event.reply(bs)
     
 
