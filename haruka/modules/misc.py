@@ -1421,7 +1421,8 @@ async def _(event):
     soup_page=soup(xml_page,"xml")
     news_list=soup_page.findAll("item")
     for news in news_list:
-        bs = print(news.title.text)
+        bs = ""
+        bs += print(news.title.text)
         bs += print(news.link.text)
         bs += print(news.pubDate.text)
         bs += print("--------------------------------------------------------------")
