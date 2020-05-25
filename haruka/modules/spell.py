@@ -52,7 +52,7 @@ Thanks to @Denzid for this module
  - /spell: while replying to a message, will reply with a grammar corrected version(ENGLISH ONLY)
 """
 
-__mod_name__ = "AutoCorrection"
+__mod_name__ = "AutoCorrect"
 
 
 TRANSLATE_HANDLER = CommandHandler('spell', translate)
