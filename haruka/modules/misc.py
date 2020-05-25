@@ -1406,19 +1406,27 @@ from telethon import events
 import os
 import requests
 import json
+import bs4
+from bs4 import BeautifulSoup as soup
+from urllib.request import urlopen
 
 @register(pattern="^/news (.*)")
 async def _(event):
     if event.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
-    sample_url = "https://da.gd/s?url=https://www.altnews.in/?s={}".format(input_str.replace(" ","+"))
-    response_api = requests.get(sample_url).text
-    if response_api:
-        await event.reply("Search Results:\n\n[{}]({})".format(response_api.rstrip()))
-    else:
-        await event.reply("Something went wrong. Please try again later.")
-
+    news_url="https://news.google.com/news/rss"
+    Client=urlopen(news_url)
+    xml_page=Client.read()
+    Client.close()
+    soup_page=soup(xml_page,"xml")
+    news_list=soup_page.findAll("item")
+    for news in news_list:
+        print(news.title.text)
+        print(news.link.text)
+        print(news.pubDate.text)
+        print("-"*60)
+    await event.reply(news)
+    
 
 
 
