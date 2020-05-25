@@ -1426,7 +1426,7 @@ async def _(event):
           print(news.pubDate.text)
           print("--------------------------------------------------------------")
     last = print(news)
-    await event.client.respond(news)
+    await event.reply(last)
     
 
 
