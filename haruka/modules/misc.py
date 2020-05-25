@@ -1421,12 +1421,11 @@ async def _(event):
     soup_page=soup(xml_page,"xml")
     news_list=soup_page.findAll("item")
     for news in news_list:
-        a = print(news.title.text)
-        b = print(news.link.text)
-        c = print(news.pubDate.text)
-        d = print("--------------------------------------------------------------")
-        e = f"{a}\n{b}\n{c}\n{d}" 
-    await event.reply(e) 
+         print(news.title.text)
+         print(news.link.text)
+         print(news.pubDate.text)
+         print("--------------------------------------------------------------")
+    
     
 
 
