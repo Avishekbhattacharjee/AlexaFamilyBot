@@ -608,11 +608,18 @@ def process_update(self, update):
         try:
             self.dispatch_error(None, update)
         except Exception:
-            self.logger.exception('An uncaught error was raised while handling the error')
+            self.logger.exception(
+                'An uncaught error was raised while handling the error')
         return
 
-    now = datetime.datetime.utcnow()
-    cnt = CHATS_CNT.get(update.effective_chat.id, 0)
+    if update.effective_chat:  # Checks if update contains chat object
+        now = datetime.datetime.utcnow()
+    try:
+        cnt = CHATS_CNT.get(update.effective_chat.id, 0)
+    except AttributeError:
+        self.logger.exception(
+            'An uncaught error was raised while updating process')
+        return
 
     t = CHATS_TIME.get(update.effective_chat.id, datetime.datetime(1970, 1, 1))
     if t and now > t + datetime.timedelta(0, 1):
@@ -625,20 +632,24 @@ def process_update(self, update):
         return
 
     CHATS_CNT[update.effective_chat.id] = cnt
+
     for group in self.groups:
         try:
-            for handler in (x for x in self.handlers[group] if x.check_update(update)):
+            for handler in (x for x in self.handlers[group]
+                            if x.check_update(update)):
                 handler.handle_update(update, self)
                 break
 
         # Stop processing with any other handler.
         except DispatcherHandlerStop:
-            self.logger.debug('Stopping further handlers due to DispatcherHandlerStop')
+            self.logger.debug(
+                'Stopping further handlers due to DispatcherHandlerStop')
             break
 
         # Dispatch any error.
         except TelegramError as te:
-            self.logger.warning('A TelegramError was raised while processing the Update')
+            self.logger.warning(
+                'A TelegramError was raised while processing the Update')
 
             try:
                 self.dispatch_error(update, te)
@@ -646,15 +657,16 @@ def process_update(self, update):
                 self.logger.debug('Error handler stopped further handlers')
                 break
             except Exception:
-                self.logger.exception('An uncaught error was raised while handling the error')
+                self.logger.exception(
+                    'An uncaught error was raised while handling the error')
 
         # Errors should not stop the thread.
         except Exception:
-            self.logger.exception('An uncaught error was raised while processing the update')
+            self.logger.exception(
+                'An uncaught error was raised while processing the update')
 
 
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
-    LOGGER.info("Successfully loaded")
     tbot.start(bot_token=TOKEN)
     main()
