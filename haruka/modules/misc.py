@@ -1451,19 +1451,17 @@ import requests
 import os
 import datetime
 
-@register(pattern="^/stt$")
+@register(pattern="^/stt")
 async def _(event):
     if event.fwd_from:
         return
     start = datetime.datetime.now()
-    input_str = event.pattern_match.group(1)
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     await event.reply("Downloading to Alexa's server for Analysis ...")
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         required_file_name = await event.client.download_media(previous_message, TEMP_DOWNLOAD_DIRECTORY)
-        lan = input_str
         if IBM_WATSON_CRED_URL is None or IBM_WATSON_CRED_PASSWORD is None:
             await event.reply("You need to set the required ENV variables for this module. \nModule stopping")
         else:
@@ -1491,9 +1489,9 @@ async def _(event):
                 end = datetime.datetime.now()
                 ms = (end - start).seconds
                 if transcript_response != "":
-                    string_to_show = "Language: `{}`\nTRANSCRIPT: `{}`\nTime Taken: {} seconds\nConfidence: `{}`".format(lan, transcript_response, ms, transcript_confidence)
+                    string_to_show = "Language: `English`\nTRANSCRIPT: `{}`\nTime Taken: {} seconds\nConfidence: `{}`".format(transcript_response, ms, transcript_confidence)
                 else:
-                    string_to_show = "Language: `{}`\nTime Taken: {} seconds\n**No Results Found**".format(lan, ms)
+                    string_to_show = "Language: `English`\nTime Taken: {} seconds\n**No Results Found**".format(ms)
                 await event.reply(string_to_show)
             else:
                 await event.reply(r["error"])
