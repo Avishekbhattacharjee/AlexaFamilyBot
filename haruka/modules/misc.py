@@ -1528,7 +1528,7 @@ def runclock(bot: Bot, update: Update):
         OT = LT.strftime("%H:%M")
         input = pyfiglet.figlet_format(OT, font = "3x5") # Better Font
         final = f"`{input}`"
-        msg.edit_text(final.format(disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN)
+        msg.edit_text(final.format(disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN))
         time.sleep(EDIT_SLEEP)
 
 
