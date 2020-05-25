@@ -184,7 +184,7 @@ def __stats__():
                                                             sql.num_blacklist_filter_chats())
 
 
-__mod_name__ = "Blacklist"
+__mod_name__ = "Blacklists"
 
 __help__ = """
 You can set blacklist filters to take automatic action on people when they say certain things. This is done using:
@@ -205,6 +205,18 @@ For example, the following will ban any bit.ly link:
 If you wanted to only match bit.ly/ links followed by three characters, you could use:
 /addblacklist "bit.ly/???" We dont like shorteners!
 This would match bit.ly/abc, but not bit.ly/abcd.
+
+Domain blacklisting is used to stop certain domains from being mentioned in a group, Any time an url on that domain is mentioned, /
+the message will immediately be deleted.
+
+*NOTE:* domain blacklisting do not affect group admins.
+
+- /geturl: View the current blacklisted urls
+
+*Admin only:*
+
+- /addurl <urls>: Add a domain to the blacklist. The bot will automatically parse the url.
+- /delurl <urls>: Remove urls from the blacklist
 """
 
 BLACKLIST_HANDLER = DisableAbleCommandHandler("blacklist", blacklist, pass_args=True, admin_ok=True)
