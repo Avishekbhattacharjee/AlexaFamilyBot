@@ -579,23 +579,23 @@ def main():
     # add antiflood processor
     Dispatcher.process_update = process_update
 
-    if WEBHOOK:
-        LOGGER.info("Using webhooks.")
-        updater.start_webhook(listen="0.0.0.0",
-                              port=PORT,
-                              url_path=TOKEN)
+    LOGGER.info("Using long polling.")
+    # updater.start_polling(timeout=15, read_latency=4, clean=True)
+    updater.start_polling(poll_interval=0.0,
+                          timeout=10,
+                          clean=True,
+                          bootstrap_retries=-1,
+                          read_latency=3.0)
 
-        if CERT_PATH:
-            updater.bot.set_webhook(url=URL + TOKEN,
-                                    certificate=open(CERT_PATH, 'rb'))
-        else:
-            updater.bot.set_webhook(url=URL + TOKEN)
-
+    LOGGER.info("Successfully loaded")
+    if len(argv) not in (1, 3, 4):
+        tbot.disconnect()
     else:
-        updater.start_polling(timeout=15, read_latency=4)
-        LOGGER.info("Successfully loaded")
+        tbot.run_until_disconnected()
 
     updater.idle()
+
+
 
 
 CHATS_CNT = {}
