@@ -515,7 +515,7 @@ def github(bot: Bot, update: Update):
 def repo(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     text = message.text[len('/repo '):]
-    usr = get(f'https://api.github.com/users/{text}/repos?per_page=40').json()
+    usr = get(f'https://api.github.com/users/{text}/repos?per_page=300').json()
     reply_text = "*Repo*\n"
     for i in range(len(usr)):
         reply_text += f"[{usr[i]['name']}]({usr[i]['html_url']})\n"
