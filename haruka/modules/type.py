@@ -31,9 +31,9 @@ async def typewriter(typew):
         old_text = old_text + "" + character
         typing_text = old_text + "" + typing_symbol
         await now.edit(typing_text)
-        await time.sleep(2)
+        await asyncio.sleep(2)
         await now.edit(old_text)
-        await time.sleep(2)
+        await asyncio.sleep(2)
 
 
 __help__ = """
