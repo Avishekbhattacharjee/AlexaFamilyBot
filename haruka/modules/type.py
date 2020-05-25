@@ -37,9 +37,9 @@ async def typewriter(typew):
     for character in message:
         old_text = old_text + "" + character
         typing_text = old_text + "" + typing_symbol
-        await now.edit_text(typing_text)
+        await now.edit(typing_text)
         await asyncio.sleep(sleep_time)
-        await now.edit_text(old_text)
+        await now.edit(old_text)
         await asyncio.sleep(sleep_time)
 
 
