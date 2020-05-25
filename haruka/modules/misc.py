@@ -481,54 +481,34 @@ def markdown_help(bot: Bot, update: Update):
 def stats(bot: Bot, update: Update):
     update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
 
+
 @run_async
 def github(bot: Bot, update: Update):
     message = update.effective_message
     text = message.text[len('/git '):]
     usr = get(f'https://api.github.com/users/{text}').json()
     if usr.get('login'):
-        text = f"*Username:* [{usr['login']}](https://github.com/{usr['login']})"
-
-        whitelist = [
-            'name', 'id', 'type', 'location', 'blog', 'bio', 'followers',
-            'following', 'hireable', 'public_gists', 'public_repos', 'email',
-            'company', 'updated_at', 'created_at'
-        ]
-
-        difnames = {
-            'id': 'Account ID',
-            'type': 'Account type',
-            'created_at': 'Account created at',
-            'updated_at': 'Last updated',
-            'public_repos': 'Public Repos',
-            'public_gists': 'Public Gists'
-        }
-
-        goaway = [None, 0, 'null', '']
-
-        for x, y in usr.items():
-            if x in whitelist:
-                if x in difnames:
-                    x = difnames[x]
-                else:
-                    x = x.title()
-
-                if x == 'Account created at' or x == 'Last updated':
-                    y = datetime.strptime(y, "%Y-%m-%dT%H:%M:%SZ")
-
-                if y not in goaway:
-                    if x == 'Blog':
-                        x = "Website"
-                        y = f"[Here!]({y})"
-                        text += ("\n*{}:* {}".format(x, y))
-                    else:
-                        text += ("\n*{}:* `{}`".format(x, y))
-        reply_text = text
+        reply_text = f"""*Name:* `{usr['name']}`
+*Username:* `{usr['login']}`
+*Account ID:* `{usr['id']}`
+*Account type:* `{usr['type']}`
+*Location:* `{usr['location']}`
+*Bio:* `{usr['bio']}`
+*Followers:* `{usr['followers']}`
+*Following:* `{usr['following']}`
+*Hireable:* `{usr['hireable']}`
+*Public Repos:* `{usr['public_repos']}`
+*Public Gists:* `{usr['public_gists']}`
+*Email:* `{usr['email']}`
+*Company:* `{usr['company']}`
+*Website:* `{usr['blog']}`
+*Last updated:* `{usr['updated_at']}`
+*Account created at:* `{usr['created_at']}`
+"""
     else:
         reply_text = "User not found. Make sure you entered valid username!"
-    message.reply_text(reply_text,
-                       parse_mode=ParseMode.MARKDOWN,
-                       disable_web_page_preview=True)
+    message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
+
 
 
 @run_async
@@ -1101,10 +1081,9 @@ async def tor_search(event):
 		search_str = search_str.replace(" ","+")
 		print(search_str)
 		res = requests.get("https://www.limetorrents.info/search/all/"+search_str,headers)
-
 	else:
             return
-	source = bs(res.text,'lxml')
+	source = bs(res.text, 'lxml')
 	with open("source.html",'w') as f:
 		f.write(str(source))
 
@@ -1112,8 +1091,7 @@ async def tor_search(event):
 	magnets = []
 
 	counter = 0
-	for a in source.find_all('a',{'class':'cloud'}):
-		# print("https://www.torrentdownloads.me"+a['href'])
+	for a in source.find_all('a',{'class':'cloud'})
 		try:
 			urls.append("https://www.limetorrents.info"+a['href'])
 		except:
@@ -1129,7 +1107,6 @@ async def tor_search(event):
 		
 	for url in urls:
 		res = requests.get(url,headers)
-		# print("URl: "+url)
 		source = bs(res.text,'lxml')
 		with open("source2.html",'w') as f:
 			f.write(str(source))
@@ -1153,7 +1130,8 @@ async def tor_search(event):
 	html_content = msg
 	)	
 	await event.reply('**USE ANY TORRENT DOWNLOADER LIKE UTORRENT,BITTORRENT AND PASTE ONE OF THESE LINKS TO DOWNLOAD THE FILE**\n\nMagnet Links for {}:\nhttps://telegra.ph/{}'.format(search_str, response['path']))
-       
+        os.remove(source.html)
+        os.remove(source2.html)
 
 import requests
 import bs4 
@@ -1501,33 +1479,6 @@ async def _(event):
         await event.reply("Reply to a voice message, to get the text out of it.")
 
 
-import html
-import random
-import time
-from typing import List
-from telegram.ext import CommandHandler, Filters
-from telegram import Bot, Update, ParseMode
-from telegram.ext import run_async
-import pyfiglet
-from haruka import dispatcher, OWNER_ID
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import is_user_admin, user_admin
-from haruka.modules.helper_funcs.extraction import extract_user
-
-#sleep how many times after each edit in 'police' 
-EDIT_SLEEP = 60
-
-
-@run_async
-def runclock(bot: Bot, update: Update):
-    msg = update.effective_message.reply_text('starting clock') 
-    while True:
-        LT = datetime.datetime.now(pytz.timezone('Asia/Kolkata'))
-        OT = LT.strftime("%H:%M")
-        input = pyfiglet.figlet_format(OT, font = "3x5") # Better Font
-        final = f"`{input}`"
-        msg.edit_text(final.format(disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN))
-        time.sleep(EDIT_SLEEP)
 
 
 __help__ = """
@@ -1542,7 +1493,6 @@ __help__ = """
  - /pastestats: Get stats of a paste or shortened url from [dogbin](https://del.dog)
  - /removebotkeyboard: Got a nasty bot keyboard stuck in your group?
  - /shrug: try and check it out yourself.
- - /time <place>: gives the local time at the given place.
 """
 
 __mod_name__ = "Misc"
@@ -1553,7 +1503,7 @@ RUNS_HANDLER = DisableAbleCommandHandler("runs", runs, admin_ok=True)
 SHRUG_HANDLER = DisableAbleCommandHandler("shrug", shrug, admin_ok=True)
 SLAP_HANDLER = DisableAbleCommandHandler("slap", slap, pass_args=True, admin_ok=True)
 INFO_HANDLER = DisableAbleCommandHandler("info", info, pass_args=True, admin_ok=True)
-GITHUB_HANDLER = DisableAbleCommandHandler("git", github, admin_ok=True)
+GITHUB_HANDLER = DisableAbleCommandHandler("git", github)
 REPO_HANDLER = DisableAbleCommandHandler("repo", repo, pass_args=True, admin_ok=True)
 ECHO_HANDLER = CommandHandler("echo", echo)
 MD_HELP_HANDLER = CommandHandler("markdownhelp", markdown_help, filters=Filters.private)
