@@ -1402,6 +1402,23 @@ async def _(event):
     else:
         await event.reply("Reply to a voice message, to get the text out of it.")
 
+from telethon import events
+import os
+import requests
+import json
+
+@register(pattern="^/news (.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = event.pattern_match.group(1)
+    sample_url = "https://da.gd/s?url=https://www.altnews.in/?s={}".format(input_str.replace(" ","+"))
+    response_api = requests.get(sample_url).text
+    if response_api:
+        await event.reply("Search Results:\n\n[{}]({})".format(response_api.rstrip()))
+    else:
+        await event.reply("Something went wrong. Please try again later.")
+
 
 
 
