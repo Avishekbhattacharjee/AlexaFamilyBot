@@ -1,5 +1,6 @@
 import random
 import re
+import asyncio
 import time
 from cowpy import cow
 from haruka.events import register
