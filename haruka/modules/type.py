@@ -12,7 +12,6 @@ from telegram import Bot, Update, ParseMode
 from telegram.ext import run_async
 
 from haruka import dispatcher
-from haruka.modules.disable importCommandHandler
 from haruka.modules.helper_funcs.chat_status import is_user_admin, user_admin
 from haruka.modules.helper_funcs.extraction import extract_user
 
