@@ -594,10 +594,6 @@ def main():
     else:
         updater.start_polling(timeout=15, read_latency=4)
         LOGGER.info("Successfully loaded")
-    if not MESSAGE_DUMP:
-        tbot.disconnect()
-    else:
-        tbot.run_until_disconnected()
 
     updater.idle()
 
@@ -661,4 +657,8 @@ if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     LOGGER.info("Successfully loaded")
     tbot.start(bot_token=TOKEN)
+    if not MESSAGE_DUMP:
+        tbot.disconnect()
+    else:
+        tbot.run_until_disconnected()
     main()
