@@ -1429,7 +1429,7 @@ async def _(event):
        seperator = "-"*50
        l = "\n"
        last = title+l+text+l+date+l+seperator
-    await event.reply(last)
+       await event.reply(last)
 
 
 __help__ = """
