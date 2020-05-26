@@ -1,4 +1,3 @@
 __help__ = """
- - /news <topic>: Scrap news content and returns text as reply
-"""
+ - /news <topic>: Returns today's headlines
 __mod_name__ = "News"
