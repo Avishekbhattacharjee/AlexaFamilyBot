@@ -1412,18 +1412,16 @@ import bs4
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
 
-@register(pattern="^/news")
-async def _(event):
-    if event.fwd_from:
-        return
+
+@run_async
+def afk(bot: Bot, update: Update):
+    chat = update.effective_chat 
     news_url="https://news.google.com/news/rss"
     Client=urlopen(news_url)
     xml_page=Client.read()
     Client.close()
-
     soup_page=soup(xml_page,"xml")
     news_list=soup_page.findAll("item")
-    # Print news title, url and publish date
     for news in news_list:
        title = news.title.text
        text = news.link.text
@@ -1431,10 +1429,12 @@ async def _(event):
        seperator = "-"*50
        l = "\n"
        last = title+l+text+l+date+l+seperator
-       await event.reply(last)
+    update.effective_message.reply_text(chat.id, last)
+
+
+
 
 from telethon.tl.types import InputMediaDice
-
 
 @register(pattern="^/dice")
 async def _(event):
@@ -1533,3 +1533,4 @@ dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
 dispatcher.add_handler(REPO_HANDLER)
 dispatcher.add_handler(DisableAbleCommandHandler("removebotkeyboard", reply_keyboard_remove))
+dispatcher.add_handler(DisableAbleCommandHandler("news", news))
