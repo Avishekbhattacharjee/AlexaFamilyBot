@@ -1454,7 +1454,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    input_str = print(randrange(7))
+    input_str = print(randrange(6))
     r = await event.reply(file=InputMediaDice('🏀'))
     if input_str:
         try:
