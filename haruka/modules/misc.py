@@ -1591,6 +1591,7 @@ async def carbon_api(e):
     gotta = await e.reply("`Processing..`")
     CARBON = 'https://carbon.now.sh/?l={lang}&code={code}'
     global CARBONLANG
+    CARBONLANG = "en"
     textx = await e.get_reply_message()
     pcode = e.text
     if pcode[8:]:
@@ -1639,7 +1640,7 @@ async def carbon_api(e):
     await e.client.send_file(
         e.chat_id,
         file,
-        caption="<===@AlexaFamilyBot===>",
+        caption="===> @AlexaFamilyBot <===",
         force_document=True,
         reply_to=e.message.reply_to_msg_id,
     )
