@@ -1435,7 +1435,7 @@ async def _(event):
 from telethon.tl.types import InputMediaDice
 
 
-@register(pattern="^/dice)
+@register(pattern="^/dice")
 async def _(event):
     if event.fwd_from:
         return
