@@ -1212,7 +1212,7 @@ def progress(current, total):
         current, total, (current / total) * 100))
 
 
-@register(pattern="^/img2textlang$")
+@register(pattern="^/img2textlang")
 async def get_ocr_languages(event):
     if event.fwd_from:
         return
@@ -1250,12 +1250,12 @@ async def parse_ocr_space_api(event):
     if event.fwd_from:
         return
     await event.reply("Processing ...")
-    lund = await event.get_reply_message()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-    os.chdir(TEMP_DOWNLOAD_DIRECTORY)
     lang_code = event.pattern_match.group(1)
-    downloaded_file_name = await event.client.download_media(lund, TEMP_DOWNLOAD_DIRECTORY)
+    downloaded_file_name = await event.client.download_media(
+        await event.get_reply_message(),
+        TEMP_DOWNLOAD_DIRECTORY)
     if downloaded_file_name.endswith((".webp")):
         downloaded_file_name = conv_image(downloaded_file_name)
     test_file = ocr_space_file(filename=downloaded_file_name, language=lang_code)
@@ -1264,11 +1264,12 @@ async def parse_ocr_space_api(event):
         ParsedText = test_file["ParsedResults"][0]["ParsedText"]
         ProcessingTimeInMilliseconds = str(int(test_file["ProcessingTimeInMilliseconds"]) // 1000)
     except Exception as e:
-        await event.reply("Errors.\n `{}`\nReport This to @AlexaSupport\n\n`{}`".format(str(e), json.dumps(test_file, sort_keys=True, indent=4)))
+        await event.reply("Error :\n `{}`\nReport This to @AlexaSupport\n\n`{}`".format(str(e), json.dumps(test_file, sort_keys=True, indent=4)))
     else:
-       await event.reply(ParsedText)
-       os.remove(downloaded_file_name)
-       
+        await event.reply("Read Document in {} seconds. \n{}".format(ProcessingTimeInMilliseconds, ParsedText))
+    os.remove(downloaded_file_name)
+    await event.reply(ParsedText)
+
 
 
 def conv_image(image):
