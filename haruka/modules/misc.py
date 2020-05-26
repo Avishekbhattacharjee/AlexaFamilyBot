@@ -1432,6 +1432,54 @@ async def _(event):
        last = title+l+text+l+date+l+seperator
        await event.reply(last)
 
+from telethon.tl.types import InputMediaDice
+
+
+@register(pattern="^/dice)
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = print(randrange(7))
+    r = await event.reply(file=InputMediaDice(''))
+    if input_str:
+        try:
+            required_number = int(input_str)
+            while not r.media.value == required_number:
+                await r.delete()
+                r = await event.reply(file=InputMediaDice(''))
+        except:
+            pass
+
+@register(pattern="^/basketball")
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = print(randrange(7))
+    r = await event.reply(file=InputMediaDice('🏀'))
+    if input_str:
+        try:
+            required_number = int(input_str)
+            while not r.media.value == required_number:
+                await r.delete()
+                r = await event.reply(file=InputMediaDice('🏀'))
+        except:
+            pass
+
+
+@register(pattern="^/dart")
+async def _(event):
+    if event.fwd_from:
+        return
+    input_str = print(randrange(7))
+    r = await event.reply(file=InputMediaDice('🎯'))
+    if input_str:
+        try:
+            required_number = int(input_str)
+            while not r.media.value == required_number:
+                await r.delete()
+                r = await event.reply(file=InputMediaDice('🎯'))
+        except:
+            pass
 
 
 __help__ = """
