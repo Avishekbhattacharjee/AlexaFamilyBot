@@ -1414,7 +1414,7 @@ from urllib.request import urlopen
 
 
 @run_async
-def afk(bot: Bot, update: Update):
+def news(bot: Bot, update: Update):
     chat = update.effective_chat 
     news_url="https://news.google.com/news/rss"
     Client=urlopen(news_url)
