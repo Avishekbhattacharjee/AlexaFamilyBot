@@ -1415,7 +1415,7 @@ from urllib.request import urlopen
 
 @run_async
 def news(bot: Bot, update: Update):
-    chat = update.effective_chat 
+    message = update.effective_message
     news_url="https://news.google.com/news/rss"
     Client=urlopen(news_url)
     xml_page=Client.read()
@@ -1428,9 +1428,8 @@ def news(bot: Bot, update: Update):
        date = news.pubDate.text
        seperator = "-"*50
        l = "\n"
-       last = title+l+text+l+date+l+seperator
-    update.effective_message.reply_text(chat.id, last)
-
+       lastisthis = title+l+text+l+date+l+seperator
+       update.effective_message.reply_text(lastisthis)
 
 
 
