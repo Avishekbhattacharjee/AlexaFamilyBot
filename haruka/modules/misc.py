@@ -1418,14 +1418,19 @@ async def _(event):
     Client=urlopen(news_url)
     xml_page=Client.read()
     Client.close()
+
     soup_page=soup(xml_page,"xml")
     news_list=soup_page.findAll("item")
+    # Print news title, url and publish date
     for news in news_list:
-          print(news.title.text)
-          print(news.link.text)
-          print(news.pubDate.text)
-          print("--------------------------------------------------------------")
- 
+       title = news.title.text
+       text = news.link.text
+       date = news.pubDate.text
+       seperator = "-"*50
+       l = "\n"
+       last = title+l+text+l+date+l+seperator
+    await event.reply(last)
+
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
