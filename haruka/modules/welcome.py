@@ -101,7 +101,7 @@ def new_member(bot: Bot, update: Update):
                     "I have been added to {} with ID: <pre>{}</pre>".format(chat.title, chat.id),
                     parse_mode=ParseMode.HTML
                 )
-                bot.send_message(chat.id, "Thanks To Add,Give Some Commands Now 😃")
+                bot.send_message(chat.id, "Thanks To Add,Give Some Commands Now 😃\n\nJoin @AlexaSupport for updates !")
 
             else:
                 # If welcome message is media, send with appropriate function
@@ -157,7 +157,7 @@ def new_member(bot: Bot, update: Update):
 
                 #Add "I'm not bot button if enabled hard security"
                 if sql.welcome_security(chat.id) == "hard":
-                    update.effective_message.reply_text("Hi {}, click on button below to prove you not a bot.".format(new_mem.first_name),
+                    update.effective_message.reply_text("Hi {}, click on button below to prove you are not a bot.".format(new_mem.first_name),
                          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="✅ Click here to talk ✅ ",
                          callback_data="check_bot_({})".format(new_mem.id)) ]]))
                     #Mute user
