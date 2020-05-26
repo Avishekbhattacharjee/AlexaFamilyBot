@@ -2,6 +2,7 @@ import subprocess
 import html
 import json
 import random
+from random import randrange
 import time
 import pyowm
 import re
