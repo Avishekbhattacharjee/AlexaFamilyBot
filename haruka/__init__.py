@@ -54,7 +54,6 @@ if ENV:
     PORT = int(os.environ.get('PORT', 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
     OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
-    GENIUS_API = os.environ.get('GENIUS_API', None)
     DB_URI = os.environ.get('DATABASE_URL')
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
