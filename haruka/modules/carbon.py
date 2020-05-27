@@ -84,7 +84,7 @@ async def carbon_api(e):
         file,
         caption="Made using [Carbon](https://carbon.now.sh/about/),\
         \na project by [Dawn Labs](https://dawnlabs.io/)",
-        force_document=False,
+        force_document=True,
         allow_cache=False)
     os.remove('/root/haruka/bin/carbon.png')
     driver.quit()
