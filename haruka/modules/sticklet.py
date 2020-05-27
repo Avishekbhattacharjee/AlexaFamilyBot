@@ -1,79 +1,58 @@
-# Random RGB Sticklet by @PhycoNinja13b
-# modified by @UniBorg
-# ported to userbot by @heyworld
+# Copyright (C) 2019 Nick Filmer (nick80835@gmail.com)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+""" use cmd .slet """
 
 import io
-import os
-import random
 import textwrap
-
 from PIL import Image, ImageDraw, ImageFont
-from telethon.tl.types import InputMessagesFilterDocument
-from haruka.events import register 
+from haruka.events import register
 
 
-@register(pattern="^/alexa(?: |$)(.*)")
+
+@register(pattern="^/sticklet (.*)")
 async def sticklet(event):
-    R = random.randint(0,256)
-    G = random.randint(0,256)
-    B = random.randint(0,256)
-
-    # get the input text
-    # the text on which we would like to do the magic on
     sticktext = event.pattern_match.group(1)
 
-    # delete the userbot command,
-    # i don't know why this is required
+    if not sticktext:
+    	get = await event.get_reply_message()
+    	sticktext = get.text
+    	
+    await event.delete()
+    if not sticktext:
+    	await event.reply("`I need text to sticklet!`")
+    	return
 
-    # https://docs.python.org/3/library/textwrap.html#textwrap.wrap
     sticktext = textwrap.wrap(sticktext, width=10)
-    # converts back the list to a string
     sticktext = '\n'.join(sticktext)
 
     image = Image.new("RGBA", (512, 512), (255, 255, 255, 0))
     draw = ImageDraw.Draw(image)
     fontsize = 230
-
-    FONT_FILE = await get_font_file(event.client, "@FontRes")
-
-    font = ImageFont.truetype(FONT_FILE, size=fontsize)
+    font = ImageFont.truetype("/root/haruka/DejaVuSansMono.ttf", size=fontsize)
 
     while draw.multiline_textsize(sticktext, font=font) > (512, 512):
         fontsize -= 3
-        font = ImageFont.truetype(FONT_FILE, size=fontsize)
-
+        font = ImageFont.truetype("/root/haruka/DejaVuSansMono.ttf", size=fontsize)
+ 
     width, height = draw.multiline_textsize(sticktext, font=font)
-    draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=(R, G, B))
+    draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill="red")
 
     image_stream = io.BytesIO()
-    image_stream.name = "@remix.webp"
+    image_stream.name = "sticker.webp"
     image.save(image_stream, "WebP")
     image_stream.seek(0)
 
-    # finally, reply the sticker
-    #await event.reply( file=image_stream, reply_to=event.message.reply_to_msg_id)
-    #replacing upper line with this to get reply tags
-
     await event.client.send_file(event.chat_id, image_stream)
-    # cleanup
-    try:
-        os.remove(FONT_FILE)
-    except:
-        pass
-
-
-async def get_font_file(client, channel_id):
-    # first get the font messages
-    font_file_message_s = await client.get_messages(
-        entity=channel_id,
-        filter=InputMessagesFilterDocument,
-        # this might cause FLOOD WAIT,
-        # if used too many times
-        limit=None
-    )
-    # get a random font from the list of fonts
-    # https://docs.python.org/3/library/random.html#random.choice
-    font_file_message = random.choice(font_file_message_s)
-    # download and return the file path
-    return await client.download_media(font_file_message)
-    
