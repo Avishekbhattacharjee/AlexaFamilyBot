@@ -25,7 +25,6 @@ sqlalchemy
 tldextract
 wikipedia
 zalgo-text
-lyricsgenius
 gTTs 
 gTTs-token
 search-engine-parser
@@ -43,3 +42,4 @@ aria2p
 cowpy
 psutil 
 hachoir
+tswift
