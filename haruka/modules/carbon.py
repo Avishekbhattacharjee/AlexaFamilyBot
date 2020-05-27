@@ -88,7 +88,7 @@ async def carbon_api(e):
     os.remove('/root/usr/bin/carbon.png')
     driver.quit()
 
-__help__ = """"
+__help__ = """
  - /carbon <text>: Beautifies your text and enwraps inside a terminal image !
 """
 
