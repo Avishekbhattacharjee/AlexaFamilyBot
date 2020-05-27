@@ -30,20 +30,14 @@ from telethon import events
 
 CARBONLANG = "en"
 
-@register(pattern="^/carbon")
+@register(pattern="^/carbon (.*)")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     jj = "`Processing..`"
     gg = await e.reply(jj)
     CARBON = 'https://carbon.now.sh/?bg=rgba(239%2C40%2C44%2C1)&t=one-light&wt=none&l=application%2Ftypescript&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=143%25&si=false&es=2x&wm=false&code={code}'
     global CARBONLANG
-    textx = await e.get_reply_message()
-    pcode = e.text
-    if pcode[7:]:
-        pcode = str(pcode[7:])
-    elif textx:
-        pcode = str(textx.message)  # Importing message to module
-    code = quote_plus(pcode)  # Converting to urlencoded
+    code = e.pattern_match.group(1)
     await gg.edit("`Processing..\n25%`")
     if os.path.isfile("/root/haruka/bin/carbon.png"):
        os.remove("/root/haruka/bin/carbon.png")
