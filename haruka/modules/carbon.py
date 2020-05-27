@@ -33,8 +33,8 @@ CARBONLANG = "auto"
 @register(pattern="^/carbon")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
-    code = "`Processing..`"
-    gg = await e.reply(code)
+    jj = "`Processing..`"
+    gg = await e.reply(jj)
     CARBON = 'https://carbon.now.sh/?bg=rgba(239%2C40%2C44%2C1)&t=one-light&wt=none&l=application%2Ftypescript&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=143%25&si=false&es=2x&wm=false&code={code}'
     global CARBONLANG
     textx = await e.get_reply_message()
@@ -73,8 +73,8 @@ async def carbon_api(e):
     }
     command_result = driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
-   # driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
-   # driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
+    # driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
+    # driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
     await gg.edit("`Processing..\n75%`")
     await gg.edit("`Processing..\n100%`")
     file = '/root/haruka/bin/carbon.png'
