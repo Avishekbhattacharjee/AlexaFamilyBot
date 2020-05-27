@@ -31,4 +31,4 @@ async def _(event):
 __help__ = """
  - /download: Type in reply to a telegram document/audio/video to download to the bots local server
 """
-__mod_name__ = True
+__mod_name__ = "Download
