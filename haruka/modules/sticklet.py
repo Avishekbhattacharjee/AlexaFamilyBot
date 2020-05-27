@@ -12,7 +12,7 @@ from telethon.tl.types import InputMessagesFilterDocument
 from haruka.events import register 
 
 
-@register(outgoing=True, pattern="^/alexa(?: |$)(.*)")
+@register(pattern="^/alexa(?: |$)(.*)")
 async def sticklet(event):
     R = random.randint(0,256)
     G = random.randint(0,256)
