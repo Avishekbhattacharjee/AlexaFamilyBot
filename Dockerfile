@@ -1,3 +1,5 @@
+FROM python:3.6-alpine
+
 # Set environment varibles
 ENV PYTHONUNBUFFERED 1
 
