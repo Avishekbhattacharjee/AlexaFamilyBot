@@ -1294,8 +1294,7 @@ async def terminal_runner(term):
         return
 
     if not command:
-        await term.reply("``` Give a command or use .help term for \
-            an example.```")
+        await term.reply("``` Give a command or use /help Terminal for help.```")
         return
 
     process = await asyncio.create_subprocess_shell(
