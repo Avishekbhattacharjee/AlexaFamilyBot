@@ -61,6 +61,6 @@ RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1
 RUN mkdir /root/userbot/bin/
 WORKDIR /root/userbot/
 
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 CMD ["python3","-m","haruka"]
