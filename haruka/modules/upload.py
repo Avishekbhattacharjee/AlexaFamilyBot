@@ -34,7 +34,7 @@ async def _(event):
             reply_to=event.message.id,
             thumb=thumb)
         end = datetime.datetime.now()
-        # os.remove(input_str)
+        os.remove(input_str)
         ms = (end - start).seconds
         await mone.edit("Uploaded in {} seconds.".format(ms))
     else:
