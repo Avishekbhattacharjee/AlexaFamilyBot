@@ -1,8 +1,5 @@
 FROM alpine:edge
 
-ENV PATH="/app/bin:$PATH"
-WORKDIR /app
-
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 RUN apk add  --update \
@@ -60,7 +57,9 @@ RUN python3 -m ensurepip \
     if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
     rm -r /root/.cache
 
-RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git -b master /app
+RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git /root/userbot
+RUN mkdir /root/userbot/bin/
+WORKDIR /root/userbot/
 
 RUN pip install -r requirements.txt
 
