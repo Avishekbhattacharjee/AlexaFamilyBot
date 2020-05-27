@@ -10,7 +10,6 @@ import html
 import wikipedia
 import html
 from typing import Optional, List
-
 from telethon import events
 import datetime
 from telethon.tl.functions.users import GetFullUserRequest
@@ -20,12 +19,10 @@ from telethon.tl.types import UserStatusEmpty, UserStatusLastMonth, UserStatusLa
 from telethon.tl import functions, types
 from time import sleep
 import asyncio
-
 from telegram import Message, Chat, Update, Bot, User, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import run_async, Filters
 from telegram.utils.helpers import mention_html
-
 from haruka import dispatcher, LOGGER, CHROME_DRIVER, GOOGLE_CHROME_BIN
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_ban_protected, can_restrict, \
@@ -33,7 +30,6 @@ from haruka.modules.helper_funcs.chat_status import bot_admin, user_admin, is_us
 from haruka.modules.helper_funcs.extraction import extract_user_and_text
 from haruka.modules.helper_funcs.string_handling import extract_time
 from haruka.modules.log_channel import loggable
-
 from haruka.modules.translations.strings import tld
 import re
 from pyDownload import Downloader
@@ -81,13 +77,11 @@ PP_ERROR = "`Failure while processing the image`"
 NO_ADMIN = "`I am not an admin!`"
 NO_PERM = "`I don't have sufficient permissions!`"
 NO_SQL = "`Running on Non-SQL mode!`"
-
 CHAT_PP_CHANGED = "`Chat Picture Changed`"
 CHAT_PP_ERROR = "`Some issue with updating the pic,`" \
                 "`maybe coz I'm not an admin,`" \
                 "`or don't have enough rights.`"
 INVALID_MEDIA = "`Invalid Extension`"
-
 import urllib.request
 from haruka.modules.helper_funcs.chat_status import user_admin, is_user_admin
 
@@ -171,9 +165,8 @@ from telegram import ParseMode, ReplyKeyboardRemove, InlineKeyboardMarkup, Inlin
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
-import lyricsgenius
 from search_engine_parser import GoogleSearch
-from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, GENIUS_API, tbot, OPENWEATHERMAP_ID, YOUTUBE_API_KEY, TEMP_DOWNLOAD_DIRECTORY
+from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, tbot, OPENWEATHERMAP_ID, YOUTUBE_API_KEY, TEMP_DOWNLOAD_DIRECTORY
 from haruka.__main__ import GDPR
 from haruka.__main__ import STATS, USER_INFO
 from haruka.modules.disable import DisableAbleCommandHandler
@@ -355,21 +348,6 @@ def get_id(bot: Bot, update: Update, args: List[str]):
         else:
             update.effective_message.reply_text(tld(chat.id, "This group's id is `{}`.").format(chat.id),
                                                 parse_mode=ParseMode.MARKDOWN)
-@run_async
-def lyrics(bot, update, args):
-    if len(args) == 0:
-        update.effective_message.reply_text("Give artist and song names please!")
-        return
-    try:
-     GApi = GENIUS_API
-     genius = lyricsgenius.Genius(GApi)
-     STEP = " ".join(args)
-     song=genius.search_song(STEP)
-     output=f"{song.lyrics}"
-     update.effective_message.reply_text(output)
-    except:
-     update.effective_message.reply_text("Song not found on server")
-
 
 @run_async
 def info(bot: Bot, update: Update, args: List[str]):
@@ -523,7 +501,6 @@ def repo(bot: Bot, update: Update, args: List[str]):
     message.reply_text(reply_text,
                        parse_mode=ParseMode.MARKDOWN,
                        disable_web_page_preview=True)
-
 
 
 BASE_URL = 'https://del.dog'
@@ -1560,95 +1537,144 @@ def gettime(bot: Bot, update: Update):
 
 
 
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-from telethon import events
-from urllib.parse import quote_plus
-from urllib.error import HTTPError
-from time import sleep
-import asyncio
-import os
-import random
-import os
-import time
-import asyncio
-import shutil
-from bs4 import BeautifulSoup
-import re
-from time import sleep
-from html import unescape
-from re import findall
-from selenium import webdriver
-from urllib.parse import quote_plus
-from urllib.error import HTTPError
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.chrome.options import Options
 
-@register(pattern="^/carbon")
+# Simple lyrics module using tswift by @TheRealPhoenix
+
+from tswift import Song
+from telegram import Bot, Update, Message, Chat
+from telegram.ext import run_async
+from haruka import dispatcher
+from haruka.modules.disable import DisableAbleCommandHandler
+
+
+@run_async
+def lyrics(bot: Bot, update: Update, args):
+    msg = update.effective_message
+    query = " ".join(args)
+    song = ""
+    if not query:
+        msg.reply_text("You haven't specified which song to look for!")
+        return
+    else:
+        song = Song.find_song(query)
+        if song:
+            if song.lyrics:
+                reply = song.format()
+            else:
+                reply = "Couldn't find any lyrics for that song!"
+        else:
+            reply = "Song not found!"
+        if len(reply) > 4090:
+            with open("lyrics.txt", 'w') as f:
+                f.write(f"{reply}\n\n\nOwO UwU OmO")
+            with open("lyrics.txt", 'rb') as f:
+                msg.reply_document(document=f,
+                caption="Message length exceeded max limit! Sending as a text file.")
+        else:
+            msg.reply_text(reply)
+   
+@register(pattern=r"^/carbon")
 async def carbon_api(e):
-    """ A Wrapper for carbon.now.sh """
-    gotta = await e.reply("`Processing..`")
-    CARBON = 'https://carbon.now.sh/?l={lang}&code={code}'
-    global CARBONLANG
-    CARBONLANG = "en"
-    textx = await e.get_reply_message()
-    pcode = e.text
-    if pcode[8:]:
-        pcode = str(pcode[8:])
-    elif textx:
-        pcode = str(textx.message)  # Importing message to module
-    code = quote_plus(pcode)  # Converting to urlencoded
-    await gotta.edit("`Processing..\n25%`")
-    if os.path.isfile("./carbon.png"):
-        os.remove("./carbon.png")
-    url = CARBON.format(code=code, lang=CARBONLANG)
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.binary_location = GOOGLE_CHROME_BIN
-    chrome_options.add_argument("--window-size=1920x1080")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-gpu")
-    prefs = {'download.default_directory': './'}
-    chrome_options.add_experimental_option('prefs', prefs)
-    driver = webdriver.Chrome(executable_path=CHROME_DRIVER,
-                              options=chrome_options)
-    driver.get(url)
-    await gotta.edit("`Processing..\n50%`")
-    download_path = './'
-    driver.command_executor._commands["send_command"] = (
-        "POST", '/session/$sessionId/chromium/send_command')
-    params = {
-        'cmd': 'Page.setDownloadBehavior',
-        'params': {
-            'behavior': 'allow',
-            'downloadPath': download_path
-        }
-    }
-    command_result = driver.execute("send_command", params)
-    driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
-    driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
-    driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
-    await gotta.edit("`Processing..\n75%`")
-    # Waiting for downloading
-    while not os.path.isfile("./carbon.png"):
-        await sleep(0.5)
-    await gotta.edit("`Processing..\n100%`")
-    file = './carbon.png'
-    await gotta.edit("`Uploading..`")
-    await e.client.send_file(
-        e.chat_id,
-        file,
-        caption="===> @AlexaFamilyBot <===",
-        force_document=True,
-        reply_to=e.message.reply_to_msg_id,
-    )
+ RED = random.randint(0,256)
+ GREEN = random.randint(0,256)
+ BLUE = random.randint(0,256)
+ THEME= [         "3024-night",
+                  "a11y-dark",
+                  "blackboard",
+                  "base16-dark",
+                  "base16-light",
+                  "cobalt",
+                  "dracula",
+                  "duotone-dark",
+                  "hopscotch",
+                  "lucario",
+                  "material",
+                  "monokai",
+                  "night-owl",
+                  "nord",
+                  "oceanic-next",
+                  "one-light",
+                  "one-dark",
+                  "panda-syntax",
+                  "paraiso-dark",
+                  "seti",
+                  "shades-of-purple",
+                  "solarized",
+                  "solarized%20light",
+                  "synthwave-84",
+                  "twilight",
+                  "verminal",
+                  "vscode",
+                  "yeti",
+                  "zenburn",
+]
 
-    os.remove('./carbon.png')
-    driver.quit()
-    # Removing carbon.png after uploading
+ CUNTHE = random.randint(0, len(THEME) - 1)
+ The = THEME[CUNTHE]
 
+ if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
+   """ A Wrapper for carbon.now.sh """
+   rama = await e.reply("▢▢▢▢▢▢")
+   CARBON = 'https://carbon.now.sh/?bg=rgba({R}%2C{G}%2C.{B}%2C1)&t={T}&wt=none&l=auto&ds=false&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Fira%20Code&fs=14px&lh=152%25&si=false&es=2x&wm=false&code={code}'
+   CARBONLANG = "en"
+   textx = await e.get_reply_message()
+   pcode = e.text
+   if pcode[8:]:
+         pcodee = str(pcode[8:])
+         if "|" in pcodee:
+               pcode, skeme = pcodee.split("|")
+         else:
+               pcode = pcodee
+               skeme = None
+   elif textx:
+         pcode = str(textx.message) 
+         skeme = None # Importing message to module
+   code = quote_plus(pcode) # Converting to urlencoded# Importing message to module
+   code = quote_plus(pcode) # Converting to urlencoded
+   url = CARBON.format(code=code, R=RED, G=GREEN, B=BLUE, T=The, lang=CARBONLANG)
+   chrome_options = Options()
+   chrome_options.add_argument("--headless")
+   chrome_options.binary_location = GOOGLE_CHROME_BIN
+   chrome_options.add_argument("--window-size=1920x1080")
+   chrome_options.add_argument("--disable-dev-shm-usage")
+   chrome_options.add_argument("--no-sandbox")
+   chrome_options.add_argument('--disable-gpu')
+   prefs = {'download.default_directory' : './'}
+   chrome_options.add_experimental_option('prefs', prefs)
+   await rama.edit("▣▣▢▢▢▢")
+
+   driver = webdriver.Chrome(executable_path=CHROME_DRIVER, options=chrome_options)
+   driver.get(url)
+   download_path = './'
+   driver.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
+   params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_path}}
+   command_result = driver.execute("send_command", params)
+
+   driver.find_element_by_id("export-menu").click()
+
+   #removing below line coz seems no use now
+   #driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
+
+   sleep(5) # this might take a bit.
+   await rama.edit("▣▣▣▢▢▢")
+   driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
+   sleep(5)
+   await rama.edit("▣▣▣▣▢▢")
+   driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
+   sleep(5) #Waiting for downloading
+   await rama.edit("▣▣▣▣▣▢")
+
+   file = './carbon.png'
+   caption = "**Carbon Completed !\nRGB Colour Code: `({}, {}, {})`\nTheme: `{}`**".format(RED, GREEN, BLUE, The)
+   await rama.edit("▣▣▣▣▣▣\n**Carbon Completed.\nUploading...**")
+   await e.client.send_file(
+         e.chat_id,
+         file,
+         caption=caption,
+         force_document=True,
+         reply_to=e.message.reply_to_msg_id,
+         )
+   os.remove('./carbon.png')
 
 
 __help__ = """
