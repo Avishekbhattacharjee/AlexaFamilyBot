@@ -30,7 +30,7 @@ from telethon import events
 
 CARBONLANG = "auto"
 
-@register(outgoing=True, pattern="^/carbon")
+@register(pattern="^/carbon")
 async def carbon_api(e):
     """ A Wrapper for carbon.now.sh """
     code = "`Processing..`"
