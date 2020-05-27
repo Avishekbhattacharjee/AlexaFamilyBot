@@ -78,7 +78,7 @@ if ENV:
     IBM_WATSON_CRED_PASSWORD = os.environ.get('IBM_WATSON_CRED_PASSWORD', None)
     SUPPORT_USERS = list(SUPPORT_USERS)
     WALL_API = os.environ.get('WALL_API', None)
-    GOOGLE_CHROME_DRIVER = os.environ.get("GOOGLE_CHROME_DRIVER", None)
+    CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
     GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
     CASH_API_KEY = os.environ.get('CASH_API_KEY', None)
     TIME_API_KEY = os.environ.get('TIME_API_KEY', None)
