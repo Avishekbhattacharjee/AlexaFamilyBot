@@ -118,5 +118,7 @@ async def _(event):
     else:
         await mone.edit("404: File Not Found")
 
-__help__ = "True"
+__help__ = """
+ - /upload <file name>: uploads the downloaded file inside Alexa's cloud storage to telegram
+"""
 __mod_name__ = "Upload"
