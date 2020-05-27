@@ -26,7 +26,7 @@ from telegram.error import BadRequest
 from telegram.ext import run_async, Filters
 from telegram.utils.helpers import mention_html
 
-from haruka import dispatcher, LOGGER
+from haruka import dispatcher, LOGGER, GOOGLE_CHROME_DRIVER, GOOGLE_CHROME_BIN
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_ban_protected, can_restrict, \
     is_user_admin, is_user_in_chat
