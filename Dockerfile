@@ -1,57 +1,26 @@
-FROM python:3.6-alpine
+# Set environment varibles
+ENV PYTHONUNBUFFERED 1
 
-RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
-RUN apk add  --update \
-    coreutils \
-    bash \
-    nodejs \
-    build-base \
-    bzip2-dev \
-    curl \
-    figlet \
-    gcc \
-    g++ \
-    git \
-    aria2 \
-    util-linux \
-    libevent \
-    jpeg-dev \
-    libffi-dev \
-    libpq \
-    libwebp-dev \
-    libxml2 \
-    libxml2-dev \
-    libxslt-dev \
-    linux-headers \
-    musl \
-    neofetch \
-    openssl-dev \
-    postgresql \
-    postgresql-client \
-    postgresql-dev \
-    openssl \
-    pv \
-    jq \
-    wget \
-    python3 \
-    python3-dev \
-    readline-dev \
-    sqlite \
-    ffmpeg \
-    sqlite-dev \
-    sudo \
-    chromium \
-    chromium-chromedriver \
-    zlib-dev \
-    jpeg \
-    zip \
-    megatools \
-    freetype-dev
+# Install dependencies
+COPY ./requirements.txt /requirements.txt
+RUN apk add --update --no-cache postgresql-client zlib-dev jpeg-dev libwebp-dev
+RUN apk add --update --no-cache --virtual .tmp-build-deps \
+    gcc libffi-dev libc-dev linux-headers postgresql-dev
+RUN pip install -r /requirements.txt
+RUN apk del .tmp-build-deps
 
-RUN python3 -m ensurepip \
-    && pip3 install --upgrade pip setuptools \
-    && rm -r /usr/lib/python*/ensurepip && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
-    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-    rm -r /root/.cache
+# Setup directory structure
+RUN mkdir /app
+WORKDIR /app
+COPY . /app
+
+## Add the wait script to the image
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.1/wait /wait
+RUN chmod +x /wait
+
+# Create user for execution
+RUN adduser -D user
+RUN chmod +x /app/entrypoint.sh && chown user:user /app
+USER user
+
+ENTRYPOINT ["sh", "entrypoint.sh"]
