@@ -28,7 +28,7 @@ from urllib.parse import quote_plus
 from urllib.error import HTTPError
 from telethon import events
 
-CARBONLANG = "auto"
+CARBONLANG = "en"
 
 @register(pattern="^/carbon")
 async def carbon_api(e):
@@ -84,7 +84,8 @@ async def carbon_api(e):
         file,
         caption="Made using [Carbon](https://carbon.now.sh/about/),\
         \na project by [Dawn Labs](https://dawnlabs.io/)",
-        force_document=True)
+        force_document=False,
+        allow_cache=False)
     os.remove('/root/haruka/bin/carbon.png')
     driver.quit()
 
