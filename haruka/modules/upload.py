@@ -1,3 +1,18 @@
+import asyncio
+import os
+import subprocess
+import time
+import datetime
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+from telethon import events
+from telethon.tl.types import DocumentAttributeVideo
+from telethon.tl.types import DocumentAttributeAudio
+from haruka import register, TEMP_DOWNLOAD_DIRECTORY
+
+thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+
+
 @register(pattern="^/upload (.*)")
 async def _(event):
     if event.fwd_from:
