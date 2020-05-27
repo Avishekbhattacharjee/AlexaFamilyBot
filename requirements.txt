@@ -43,4 +43,3 @@ aria2p
 cowpy
 psutil 
 hachoir
-chromedriver_installer
