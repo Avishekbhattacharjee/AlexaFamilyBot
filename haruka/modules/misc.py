@@ -1537,7 +1537,6 @@ def gettime(bot: Bot, update: Update):
 
 
 
-
 # Simple lyrics module using tswift by @TheRealPhoenix
 
 from tswift import Song
