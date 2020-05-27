@@ -88,7 +88,7 @@ async def carbon_api(e):
         caption="Made using [Carbon](https://carbon.now.sh/about/),\
         \na project by [Dawn Labs](https://dawnlabs.io/)",
         force_document=True)
-    os.remove('/root/userbot/bin/carbon.png')
+    os.remove('/root/haruka/bin/carbon.png')
     driver.quit()
 
 __help__ = """"
