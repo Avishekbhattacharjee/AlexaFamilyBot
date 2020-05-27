@@ -8,6 +8,7 @@ from time import sleep
 import asyncio
 import os
 import random
+from haruka import GOOGLE_CHROME_BIN, CHROME_DRIVER
 from haruka.events import register
 
 
