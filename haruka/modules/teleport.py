@@ -38,7 +38,7 @@ def teleport(bot: Bot, update: Update, args: List[str]):
     to_send = " ".join(args)
     if len(to_send) >= 2:
         try:
-            bot.sendMessage(int(chat_id), "THIS IS A TELEPORTED MESSAGE SORRY BUT I CAN'T REVAEAL THE SENDER\n\n"+(to_send))
+            bot.sendMessage(int(chat_id), "THIS IS A TELEPORTED MESSAGE SORRY BUT I CAN'T REVEAL THE SENDER\n\n"+(to_send))
             update.effective_message.reply_text("Teleport Done !")
         except TelegramError:
             LOGGER.warning("Couldn't send to group %s", str(chat_id))
