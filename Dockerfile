@@ -63,4 +63,4 @@ WORKDIR /root/userbot/
 
 RUN pip install -r requirements.txt
 
-CMD ["python3.6","-m","haruka"]
+CMD ["python3","-m","haruka"]
