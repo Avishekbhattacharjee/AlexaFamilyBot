@@ -46,7 +46,7 @@ async def carbon_api(e):
     code = quote_plus(pcode)  # Converting to urlencoded
     await gg.edit("`Processing..\n25%`")
     if os.path.isfile("/root/haruka/bin/carbon.png"):
-       os.remove("/root/haurka/bin/carbon.png")
+       os.remove("/root/haruka/bin/carbon.png")
     url = CARBON.format(code=code, lang=CARBONLANG)
     chrome_options = Options()
     chrome_options.add_argument("--headless")
