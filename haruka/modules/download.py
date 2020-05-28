@@ -2,6 +2,7 @@ import aiohttp
 import asyncio
 import math
 import os
+from pySmartDL import SmartDL
 from haruka.events import register
 from haruka import TEMP_DOWNLOAD_DIRECTORY
 import time
