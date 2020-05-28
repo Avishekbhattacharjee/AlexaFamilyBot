@@ -6,66 +6,67 @@ from pySmartDL import SmartDL
 from haruka.events import register
 from haruka import TEMP_DOWNLOAD_DIRECTORY
 import time
-import datetime
+from datetime import datetime
 from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
+from io import BytesIO
+from time import sleep
+import psutil
+import subprocess
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+from pyDownload import Downloader
+from telethon.tl.types import DocumentAttributeVideo, MessageMediaPhoto
+import json
+import logging
+import re
+
+async def download_from_url(url: str, file_name: str) -> str:
+    """
+    Download files from URL
+    """
+    start = datetime.now()
+    downloader = Downloader(url=url)
+    if downloader.is_running:
+        sleep(1)
+    end = datetime.now()
+    duration = (end - start).seconds
+    os.rename(downloader.file_name, file_name)
+    status = f"Downloaded `{file_name}` in {duration} seconds."
+    return status
 
 
-@register(pattern="^/download")
-async def _(event):
-    if event.fwd_from:
+@register(pattern=r"^/download(?: |$)(.*)")
+async def download(target_file):
+    """ For .download command, download files to the userbot's server. """
+    if target_file.fwd_from:
         return
-    mone = await event.reply("Processing ...")
-    if event.reply_to_msg_id:
-        start = datetime.datetime.now()
-        reply_message = await event.get_reply_message()
-        try:
-            downloaded_file_name = await event.client.download_media(
-                reply_message,
-                TEMP_DOWNLOAD_DIRECTORY)
-        except Exception as e:  
-            await mone.edit(str(e))
-        else:
-            end = datetime.datetime.now()
-            ms = (end - start).seconds
-            await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
-            await asyncio.sleep(1800)
-            os.remove(downloaded_file_name)
+    loma = await target_file.reply("Processing ...")
+    input_str = target_file.pattern_match.group(1)
+    reply_msg = await target_file.get_reply_message()
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+    if reply_msg and reply_msg.media:
+        await loma.edit('`Downloading file from Telegram....`')
+        filen, buf = await download_from_tg(target_file)
+        if buf:
+            with open(filen, 'wb') as to_save:
+                to_save.write(buf.read())
+    elif "|" in input_str:
+        url, file_name = input_str.split("|")
+        url = url.strip()
+        file_name = file_name.strip()
+        await loma.edit(f'`Downloading {file_name}`')
+        status = await download_from_url(url, file_name)
+        await loma.edit(status)
     else:
-       await event.reply("Reply to a file/audio/video to download to my local server")
-
-
-@register(pattern="^/downloadurl (.*)")
-async def _(even):
-    if even.fwd_from:
-        return
-    input_str = even.pattern_match.group(1)
-    start = datetime.datetime.now()
-    url = input_str
-    file_name = os.path.basename(url)
-    to_download_directory =TEMP_DOWNLOAD_DIRECTORY
-    if "|" in input_str:    
-      url, file_name = input_str.split("|")
-      url = url.strip()
-      file_name = file_name.strip()
-      downloaded_file_name = os.path.join(to_download_directory, file_name)
-      downloader = SmartDL(url, downloaded_file_name, progress_bar=False)
-      downloader.start(blocking=False)
-      joba = await even.reply("Processing ...")
-      end = datetime.datetime.now()
-      ms = (end - start).seconds
-      if downloader.isSuccessful():
-         await joba.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
-         await asyncio.sleep(1800)
-         os.remove(downloaded_file_name)
-      else:
-         await joba.edit("Incorrect URL\n {}".format(input_str))
-    
+        await loma.edit("`Reply to a message to \
+            download to my local server.`\n")
 
 __help__ = """
 *NOTE : all stored files will be automatically purged after 30 minutes !*
 
  - /download: Type in reply to a telegram document/audio/video to download to the bots local server
- - /downloadurl <url> | <filename>: Download a file from urlband stores into the bot's local server
+ - /download <url> | <filename>: Download a file from urlband stores into the bot's local server
 """
 __mod_name__ = "Download"
