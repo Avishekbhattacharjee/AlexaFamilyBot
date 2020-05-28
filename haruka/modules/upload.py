@@ -119,10 +119,22 @@ async def _(event):
     else:
         await mone.edit("404: File Not Found")
 
+@register(pattern="^/lsdownloads")
+async def _(event):
+    if event.fwd_from:
+        return
+    os.chdir('/root/Downloads')
+    lmao = os.system(ls)
+    desi = print(lmao)
+    await event.reply(desi)
+    
+
 __help__ = """
 *IN CASE THE DOWNLOAD WAS A FILE/IMAGE*
  - /upload <file name>: uploads the downloaded file inside Alexa's cloud storage to telegram
-*IN CASE THE DOWNLOAD WAS A AUDIO/VIDEO
+*IN CASE THE DOWNLOAD WAS A AUDIO/VIDEO*
  - /uploadmedia <file name>: uploads the downloaded audio/video inside Alexa's cloud storage to telegram
+*TO LIST ALL THE DOWNLOADS(THIS INCLUDES EVERYONE'S FILES SO BETTER DON'T STORE PRIVATE FILES TO THE BOT STORAGE)
+ - /lsdownloads: lists all the downloaded files of AlexaFamilyBot
 """
 __mod_name__ = "Upload"
