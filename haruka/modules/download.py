@@ -32,7 +32,7 @@ async def _(event):
             ms = (end - start).seconds
             await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
     elif input_str:
-        start = datetime.now()
+        start = datetime.datetime.now()
         url = input_str
         file_name = os.path.basename(url)
         to_download_directory =TEMP_DOWNLOAD_DIRECTORY
