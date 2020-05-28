@@ -62,7 +62,7 @@ if ENV:
     DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN', "")
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
-    TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "/root/haruka/Downloads")
+    TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
     WORKERS = int(os.environ.get('WORKERS', 8))
     BAN_STICKER = os.environ.get('BAN_STICKER', 'CAADAgADEAgAAgi3GQL9YQyT_kBpQwI')
