@@ -69,7 +69,7 @@ async def download_from_tg(target_file) -> (str, BytesIO):
                              .split('.')[0].replace(' ', '-') + '.')
     end = datetime.now()
     duration = (end - start).seconds
-    await loma.edit(f"Downloaded `{filen}` in `{duration}` seconds.")
+    await target_file.reply(f"Downloaded `{filen}` in `{duration}` seconds.")
     return filen, buf
 
 
