@@ -67,9 +67,9 @@ async def carbon_api(e):
     }
     command_result = driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
-    # driver.find_element_by_xpath("//button[contains(text(),'4x')]").click()
-    # driver.find_element_by_xpath("//button[contains(text(),'PNG')]").click()
     await gg.edit("`Processing..\n75%`")
+    while not os.path.isfile("/root/haruka/haruka/carbon.png"):
+          time.sleep(1)
     await gg.edit("`Processing..\n100%`")
     file = '/root/haruka/bin/carbon.png'
     await e.edit("`Uploading..`")
@@ -78,8 +78,7 @@ async def carbon_api(e):
         file,
         caption="Made using [Carbon](https://carbon.now.sh/about/),\
         \na project by [Dawn Labs](https://dawnlabs.io/)",
-        force_document=True,
-        allow_cache=False)
+        force_document=True)
     os.remove('/root/haruka/bin/carbon.png')
     driver.quit()
 
