@@ -44,3 +44,4 @@ psutil
 hachoir
 tswift
 pySmartDL
+instantmusic
