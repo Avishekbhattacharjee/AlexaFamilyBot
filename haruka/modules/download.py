@@ -90,6 +90,8 @@ async def download(target_file):
         if buf:
             with open(filen, 'wb') as to_save:
                 to_save.write(buf.read())
+        await asyncio.sleep(1800)
+        os.remove(filen)
     elif "|" in input_str:
         url, file_name = input_str.split("|")
         url = url.strip()
@@ -97,6 +99,8 @@ async def download(target_file):
         await loma.edit(f'`Downloading {file_name}`')
         status = await download_from_url(url, file_name)
         await loma.edit(status)
+        await asyncio.sleep(1800)
+        os.remove(filen)
     else:
         await loma.edit("`Reply to a message to \
             download to my local server.`\n")
