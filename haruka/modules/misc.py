@@ -1573,7 +1573,7 @@ def lyrics(bot: Bot, update: Update, args):
 
 from haruka import WOLFRAM_ID
 
-@register(pattern=r'^/wolfram (.*)')
+@register(pattern=r'^/alexa (.*)')
 async def wolfram(wvent):
     """ Wolfram Alpha API """
     if WOLFRAM_ID is None:
