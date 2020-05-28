@@ -14,7 +14,6 @@ from telethon.tl.types import DocumentAttributeVideo
 async def _(event):
     if event.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
     mone = await event.reply("Processing ...")
     if event.reply_to_msg_id:
         start = datetime.datetime.now()
@@ -30,12 +29,16 @@ async def _(event):
             ms = (end - start).seconds
             await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
             ms = (end - start).seconds
-            await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+          await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+    else:
+       await event.reply("Reply to a file/audio/video to download to my local storage")
+
 
 @register(pattern="^/downloadurl (.*)")
 async def _(event):
     if event.fwd_from:
         return
+    input_str = event.pattern_match.group(1)
     start = datetime.datetime.now()
     url = input_str
     file_name = os.path.basename(url)
