@@ -10,10 +10,11 @@ from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
 
 
-@register(pattern="^/download")
+@register(pattern="^/download (.*)")
 async def _(event):
     if event.fwd_from:
         return
+    input_str = event.pattern_match.group(1)
     mone = await event.reply("Processing ...")
     if event.reply_to_msg_id:
         start = datetime.datetime.now()
@@ -52,9 +53,9 @@ async def _(event):
     else:
         await mone.edit("Reply to a message to download to my local server.")
 __help__ = """
-*NOTE : USERS IS YOUR RESPONSIBILITY TO REMOVE YOUR FILES AFTER USAGE SHOW THE BOT'S STORAGE DOES NOT GET FULL USE `term rm -r yourfilename` TO REMOVE YOUR FILE/AUDIO/VIDEO FROM THE LOCAL STORAGE*
+NOTE : USERS IS YOUR RESPONSIBILITY TO REMOVE YOUR FILES AFTER USAGE SHOW THE BOT'S STORAGE DOES NOT GET FULL USE `/term cd /Downloads && rm -r yourfilename` TO REMOVE YOUR FILE/AUDIO/VIDEO FROM THE LOCAL STORAGE
 
-*NOTE: IF YOU FIND THAT THE BOT ISN'T DOWNLOADING FILES IT MEANS THE BOT'S STORAGE IS FULL JUST TYPE `rm -rf /Downloads` TO FIX IT !*
+NOTE: IF YOU FIND THAT THE BOT ISN'T DOWNLOADING FILES IT MEANS THE BOT'S STORAGE IS FULL JUST TYPE `rm -rf /Downloads` TO FIX IT !
 
  - /download: Type in reply to a telegram document/audio/video to download to the bots local server
  - /download <url> | <filename>: Download a file from urlband stores into the bot's local server
