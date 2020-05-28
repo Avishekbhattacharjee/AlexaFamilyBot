@@ -124,7 +124,7 @@ async def _(event):
     if event.fwd_from:
         return
     os.chdir('/root/haruka/Downloads')
-    lmao = os.system(ls)
+    lmao = os.system('ls')
     desi = print(lmao)
     await event.reply(desi)
     
