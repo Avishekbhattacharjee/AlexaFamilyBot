@@ -8,7 +8,8 @@ from hachoir.parser import createParser
 from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
 from telethon.tl.types import DocumentAttributeAudio
-from haruka import register, TEMP_DOWNLOAD_DIRECTORY
+from haruka.events import register
+from haruka import TEMP_DOWNLOAD_DIRECTORY
 
 thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
