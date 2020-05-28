@@ -12,7 +12,8 @@ from asyncio import sleep
 from telethon.tl.types import DocumentAttributeAudio
 from collections import deque
 from googleapiclient.discovery import build
-from haruka import register, YOUTUBE_API_KEY
+from haruka.events import register
+from haruka import YOUTUBE_API_KEY
 from html import unescape
 import requests
 
