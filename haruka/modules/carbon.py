@@ -39,6 +39,7 @@ async def carbon_api(e):
     global CARBONLANG
     code = e.pattern_match.group(1)
     await gg.edit("`Processing..\n25%`")
+    os.chdir("/root/haruka/bin")
     if os.path.isfile("/root/haruka/bin/carbon.png"):
        os.remove("/root/haruka/bin/carbon.png")
     url = CARBON.format(code=code, lang=CARBONLANG)
@@ -69,7 +70,7 @@ async def carbon_api(e):
     driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
     await gg.edit("`Processing..\n75%`")
     while not os.path.isfile("/root/haruka/haruka/carbon.png"):
-          time.sleep(1)
+          await asyncio.sleep(1)
     await gg.edit("`Processing..\n100%`")
     file = '/root/haruka/bin/carbon.png'
     await e.edit("`Uploading..`")
@@ -83,7 +84,7 @@ async def carbon_api(e):
     driver.quit()
 
 __help__ = """
- - /carbon <text>: Beautifies your text and enwraps inside a terminal image !
+ - /carbon <text>: Beautifies your text and enwraps inside a terminal image [ENGLISH ONLY]
 """
 
 __mod_name__ = "Carbon"
