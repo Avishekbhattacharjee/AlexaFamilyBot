@@ -54,9 +54,7 @@ async def _(event):
          await joba.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
       else:
          await joba.edit("Incorrect URL\n {}".format(input_str))
-    else:
-        await mone.edit("Reply to a message to download to my local server.")
-
+    
 
 __help__ = """
 NOTE : USERS IS YOUR RESPONSIBILITY TO REMOVE YOUR FILES AFTER USAGE SHOW THE BOT'S STORAGE DOES NOT GET FULL USE `/term cd /Downloads && rm -r yourfilename` TO REMOVE YOUR FILE/AUDIO/VIDEO FROM THE LOCAL STORAGE
