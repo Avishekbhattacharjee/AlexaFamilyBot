@@ -41,19 +41,19 @@ async def _(event):
     file_name = os.path.basename(url)
     to_download_directory =TEMP_DOWNLOAD_DIRECTORY
     if "|" in input_str:    
-     url, file_name = input_str.split("|")
-    url = url.strip()
-    file_name = file_name.strip()
-    downloaded_file_name = os.path.join(to_download_directory, file_name)
-    downloader = SmartDL(url, downloaded_file_name, progress_bar=False)
-    downloader.start(blocking=False)
-    joba = await event.reply("Processing ...")
-    end = datetime.datetime.now()
-    ms = (end - start).seconds
-    if downloader.isSuccessful():
-       await joba.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
-    else:
-       await joba.edit("Incorrect URL\n {}".format(input_str))
+      url, file_name = input_str.split("|")
+      url = url.strip()
+      file_name = file_name.strip()
+      downloaded_file_name = os.path.join(to_download_directory, file_name)
+      downloader = SmartDL(url, downloaded_file_name, progress_bar=False)
+      downloader.start(blocking=False)
+      joba = await event.reply("Processing ...")
+      end = datetime.datetime.now()
+      ms = (end - start).seconds
+      if downloader.isSuccessful():
+         await joba.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+      else:
+         await joba.edit("Incorrect URL\n {}".format(input_str))
     else:
         await mone.edit("Reply to a message to download to my local server.")
 
