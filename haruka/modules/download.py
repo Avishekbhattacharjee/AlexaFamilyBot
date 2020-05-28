@@ -29,7 +29,7 @@ async def _(event):
             ms = (end - start).seconds
             await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
             ms = (end - start).seconds
-          await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+            await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
     else:
        await event.reply("Reply to a file/audio/video to download to my local storage")
 
@@ -60,8 +60,6 @@ async def _(event):
     
 
 __help__ = """
-NOTE: IF YOU FIND THAT THE BOT ISN'T DOWNLOADING FILES IT MEANS THE BOT'S STORAGE IS FULL JUST TYPE `rm -rf /Downloads/*` TO FIX IT !
-
  - /download: Type in reply to a telegram document/audio/video to download to the bots local server
  - /downloadurl <url> | <filename>: Download a file from urlband stores into the bot's local server
 """
