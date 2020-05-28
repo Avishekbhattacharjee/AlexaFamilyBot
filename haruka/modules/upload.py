@@ -123,8 +123,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    os.chdir('/root/haruka/Downloads')
-    lmao = os.system('ls')
+    lmao = os.listdir('Downloads')
     desi = print(lmao)
     await event.reply(desi)
     
@@ -134,6 +133,6 @@ __help__ = """
 
 *TO LIST ALL THE DOWNLOADS(THIS INCLUDES EVERYONE'S FILES SO BETTER DON'T STORE PRIVATE FILES TO THE BOT STORAGE):*
 
- - /lsdownloads: lists all the downloaded files of AlexaFamilyBot
+ - /lsdownloads: lists all the downloaded files of @AlexaFamilyBot
 """
 __mod_name__ = "Upload"
