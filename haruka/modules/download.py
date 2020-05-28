@@ -35,6 +35,44 @@ async def download_from_url(url: str, file_name: str) -> str:
     status = f"Downloaded `{file_name}` in {duration} seconds."
     return status
 
+async def download_from_tg(target_file) -> (str, BytesIO):
+    """
+    Download files from Telegram
+    """
+    async def dl_file(buffer: BytesIO) -> BytesIO:
+        buffer = await target_file.client.download_media(
+            reply_msg,
+            buffer)
+        return buffer
+    start = datetime.now()
+    buf = BytesIO()
+    reply_msg = await target_file.get_reply_message()
+    avail_mem = psutil.virtual_memory().available + psutil.swap_memory().free
+    try:
+        if reply_msg.media.document.size >= avail_mem:  # unlikely to happen but baalaji crai
+            filen = await target_file.client.download_media(
+                reply_msg)
+        else:
+            buf = await dl_file(buf)
+            filen = reply_msg.media.document.attributes[0].file_name
+    except AttributeError:
+        buf = await dl_file(buf)
+        try:
+            filen = reply_msg.media.document.attributes[0].file_name
+        except AttributeError:
+            if isinstance(reply_msg.media, MessageMediaPhoto):
+                filen = 'photo-' + str(datetime.today())\
+                    .split('.')[0].replace(' ', '-') + '.jpg'
+            else:
+                filen = reply_msg.media.document.mime_type\
+                    .replace('/', '-' + str(datetime.now())
+                             .split('.')[0].replace(' ', '-') + '.')
+    end = datetime.now()
+    duration = (end - start).seconds
+    await loma.edit(f"Downloaded `{filen}` in `{duration}` seconds.")
+    return filen, buf
+
+
 
 @register(pattern=r"^/download(?: |$)(.*)")
 async def download(target_file):
