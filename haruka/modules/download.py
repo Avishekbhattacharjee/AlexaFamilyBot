@@ -85,7 +85,7 @@ async def download(target_file):
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     if reply_msg and reply_msg.media:
-        await loma.edit('`Downloading file from Telegram....`')
+        await loma.edit("Downloading file from Telegram....")
         filen, buf = await download_from_tg(target_file)
         if buf:
             with open(filen, 'wb') as to_save:
@@ -104,7 +104,8 @@ async def download(target_file):
 __help__ = """
 *NOTE : all stored files will be automatically purged after 30 minutes !*
 
+FOR DOWNLOADING FILES FROM URL YOU CAN USE TERMINAL USE `/help Terminal` FOR HELP !
+
  - /download: Type in reply to a telegram document/audio/video to download to the bots local server
- - /download <url> | <filename>: Download a file from urlband stores into the bot's local server
 """
 __mod_name__ = "Download"
