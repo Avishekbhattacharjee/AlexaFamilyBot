@@ -2,7 +2,8 @@ import aiohttp
 import asyncio
 import math
 import os
-from haruka import register, TEMP_DOWNLOAD_DIRECTORY
+from haruka.events import register
+from haruka import TEMP_DOWNLOAD_DIRECTORY
 import time
 import datetime
 from telethon import events
