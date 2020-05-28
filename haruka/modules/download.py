@@ -64,7 +64,7 @@ async def _(event):
     
 
 __help__ = """
-*NOTE : all stored files will be automatically purged after 30 minutes !
+*NOTE : all stored files will be automatically purged after 30 minutes !*
  - /download: Type in reply to a telegram document/audio/video to download to the bots local server*
 
  - /downloadurl <url> | <filename>: Download a file from urlband stores into the bot's local server
