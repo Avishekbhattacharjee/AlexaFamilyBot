@@ -60,9 +60,7 @@ async def _(event):
     
 
 __help__ = """
-NOTE : USERS IS YOUR RESPONSIBILITY TO REMOVE YOUR FILES AFTER USAGE SHOW THE BOT'S STORAGE DOES NOT GET FULL USE `/term cd /Downloads && rm -r yourfilename` TO REMOVE YOUR FILE/AUDIO/VIDEO FROM THE LOCAL STORAGE
-
-NOTE: IF YOU FIND THAT THE BOT ISN'T DOWNLOADING FILES IT MEANS THE BOT'S STORAGE IS FULL JUST TYPE `rm -rf /Downloads` TO FIX IT !
+NOTE: IF YOU FIND THAT THE BOT ISN'T DOWNLOADING FILES IT MEANS THE BOT'S STORAGE IS FULL JUST TYPE `rm -rf /Downloads/*` TO FIX IT !
 
  - /download: Type in reply to a telegram document/audio/video to download to the bots local server
  - /downloadurl <url> | <filename>: Download a file from urlband stores into the bot's local server
