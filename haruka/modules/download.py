@@ -33,7 +33,7 @@ async def _(event):
             await asyncio.sleep(1800)
             os.system('rm -rf /Downloads/*")
     else:
-       await event.reply("Reply to a file/audio/video to download to my local storage")
+       await event.reply("Reply to a file/audio/video to download to my local server")
 
 
 @register(pattern="^/downloadurl (.*)")
