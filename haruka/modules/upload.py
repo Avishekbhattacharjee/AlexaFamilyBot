@@ -14,6 +14,19 @@ from haruka import TEMP_DOWNLOAD_DIRECTORY
 thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
 
+def get_video_thumb(file, output=None, width=90):
+    metadata = extractMetadata(createParser(file))
+    p = subprocess.Popen([
+        'ffmpeg', '-i', file,
+        '-ss', str(int((0, metadata.get('duration').seconds)[metadata.has('duration')] / 2)),
+        '-filter:v', 'scale={}:-1'.format(width),
+        '-vframes', '1',
+        output,
+    ], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    if not p.returncode and os.path.lexists(file):
+        return output
+
+
 @register(pattern="^/upload (.*)")
 async def _(event):
     if event.fwd_from:
@@ -42,25 +55,12 @@ async def _(event):
         await mone.edit("File Not Found")
 
 
-def get_video_thumb(file, output=None, width=90):
-    metadata = extractMetadata(createParser(file))
-    p = subprocess.Popen([
-        'ffmpeg', '-i', file,
-        '-ss', str(int((0, metadata.get('duration').seconds)[metadata.has('duration')] / 2)),
-        '-filter:v', 'scale={}:-1'.format(width),
-        '-vframes', '1',
-        output,
-    ], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    if not p.returncode and os.path.lexists(file):
-        return output
-
-
-@register(pattern="^/uploadmedia (.*)")
-async def _(event):
-    if event.fwd_from:
+@register(pattern="^/uploadurl (.*)")
+async def _(even):
+    if even.fwd_from:
         return
-    mone = await event.reply("Processing ...")
-    input_str = event.pattern_match.group(1)
+    mone = await even.reply("Processing ...")
+    input_str = even.pattern_match.group(1)
     thumb = None
     file_name = input_str
     if os.path.exists(file_name):
@@ -93,14 +93,14 @@ async def _(event):
         # Bad Request: VIDEO_CONTENT_TYPE_INVALID
         c_time = time.time()
         try:
-            await event.client.send_file(
-                event.chat_id,
+            await even.client.send_file(
+                even.chat_id,
                 file_name,
                 thumb=thumb,
                 caption=input_str,
                 force_document=False,
                 allow_cache=False,
-                reply_to=event.message.id,
+                reply_to=even.message.id,
                 attributes=[
                     DocumentAttributeVideo(
                         duration=duration,
@@ -120,7 +120,14 @@ async def _(event):
         await mone.edit("404: File Not Found")
     
 
+
+
 __help__ = """
+*NOTE: as soon as you upload the the stuff they are all removed from the server !*
+
+*IF THE DOWNLOAD IS FROM TELEGRAM ITSELF*
  - /upload <file name>: uploads the downloaded file inside Alexa's cloud storage to telegram
+*IF THE DOWNLOAD IS FROM A URL*
+ - / uploadurl <filename>
 """
 __mod_name__ = "Upload"
