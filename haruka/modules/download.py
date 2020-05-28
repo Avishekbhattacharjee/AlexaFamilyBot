@@ -30,6 +30,8 @@ async def _(event):
             await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
             ms = (end - start).seconds
             await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+            await asyncio.sleep(1800)
+            os.system('rm -rf /Downloads/*")
     else:
        await event.reply("Reply to a file/audio/video to download to my local storage")
 
@@ -55,6 +57,8 @@ async def _(event):
       ms = (end - start).seconds
       if downloader.isSuccessful():
          await joba.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+         await asyncio.sleep(1800)
+         os.system('rm -rf /Downloads/*")
       else:
          await joba.edit("Incorrect URL\n {}".format(input_str))
     
