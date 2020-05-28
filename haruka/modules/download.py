@@ -36,10 +36,10 @@ async def _(event):
 
 
 @register(pattern="^/downloadurl (.*)")
-async def _(event):
-    if event.fwd_from:
+async def _(even):
+    if even.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
+    input_str = even.pattern_match.group(1)
     start = datetime.datetime.now()
     url = input_str
     file_name = os.path.basename(url)
@@ -51,7 +51,7 @@ async def _(event):
       downloaded_file_name = os.path.join(to_download_directory, file_name)
       downloader = SmartDL(url, downloaded_file_name, progress_bar=False)
       downloader.start(blocking=False)
-      joba = await event.reply("Processing ...")
+      joba = await even.reply("Processing ...")
       end = datetime.datetime.now()
       ms = (end - start).seconds
       if downloader.isSuccessful():
