@@ -65,6 +65,7 @@ if ENV:
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
     WORKERS = int(os.environ.get('WORKERS', 8))
+    WOLFRAM_ID = os.environ.get('WOLFRAM_ID', None)
     BAN_STICKER = os.environ.get('BAN_STICKER', 'CAADAgADEAgAAgi3GQL9YQyT_kBpQwI')
     ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
     SUDO_USERS.add(OWNER_ID)
