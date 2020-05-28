@@ -69,7 +69,7 @@ async def carbon_api(e):
     command_result = driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
     await gg.edit("`Processing..\n75%`")
-    while not os.path.isfile("/root/haruka/haruka/carbon.png"):
+    while not os.path.isfile("/root/haruka/bin/carbon.png"):
           await asyncio.sleep(1)
     await gg.edit("`Processing..\n100%`")
     file = '/root/haruka/bin/carbon.png'
