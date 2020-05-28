@@ -123,7 +123,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    os.chdir('/root/Downloads')
+    os.chdir('/root/haruka/Downloads')
     lmao = os.system(ls)
     desi = print(lmao)
     await event.reply(desi)
@@ -132,7 +132,7 @@ async def _(event):
 __help__ = """
  - /upload <file name>: uploads the downloaded file inside Alexa's cloud storage to telegram
 
-*TO LIST ALL THE DOWNLOADS(THIS INCLUDES EVERYONE'S FILES SO BETTER DON'T STORE PRIVATE FILES TO THE BOT STORAGE):
+*TO LIST ALL THE DOWNLOADS(THIS INCLUDES EVERYONE'S FILES SO BETTER DON'T STORE PRIVATE FILES TO THE BOT STORAGE):*
 
  - /lsdownloads: lists all the downloaded files of AlexaFamilyBot
 """
