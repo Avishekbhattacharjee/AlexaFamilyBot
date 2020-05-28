@@ -23,7 +23,8 @@ async def _(event):
         reply_to_id = event.reply_to_msg_id
     await event.reply("ok finding the song")
     os.system("instantmusic -p -q -s "+cmd)
-    os.system("for f in *.webm; do      mv -- '$f' '${f%.webm}.mp3'; done")
+    bro = "for f in *.webm; do      mv -- "$f" "${f%.webm}.mp3"; done"
+    os.system(bro)
     l = glob.glob("*.mp3")
     loa = l[0]
     await event.reply("sending the song")
