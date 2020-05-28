@@ -2,7 +2,6 @@ import asyncio
 import os
 import subprocess
 import time
-import datetime
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from telethon import events
@@ -10,124 +9,112 @@ from telethon.tl.types import DocumentAttributeVideo
 from telethon.tl.types import DocumentAttributeAudio
 from haruka.events import register
 from haruka import TEMP_DOWNLOAD_DIRECTORY
+import aiohttp
+import asyncio
+import math
+import os
+from pySmartDL import SmartDL
+from haruka.events import register
+from haruka import TEMP_DOWNLOAD_DIRECTORY
+import time
+from datetime import datetime
+from telethon import events
+from telethon.tl.types import DocumentAttributeVideo
+from io import BytesIO
+from time import sleep
+import psutil
+import subprocess
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+from pyDownload import Downloader
+from telethon.tl.types import DocumentAttributeVideo, MessageMediaPhoto
+import json
+import logging
+import re
 
-thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+@register(pattern=r"^/upload (.*)")
+async def upload(u_event):
+    """ For .upload command, allows you to \
+    upload a file from the userbot's server """
+    if u_event.fwd_from:
+        return
+    if u_event.is_channel and not u_event.is_group:
+        await u_event.reply("Uploading isn't permitted on channels")
+        return
+    lmao = await u_event.reply("Processing ...")
+    input_str = u_event.pattern_match.group(1)
+    if os.path.exists(input_str):
+        start = datetime.now()
+        await u_event.client.send_file(
+            u_event.chat_id,
+            input_str,
+            force_document=True,
+            allow_cache=False,
+            reply_to=u_event.message.id)
+        end = datetime.now()
+        duration = (end - start).seconds
+        await lmao.edit("Uploaded in {} seconds.".format(duration))
+    else:
+        await lmao.edit("404: File Not Found")
 
 
 def get_video_thumb(file, output=None, width=90):
+    """ Get video thhumbnail """
     metadata = extractMetadata(createParser(file))
-    p = subprocess.Popen([
-        'ffmpeg', '-i', file,
-        '-ss', str(int((0, metadata.get('duration').seconds)[metadata.has('duration')] / 2)),
-        '-filter:v', 'scale={}:-1'.format(width),
-        '-vframes', '1',
-        output,
-    ], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    if not p.returncode and os.path.lexists(file):
+    popen = subprocess.Popen(
+        [
+            "ffmpeg",
+            "-i",
+            file,
+            "-ss",
+            str(
+                int((0, metadata.get("duration").seconds
+                     )[metadata.has("duration")] / 2)),
+            "-filter:v",
+            "scale={}:-1".format(width),
+            "-vframes",
+            "1",
+            output,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+    )
+    if not popen.returncode and os.path.lexists(file):
         return output
+    return None
 
 
-@register(pattern="^/upload (.*)")
-async def _(event):
-    if event.fwd_from:
-        return
-    mone = await event.reply("Processing ...")
-    input_str = event.pattern_match.group(1)
-    thumb = None
-    if os.path.exists(thumb_image_path):
-        thumb = thumb_image_path
-    if os.path.exists(input_str):
-        start = datetime.datetime.now()
-        c_time = time.time()
-        await event.client.send_file(
-            event.chat_id,
-            input_str,
-            force_document=True,
-            supports_streaming=False,
-            allow_cache=False,
-            reply_to=event.message.id,
-            thumb=thumb)
-        end = datetime.datetime.now()
-        os.remove(input_str)
-        ms = (end - start).seconds
-        await mone.edit("Uploaded in {} seconds.".format(ms))
+def extract_w_h(file):
+    """ Get width and height of media """
+    command_to_run = [
+        "ffprobe",
+        "-v",
+        "quiet",
+        "-print_format",
+        "json",
+        "-show_format",
+        "-show_streams",
+        file,
+    ]
+    # https://stackoverflow.com/a/11236144/4723940
+    try:
+        t_response = subprocess.check_output(command_to_run,
+                                             stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as exc:
+        LOGS.warning(exc)
     else:
-        await mone.edit("File Not Found")
+        x_reponse = t_response.decode("UTF-8")
+        response_json = json.loads(x_reponse)
+        width = int(response_json["streams"][0]["width"])
+        height = int(response_json["streams"][0]["height"])
+        return width, height
 
-
-@register(pattern="^/uploadurl (.*)")
-async def _(even):
-    if even.fwd_from:
-        return
-    mone = await even.reply("Processing ...")
-    input_str = even.pattern_match.group(1)
-    thumb = None
-    file_name = input_str
-    if os.path.exists(file_name):
-        if not file_name.endswith((".mkv", ".mp4", ".mp3", ".flac")):
-            await mone.edit(
-                "Sorry. But I don't think {} is a streamable file.".format(file_name) + \
-                " Please try again.\n" + \
-                "**Supported Formats**: MKV, MP4, MP3, FLAC"
-            )
-            return False
-        if os.path.exists(thumb_image_path):
-            thumb = thumb_image_path
-        else:
-            thumb = get_video_thumb(file_name, thumb_image_path)
-        start = datetime.datetime.now()
-        metadata = extractMetadata(createParser(file_name))
-        duration = 0
-        width = 0
-        height = 0
-        if metadata.has("duration"):
-            duration = metadata.get('duration').seconds
-        if os.path.exists(thumb_image_path):
-            metadata = extractMetadata(createParser(thumb_image_path))
-            if metadata.has("width"):
-                width = metadata.get("width")
-            if metadata.has("height"):
-                height = metadata.get("height")
-        # Telegram only works with MP4 files
-        # this is good, since with MKV files sent as streamable Telegram responds,
-        # Bad Request: VIDEO_CONTENT_TYPE_INVALID
-        c_time = time.time()
-        try:
-            await even.client.send_file(
-                even.chat_id,
-                file_name,
-                thumb=thumb,
-                caption=input_str,
-                force_document=False,
-                allow_cache=False,
-                reply_to=even.message.id,
-                attributes=[
-                    DocumentAttributeVideo(
-                        duration=duration,
-                        w=width,
-                        h=height,
-                        round_message=False,
-                        supports_streaming=True)
-                ])
-        except Exception as e:
-            await mone.edit(str(e))
-        else:
-            end = datetime.datetime.now()
-            os.remove(input_str)
-            ms = (end - start).seconds
-            await mone.edit("Uploaded in {} seconds.".format(ms))
-    else:
-        await mone.edit("404: File Not Found")
-    
 
 
 
 __help__ = """
 *NOTE: as soon as you upload the the stuff they are all removed from the server !*
 
-*IF THE DOWNLOAD IS FROM TELEGRAM ITSELF*
  - /upload <file name>: uploads the downloaded file inside Alexa's cloud storage to telegram
-*IF THE DOWNLOAD IS FROM A URL*
- - / uploadurl <filename>
 """
 __mod_name__ = "Upload"
