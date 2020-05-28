@@ -212,16 +212,15 @@ or feature requests you might have :)
 If you enjoying using me and/or would like to help me survive in the wild, hit /donate to help fund/upgrade my VPS!
 """,
 
-    "send-help": """Hello My name is *Alexa* 👩‍🔧
+    "send-help": """Hello my name is *Alexa* 👩‍🔧
 
-I'm here to help you manage your groups 🤖
+I'mma group management bot 🤖
 
-Click Help button to get my commands list 😊
+I have all the possible commands that you need to control your group 😊
 
-Found any bug in the bot ? Feel free to share in our Support Group 🌍
+Take me to your group, and start giving me commands I am always at your service ♥️
 
-`#include <std/disclaimer.h>`
-[https://telegra.ph/ALEXA](https://telegra.ph/ALEXA-05-19)
+[#include <std/disclaimer.h>](https://telegra.ph/ALEXA-05-19)
    """,
 
     "send-group-settings": """Hi there! There are quite a few settings for *{}* - go ahead and pick what
