@@ -1570,8 +1570,25 @@ def lyrics(bot: Bot, update: Update, args):
                 caption="Message length exceeded max limit! Sending as a text file.")
         else:
             msg.reply_text(reply)
-  
 
+from haruka import WOLFRAM_ID
+
+@register(pattern=r'^/wolfram (.*)')
+async def wolfram(wvent):
+    """ Wolfram Alpha API """
+    if WOLFRAM_ID is None:
+        await wvent.edit(
+            'Please set your WOLFRAM_ID first !\n'
+            'Get your API KEY from [here](https://'
+            'products.wolframalpha.com/api/)',
+            parse_mode='Markdown')
+        return
+    i = wvent.pattern_match.group(1)
+    appid = WOLFRAM_ID
+    server = f'https://api.wolframalpha.com/v1/spoken?appid={appid}&i={i}'
+    res = get(server)
+    await wvent.reply(f'**{i}**\n\n' + res.text, parse_mode='Markdown')
+   
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
