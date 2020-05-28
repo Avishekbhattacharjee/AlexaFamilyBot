@@ -42,29 +42,13 @@ async def _(event):
         downloaded_file_name = os.path.join(to_download_directory, file_name)
         downloader = SmartDL(url, downloaded_file_name, progress_bar=False)
         downloader.start(blocking=False)
-        c_time = time.time()
-        while not downloader.isFinished():
-            total_length = downloader.filesize if downloader.filesize else None
-            downloaded = downloader.get_dl_size()
-            display_message = ""
-            now = time.time()
-            diff = now - c_time
-            percentage = downloader.get_progress() * 100
-            speed = downloader.get_speed()
-            elapsed_time = round(diff) * 1000
-            try:
-                current_message = f"trying to download\nURL: {url}\nFile Name: {file_name}\n{progress_str}\n{humanbytes(downloaded)} of {humanbytes(total_length)}\nETA: {estimated_total_time}"
-                if round(diff % 10.00) == 0 and current_message != display_message:
-                    await mone.edit(current_message)
-                    display_message = current_message
-            except Exception as e:
-                logger.info(str(e))
+        joba = await event.reply("Processing ...")
         end = datetime.datetime.now()
         ms = (end - start).seconds
         if downloader.isSuccessful():
-            await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+            await joba.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
         else:
-            await mone.edit("Incorrect URL\n {}".format(input_str))
+            await joba.edit("Incorrect URL\n {}".format(input_str))
     else:
         await mone.edit("Reply to a message to download to my local server.")
 __help__ = """
