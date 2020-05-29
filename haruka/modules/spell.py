@@ -47,8 +47,6 @@ def translate(bot: Bot, update: Update):
         update.effective_message.reply_text(curr_string)
 
 __help__ = """
-Thanks to @Denzid for this module
-
  - /spell: while replying to a message, will reply with a grammar corrected version(ENGLISH ONLY)
 """
 
