@@ -45,3 +45,4 @@ hachoir
 tswift
 pySmartDL
 instantmusic
+pyYify
