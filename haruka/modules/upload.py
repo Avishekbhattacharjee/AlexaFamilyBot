@@ -32,30 +32,36 @@ import json
 import logging
 import re
 
-@register(pattern=r"^/upload (.*)")
-async def upload(u_event):
-    """ For .upload command, allows you to \
-    upload a file from the userbot's server """
-    if u_event.fwd_from:
+thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+
+
+@register(pattern="^/upload (.*)")
+async def _(event):
+    if event.fwd_from:
         return
-    if u_event.is_channel and not u_event.is_group:
-        await u_event.reply("Uploading isn't permitted on channels")
-        return
-    lmao = await u_event.reply("Processing ...")
-    input_str = u_event.pattern_match.group(1)
+    mone = await event.reply("Processing ...")
+    input_str = event.pattern_match.group(1)
+    thumb = None
+    if os.path.exists(thumb_image_path):
+        thumb = thumb_image_path
     if os.path.exists(input_str):
         start = datetime.now()
-        await u_event.client.send_file(
-            u_event.chat_id,
+        c_time = time.time()
+        await event.client.send_file(
+            event.chat_id,
             input_str,
             force_document=True,
+            supports_streaming=False,
             allow_cache=False,
-            reply_to=u_event.message.id)
+            reply_to=event.message.id,
+            thumb=thumb)
         end = datetime.now()
-        duration = (end - start).seconds
-        await lmao.edit("Uploaded in {} seconds.".format(duration))
+        os.remove(input_str)
+        ms = (end - start).seconds
+        await mone.edit("Uploaded in {} seconds.".format(ms))
     else:
-        await lmao.edit("404: File Not Found")
+        await mone.edit("File Not Found")
+
 
 
 __help__ = """
