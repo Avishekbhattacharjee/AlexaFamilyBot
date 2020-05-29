@@ -21,89 +21,30 @@ import json
 import logging
 import re
 
-async def download_from_url(url: str, file_name: str) -> str:
-    """
-    Download files from URL
-    """
-    start = datetime.now()
-    downloader = Downloader(url=url)
-    if downloader.is_running:
-        sleep(1)
-    end = datetime.now()
-    duration = (end - start).seconds
-    os.rename(downloader.file_name, file_name)
-    status = f"Downloaded `{file_name}` in {duration} seconds."
-    return status
-
-async def download_from_tg(target_file) -> (str, BytesIO):
-    """
-    Download files from Telegram
-    """
-    async def dl_file(buffer: BytesIO) -> BytesIO:
-        buffer = await target_file.client.download_media(
-            reply_msg,
-            buffer)
-        return buffer
-    start = datetime.now()
-    buf = BytesIO()
-    reply_msg = await target_file.get_reply_message()
-    avail_mem = psutil.virtual_memory().available + psutil.swap_memory().free
-    try:
-        if reply_msg.media.document.size >= avail_mem:  # unlikely to happen but baalaji crai
-            filen = await target_file.client.download_media(
-                reply_msg)
-        else:
-            buf = await dl_file(buf)
-            filen = reply_msg.media.document.attributes[0].file_name
-    except AttributeError:
-        buf = await dl_file(buf)
-        try:
-            filen = reply_msg.media.document.attributes[0].file_name
-        except AttributeError:
-            if isinstance(reply_msg.media, MessageMediaPhoto):
-                filen = 'photo-' + str(datetime.today())\
-                    .split('.')[0].replace(' ', '-') + '.jpg'
-            else:
-                filen = reply_msg.media.document.mime_type\
-                    .replace('/', '-' + str(datetime.now())
-                             .split('.')[0].replace(' ', '-') + '.')
-    end = datetime.now()
-    duration = (end - start).seconds
-    await target_file.reply(f"Downloaded `{filen}` in `{duration}` seconds.")
-    return filen, buf
-
-
-
-@register(pattern=r"^/download(?: |$)(.*)")
-async def download(target_file):
-    """ For .download command, download files to the userbot's server. """
-    if target_file.fwd_from:
+@register(pattern="^/download")
+async def _(event):
+    if event.fwd_from:
         return
-    loma = await target_file.reply("Processing ...")
-    input_str = target_file.pattern_match.group(1)
-    reply_msg = await target_file.get_reply_message()
+    mone = await event.reply("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-    if reply_msg and reply_msg.media:
-        await loma.edit("Downloading file from Telegram....")
-        filen, buf = await download_from_tg(target_file)
-        if buf:
-            with open(filen, 'wb') as to_save:
-                to_save.write(buf.read())
-        await asyncio.sleep(1800)
-        os.remove(filen)
-    elif "|" in input_str:
-        url, file_name = input_str.split("|")
-        url = url.strip()
-        file_name = file_name.strip()
-        await loma.edit(f'`Downloading {file_name}`')
-        status = await download_from_url(url, file_name)
-        await loma.edit(status)
-        await asyncio.sleep(1800)
-        os.remove(filen)
+    if event.reply_to_msg_id:
+        start = datetime.now()
+        reply_message = await event.get_reply_message()
+        try:
+            c_time = time.time()
+            downloaded_file_name = await event.client.download_media(
+                reply_message,
+                TEMP_DOWNLOAD_DIRECTORY)
+        except Exception as e: 
+            await mone.edit(str(e))
+        else:
+            end = datetime.now()
+            ms = (end - start).seconds
+            await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
     else:
-        await loma.edit("`Reply to a message to \
-            download to my local server.`\n")
+        await mone.edit("Reply to a message to download to my local server.")
+
 
 __help__ = """
 *NOTE : all stored files will be automatically purged after 30 minutes !*
