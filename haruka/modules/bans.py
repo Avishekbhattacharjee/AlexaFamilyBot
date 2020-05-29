@@ -388,9 +388,10 @@ Available commands are:
  - /unmute: unmutes a user from your chat.
  - /kick: kicks a user from your chat.
  - /kickme: users who use this, kick themselves!
+ - /unbanall: unbans everyone in the chat
 
- An example of temporarily muting someone:
-/tmute @username 2h; this mutes a user for 2 hours.
+An example of temporarily muting someone:
+ - /tmute @username 2h; this mutes a user for 2 hours.
 """
 
 __mod_name__ = "Bans"
