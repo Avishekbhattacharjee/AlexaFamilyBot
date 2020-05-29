@@ -1604,7 +1604,7 @@ import asyncio
 from telegraph import Telegraph
 
 telegraph = Telegraph()
-telegraph.create_account(short_name='{}'.format(borg.me.username))
+telegraph.create_account(short_name='Alexa')
 
 
 @register(pattern="^/torrent (.*)")
