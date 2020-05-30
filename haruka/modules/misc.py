@@ -1590,20 +1590,17 @@ async def wolfram(wvent):
     await wvent.reply(f'**{i}**\n\n' + res.text, parse_mode='Markdown')
 
 
-from pyYify import yify
-
 @register(pattern="^/torrent (.*)")
 async def tor_search(event):
       if event.fwd_from:
          return 
       input = event.pattern_match.group(1)
-      node = f"'{input}'"
-      movies_list = yify.search_movies(node)
-      movie1 = movies_list[0]
-      torrent1 = movie1.torrents[0]
-      oook = torrent1.magnet
-      fuckoff = f"`{oook}`"
-      await event.reply("**Magnet Link:** "+fuckoff)
+      node = f'"{input}"'
+      onk = f"torvend search -b {node}"
+      minato = os.system(onk)
+      csgo = f"`{minato}`"
+      await event.reply("**Magnet Link:** "+csgo)
+
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
