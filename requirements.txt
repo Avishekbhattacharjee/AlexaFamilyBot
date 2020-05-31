@@ -45,4 +45,4 @@ hachoir
 tswift
 pySmartDL
 instantmusic
-torvend
+git+https://github.com/rachmadaniHaryono/we-get
