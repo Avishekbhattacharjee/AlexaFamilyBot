@@ -39,7 +39,7 @@ import os
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 import pytz
-from io import BytesIO
+from io import BytesIO 
 from time import sleep
 from typing import Optional, List
 from telegram import TelegramError, Chat, Message
@@ -155,7 +155,6 @@ import pyowm
 from pyowm import *
 from telegram import Message, Chat, Update, Bot
 from telegram.ext import run_async
-from pyowm.exceptions import api_response_error	
 from haruka import dispatcher, updater
 from haruka.modules.disable import DisableAbleCommandHandler
 from telegram import ChatAction
