@@ -152,7 +152,7 @@ from gtts import gTTS, gTTSError
 import requests
 from requests import get
 import pyowm
-from pyowm import timeutils, exceptions
+from pyowm import *
 from telegram import Message, Chat, Update, Bot
 from telegram.ext import run_async
 from pyowm.exceptions import api_response_error	
