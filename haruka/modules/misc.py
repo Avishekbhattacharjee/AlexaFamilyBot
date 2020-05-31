@@ -1596,7 +1596,7 @@ async def tor_search(event):
          return 
       input = event.pattern_match.group(1)
       node = f'"{input}"'
-      onk = f"torvend search -b {node}"
+      onk = f"we-get --search {node} --links"
       minato = os.system(onk)
       csgo = f"`{minato}`"
       await event.reply("**Magnet Link:** "+csgo)
