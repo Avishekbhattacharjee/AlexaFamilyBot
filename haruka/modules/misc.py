@@ -1588,6 +1588,7 @@ async def wolfram(wvent):
     res = get(server)
     await wvent.reply(f'**{i}**\n\n' + res.text, parse_mode='Markdown')
 
+import subprocess
 
 @register(pattern="^/torrent (.*)")
 async def tor_search(event):
@@ -1595,9 +1596,8 @@ async def tor_search(event):
          return 
       input = event.pattern_match.group(1)
       node = f'"{input}"'
-      onk = f"we-get --search {node} --links -n 1"
-      minato = os.system(onk)
-      nunku = f"**Magnet Link: **`{minato}`"
+      output = subprocess.check_output(f"we-get --search {node} --links -n 1", shell=True)
+      nunku = f"**Magnet Link: **`{output}`"
       await event.reply(nunku)
 
 
