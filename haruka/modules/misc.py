@@ -1597,7 +1597,8 @@ async def tor_search(event):
       node = f'"{input}"'
       onk = f"we-get --search {node} --links -n 1"
       minato = os.system(onk)
-      await event.reply(f"**Magnet Link:** "+`{minato}`)
+      nunku = f"**Magnet Link: **`{minato}`"
+      await event.reply(nunku)
 
 
 __help__ = """
