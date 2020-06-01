@@ -1593,9 +1593,16 @@ async def tor_search(event):
          return 
       input = event.pattern_match.group(1)
       node = f'"{input}"'
-      output = subprocess.check_output(f"we-get --search {node} --links -n 1", shell=True)
-      nunku = f"**Magnet Link: **`{output}`"
-      await event.reply(nunku)
+      output = subprocess.check_output(f"we-get --search {node} -J", shell=True)
+      nunku = f"Torrent Search Completed\nBelow is the list in JSON format\n\n{output}"
+      os.system('touch torrent.json')
+      with open("torrent.json",'w') as f:
+		f.write(str(nunku))
+      await event.client.send_file(
+            event.chat_id,
+            torrent.json,
+            reply_to=event.message.reply_to_msg_id)
+      os.system('rm -rf torrent.json')
 
 
 __help__ = """
