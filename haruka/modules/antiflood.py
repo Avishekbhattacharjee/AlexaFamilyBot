@@ -109,6 +109,85 @@ def flood(bot: Bot, update: Update):
         update.effective_message.reply_text(tld(chat.id,
             "I'm currently muting users if they send more than {} consecutive messages.").format(limit))
 
+@run_async
+@user_admin
+def set_flood_mode (update, context):
+    chat = update.effective_chat # type: Optional [Chat]
+    user = update.effective_user # type: Optional [User]
+    msg = update.effective_message # type: Optional [Message]
+    args = context.args
+
+    conn = connected (context.bot, update, chat, user.id, need_admin = True)
+    if conn:
+        chat = dispatcher.bot.getChat (conn)
+        chat_id = conn
+        chat_name = dispatcher.bot.getChat (conn) .title
+    else:
+        if update.effective_message.chat.type == "private":     
+            return 
+        chat = update.effective_chat
+        chat_id = update.effective_chat.id
+        chat_name = update.effective_message.chat.title
+
+    if args:
+        if args [0]. power () == 'ban':
+            settypeflood = tld (update.effective_message, 'block')
+            sql.set_flood_strength (chat_id, 1, "0")
+        elif args [0]. power () == 'kick':
+            settypeflood = tld (update.effective_message, 'kick')
+            sql.set_flood_strength (chat_id, 2, "0")
+        elif args [0]. power () == 'mute':
+            settypeflood = tld (update.effective_message, 'mute')
+            sql.set_flood_strength (chat_id, 3, "0")
+        elif args [0]. power () == 'sacrifice':
+            if len (args) == 1:
+                text = tld (update.effective_message, "" "It looks like you are trying to set a temporary value for anti-flooding, but have not specified a time; use` / setfloodmode tban <timevalue> `.
+
+Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks. "" ")
+                send_message (update.effective_message, text, parse_mode = "markdown")
+                return
+            settypeflood = tld (update.effective_message, "block temporarily during {}"). format (args [1])
+            sql.set_flood_strength (chat_id, 4, str (args [1]))
+        elif args [0]. power () == 'tmute':
+            if len (args) == 1:
+                text = tld (update.effective_message, "" "It looks like you are trying to set a temporary value for anti-flooding, but have not specified a time; use` / setfloodmode tban <timevalue> `.
+
+Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks. "" ")
+                send_message (update.effective_message, text, parse_mode = "markdown")
+                return
+            settypeflood = tld (update.effective_message, 'mute temporarily during {}'). format (args [1])
+            sql.set_flood_strength (chat_id, 5, str (args [1]))
+        else:
+            send_message (update.effective_message, tld (update.effective_message, "I only understand ban / kick / mute / tban / tmute!"))
+            return
+        if conn:
+            text = tld (update.effective_message, "Sending too many messages now will result in` {} `in * {} *!"). format (settypeflood, chat_name)
+        else:
+            text = tld (update.effective_message, "Sending too many messages now will result in` {} `!"). format (settypeflood)
+        send_message (update.effective_message, text, parse_mode = "markdown")
+        return "<b> {}: </b> \ n" \
+                "<b> Admin: </b> {} \ n" \
+                "Has changed antiflood mode. User will {}." Format (settypeflood, html.escape (chat.title),
+                                                                            mention_html (user.id, user.first_name))
+    else:
+        getmode, getvalue = sql.get_flood_setting (chat.id)
+        if getmode == 1:
+            settypeflood = tld (update.effective_message, 'block')
+        elif getmode == 2:
+            settypeflood = tld (update.effective_message, 'kick')
+        elif getmode == 3:
+            settypeflood = tld (update.effective_message, 'mute')
+        elif getmode == 4:
+            settypeflood = tld (update.effective_message, 'temporarily block for {}'). format (getvalue)
+        elif getmode == 5:
+            settypeflood = tld (update.effective_message, 'mute temporarily during {}'). format (getvalue)
+        if conn:
+            text = tld (update.effective_message, "If a member sends successive messages, then he will * in {} * at * {} *."). format (settypeflood, chat_name)
+        else:
+            text = tld (update.effective_message, "If a member sends successive messages, then he will * in {} *."). format (settypeflood)
+        send_message (update.effective_message, text, parse_mode = ParseMode.MARKDOWN)
+    return ""
+
 
 def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
