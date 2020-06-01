@@ -107,11 +107,10 @@ def flood(bot: Bot, update: Update):
 
 @run_async
 @user_admin
-def set_flood_mode(bot: Bot, update: Update, context):
+def set_flood_mode(bot: Bot, update: Update, args):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
-    args = context.args
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:
@@ -224,7 +223,7 @@ __mod_name__ = "AntiFlood"
 FLOOD_BAN_HANDLER = MessageHandler(Filters.all & ~Filters.status_update & Filters.group, check_flood)
 SET_FLOOD_HANDLER = CommandHandler("setflood", set_flood, pass_args=True, filters=Filters.group)
 FLOOD_HANDLER = CommandHandler("flood", flood, filters=Filters.group)
-SET_FLOOD_MODE_HANDLER = CommandHandler("setfloodmode", set_flood_mode)
+SET_FLOOD_MODE_HANDLER = CommandHandler("setfloodmode", set_flood_mode, pass_args=True)
 dispatcher.add_handler(FLOOD_BAN_HANDLER, FLOOD_GROUP)
 dispatcher.add_handler(SET_FLOOD_HANDLER)
 dispatcher.add_handler(FLOOD_HANDLER)
