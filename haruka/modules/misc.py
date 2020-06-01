@@ -1601,8 +1601,7 @@ async def tor_search(event):
       await event.client.send_file(
             event.chat_id,
             "torrent.json",
-            caption=f"Here is the list of torrents for **{input}**"
-            reply_to=event.id)
+            caption=f"Here is the list of torrents for **{input}**")
       os.system('rm -rf torrent.json')
 
 
