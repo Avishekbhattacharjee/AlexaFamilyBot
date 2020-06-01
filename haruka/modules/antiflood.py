@@ -160,10 +160,6 @@ Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks. ""
         else:
             text = tld (update.effective_message, "Sending too many messages now will result in` {} `!"). format (settypeflood)
         send_message (update.effective_message, text, parse_mode = "markdown")
-        return "<b> {}: </b> \ n" \
-                "<b> Admin: </b> {} \ n" \
-                "Has changed antiflood mode. User will {}." Format (settypeflood, html.escape (chat.title),
-                                                                            mention_html (user.id, user.first_name))
     else:
         getmode, getvalue = sql.get_flood_setting (chat.id)
         if getmode == 1:
