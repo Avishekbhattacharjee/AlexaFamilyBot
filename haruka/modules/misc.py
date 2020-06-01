@@ -1094,9 +1094,6 @@ async def univsaye(cowmsg):
 @register(pattern="^/zombies(?: |$)(.*)")
 async def rm_deletedacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
-    if not show.is_group:
-        await show.reply("`I don't think this is a group.`")
-        return
     con = show.pattern_match.group(1).lower()
     del_u = 0
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
