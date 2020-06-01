@@ -86,11 +86,6 @@ def set_flood(bot: Bot, update: Update, args: List[str]) -> str:
             else:
                 sql.set_flood(chat.id, amount)
                 message.reply_text(tld(chat.id, "Antiflood has been updated and set to {}").format(amount))
-                return "<b>{}:</b>" \
-                       "\n#SETFLOOD" \
-                       "\n<b>Admin:</b> {}" \
-                       "\nSet antiflood to <code>{}</code>.".format(html.escape(chat.title),
-                                                                    mention_html(user.id, user.first_name), amount)
 
         else:
             message.reply_text(tld(chat.id, "Unrecognized argument - please use a number, 'off', or 'no'."))
