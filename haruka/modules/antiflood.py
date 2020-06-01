@@ -141,18 +141,18 @@ def set_flood_mode (update, context):
             sql.set_flood_strength (chat_id, 3, "0")
         elif args [0]. power () == 'sacrifice':
             if len (args) == 1:
-                text = tld (update.effective_message, "It looks like you are trying to set a temporary value for anti-flooding, but have not specified a time; use` / setfloodmode tban <timevalue> `.
+                text = tld (update.effective_message, """It looks like you are trying to set a temporary value for anti-flooding, but have not specified a time; use` / setfloodmode tban <timevalue> `.
 
-Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks. ")
+Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks. """)
                 send_message (update.effective_message, text, parse_mode = "markdown")
                 return
             settypeflood = tld (update.effective_message, "block temporarily during {}"). format (args [1])
             sql.set_flood_strength (chat_id, 4, str (args [1]))
         elif args [0]. power () == 'tmute':
             if len (args) == 1:
-                text = tld (update.effective_message, "It looks like you are trying to set a temporary value for anti-flooding, but have not specified a time; use` / setfloodmode tban <timevalue> `.
+                text = tld (update.effective_message, """It looks like you are trying to set a temporary value for anti-flooding, but have not specified a time; use` / setfloodmode tban <timevalue> `.
 
-Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks. ")
+Example time values: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks. """)
                 send_message (update.effective_message, text, parse_mode = "markdown")
                 return
             settypeflood = tld (update.effective_message, 'mute temporarily during {}'). format (args [1])
