@@ -1597,7 +1597,7 @@ async def tor_search(event):
       nunku = f"Torrent Search Completed\nBelow is the list in JSON format\n\n{output}"
       os.system('touch torrent.json')
       with open("torrent.json",'w') as f:
-		f.write(str(nunku))
+           f.write(str(nunku))
       await event.client.send_file(
             event.chat_id,
             torrent.json,
