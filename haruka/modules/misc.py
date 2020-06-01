@@ -1600,7 +1600,7 @@ async def tor_search(event):
            f.write(str(nunku))
       await event.client.send_file(
             event.chat_id,
-            file=torrent.json,
+            "torrent.json",
             reply_to=event.message.reply_to_msg_id)
       os.system('rm -rf torrent.json')
 
