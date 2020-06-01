@@ -46,3 +46,4 @@ tswift
 pySmartDL
 instantmusic
 git+https://github.com/rachmadaniHaryono/we-get
+wolframalpha
