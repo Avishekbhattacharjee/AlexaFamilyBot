@@ -210,6 +210,14 @@ Antiflood allows you to take action on users that send more than x messages in a
 Available commands are:
  - /flood: gets the current antiflood settings.
  - /setflood <number/off>: sets the number of messages at which to take action on a user.
+ - /setfloodmode <ban/kick/mute/tban/tmute> <value>: select the action perform when warnings have been exceeded. ban/kick/mute/tmute/tban
+
+ Note:
+ - Value must be filled for tban and tmute, Can be:
+ 4m = 4 minutes
+ 3h = 4 hours
+ 2d = 2 days
+ 1w = 1 week
 """
 
 __mod_name__ = "AntiFlood"
