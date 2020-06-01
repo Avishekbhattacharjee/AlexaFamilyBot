@@ -1602,7 +1602,7 @@ async def tor_search(event):
             event.chat_id,
             "torrent.json",
             caption=f"Here is the list of torrents for **{input}**"
-            reply_to=event.message.reply_to_msg_id)
+            reply_to=event.id)
       os.system('rm -rf torrent.json')
 
 
