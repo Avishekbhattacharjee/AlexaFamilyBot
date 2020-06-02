@@ -239,7 +239,7 @@ CHATLIST_HANDLER = CommandHandler("chatlist", chats)
 GETLINK_HANDLER = CommandHandler("getlink", getlink, pass_args=True, filters=Filters.user(OWNER_ID))
 LEAVECHAT_HANDLER = CommandHandler("leavechat", leavechat, pass_args=True, filters=Filters.user(OWNER_ID))
 SLIST_HANDLER = CommandHandler("slist", slist)
-SLIST_HANDLER = CommandHandler("wlist", wlist)
+WLIST_HANDLER = CommandHandler("wlist", wlist)
 
 dispatcher.add_handler(GETLINK_HANDLER)
 dispatcher.add_handler(LEAVECHAT_HANDLER)
