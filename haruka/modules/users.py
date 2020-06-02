@@ -12,7 +12,7 @@ from telegram.ext import MessageHandler, Filters, CommandHandler
 from telegram.ext.dispatcher import run_async
 
 import haruka.modules.sql.users_sql as sql
-from haruka import dispatcher, OWNER_ID, LOGGER, SUDO_USERS, SUPPORT_USERS
+from haruka import dispatcher, OWNER_ID, LOGGER, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
 from telegram.utils.helpers import escape_markdown
 from haruka.modules.helper_funcs.filters import CustomFilters
 from haruka.modules.helper_funcs.chat_status import is_user_ban_protected, bot_admin
@@ -190,6 +190,22 @@ def slist(bot: Bot, update: Update):
                 text2 += "\n - ({}) - not found".format(user_id)
     message.reply_text(text1 + "\n" + text2 + "\n", parse_mode=ParseMode.MARKDOWN)
     #message.reply_text(text2 + "\n", parse_mode=ParseMode.MARKDOWN)
+
+@run_async
+def wlist(bot: Bot, update: Update):
+    message = update.effective_message
+    text2 = "My whitelist users are:"
+    for user_id in WHITELIST_USERS:
+        try:
+            user = bot.get_chat(user_id)
+            name = "[{}](tg://user?id={})".format(user.first_name + (user.last_name or ""), user.id)
+            if user.username:
+                name = escape_markdown("@" + user.username)
+            text2 += "\n - `{}`".format(name)
+        except BadRequest as excp:
+            if excp.message == 'Chat not found':
+                text2 += "\n - ({}) - not found".format(user_id)
+    message.reply_text(text2 + "\n", parse_mode=ParseMode.MARKDOWN)
 
 
 def __user_info__(user_id, chat_id):
