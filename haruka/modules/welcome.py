@@ -528,20 +528,27 @@ def __chat_settings__(bot, update, chat, chatP, user):
 
 
 __help__ = """
-Here is the help for the Welcomes/Goodbyes module:
+Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages \
+to be individually generated, like the default welcome message is, you can use *these* variables:
+ - `{{first}}`: this represents the user's *first* name
+ - `{{last}}`: this represents the user's *last* name. Defaults to *first name* if user has no last name.
+ - `{{fullname}}`: this represents the user's *full* name. Defaults to *first name* if user has no last name.
+ - `{{username}}`: this represents the user's *username*. Defaults to a *mention* of the user's first name if has no username.
+ - `{{mention}}`: this simply *mentions* a user - tagging them with their first name.
+ - `{{id}}`: this represents the user's *id*.
+ - `{{count}}`: this represents the user's *member number*.
+ - `{{chatname}}`: this represents the *current chat name*.
+Each variable MUST be surrounded by `{{}}` to be replaced.
+Welcome messages also support markdown, so you can make any elements bold/italic/code/links. \
+Buttons are also supported, so you can make your welcomes look awesome with some nice intro \
+buttons. To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{}?start=your group id here with "-")`. \
+Simply replace `group_id` with your group's id, which can be obtained via /id, and you're good to \
+go. Note that group ids are usually preceded by a `-` sign; this is required, so please don't \
+remove it. \
+If you're feeling fun, you can even set images/gifs/videos/voice messages as the welcome message by \
+replying to the desired media, and calling /setwelcome.
 
-Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages to be individually generated, like the default welcome message is, you can use these variables:
- - {first}: this represents the user's first name
- - {last}: this represents the user's last name. Defaults to first name if user has no last name.
- - {fullname}: this represents the user's full name. Defaults to first name if user has no last name.
- - {username}: this represents the user's username. Defaults to a mention of the user's first name if has no username.
- - {mention}: this simply mentions a user - tagging them with their first name.
- - {id}: this represents the user's id.
- - {count}: this represents the user's member number.
- - {chatname}: this represents the current chat name.
-Each variable MUST be surrounded by {} to be replaced.
-Welcome messages also support markdown, so you can make any elements bold/italic/code/links. Buttons are also supported, so you can make your welcomes look awesome with some nice intro buttons. To create a button linking to your rules, use this: [Rules](buttonurl://t.me/Saraak_bot?start=group_id). Simply replace group_id with your group's id, which can be obtained via /id, and you're good to go. Note that group ids are usually preceded by a - sign; this is required, so please don't remove it. If you're feeling fun, you can even set images/gifs/videos/voice messages as the welcome message by replying to the desired media, and calling /setwelcome.
-Admin only:
+*Admin only:*
  - /welcome <on/off>: enable/disable welcome messages.
  - /welcome: shows current welcome settings.
  - /welcome noformat: shows current welcome settings, without the formatting - useful to recycle your welcome messages!
@@ -552,8 +559,9 @@ Admin only:
  - /resetgoodbye: reset to the default goodbye message.
  - /cleanwelcome <on/off>: On new member, try to delete the previous welcome message to avoid spamming the chat.
  - /cleanservice <on/off/yes/no>: deletes all service message; those are the annoying "x joined the group" you see when people join.
- - /welcomesecurity <off/soft/hard>: soft - restrict user send media files for 24 hours, hard - restict user send messages while him don't click on button "I'm not bot"
+ - /welcomesecurity <off/soft/hard>: soft - restrict user's permission to send media files for 24 hours, hard - restict user's permission to send messages until they click on the button \"I'm not a bot\"
 """
+
 
 __mod_name__ = "Greetings"
 
