@@ -528,44 +528,32 @@ def __chat_settings__(bot, update, chat, chatP, user):
 
 
 __help__ = """
-Give your members a warm welcome with the greetings module! Or a sad goodbye... Depends!
+Here is the help for the Welcomes/Goodbyes module:
 
-Available commands are:
- - /welcome <on/off/yes/no>: enables/disables welcome messages. If no option is given, returns the current welcome message and welcome settings. 
- - /goodbye <on/off/yes/no>: enables/disables goodbye messages. If no option is given, returns  the current goodbye message and goodbye settings.
- - /setwelcome <message>: sets your new welcome message! Markdown and buttons are supported, as well as fillings.
- - /resetwelcome: resets your welcome message to default; deleting any changes you've made.
- - /setgoodbye <message>: sets your new goodbye message! Markdown and buttons are supported, as well as fillings.
- - /resetgoodbye: resets your goodbye message to default; deleting any changes you've made.
- - /cleanwelcome <on/off/yes/no>: deletes old welcome messages; when a new person joins, the old message is deleted.
+Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages to be individually generated, like the default welcome message is, you can use these variables:
+ - {first}: this represents the user's first name
+ - {last}: this represents the user's last name. Defaults to first name if user has no last name.
+ - {fullname}: this represents the user's full name. Defaults to first name if user has no last name.
+ - {username}: this represents the user's username. Defaults to a mention of the user's first name if has no username.
+ - {mention}: this simply mentions a user - tagging them with their first name.
+ - {id}: this represents the user's id.
+ - {count}: this represents the user's member number.
+ - {chatname}: this represents the current chat name.
+Each variable MUST be surrounded by {} to be replaced.
+Welcome messages also support markdown, so you can make any elements bold/italic/code/links. Buttons are also supported, so you can make your welcomes look awesome with some nice intro buttons. To create a button linking to your rules, use this: [Rules](buttonurl://t.me/Saraak_bot?start=group_id). Simply replace group_id with your group's id, which can be obtained via /id, and you're good to go. Note that group ids are usually preceded by a - sign; this is required, so please don't remove it. If you're feeling fun, you can even set images/gifs/videos/voice messages as the welcome message by replying to the desired media, and calling /setwelcome.
+Admin only:
+ - /welcome <on/off>: enable/disable welcome messages.
+ - /welcome: shows current welcome settings.
+ - /welcome noformat: shows current welcome settings, without the formatting - useful to recycle your welcome messages!
+ - /goodbye -> same usage and args as /welcome.
+ - /setwelcome <sometext>: set a custom welcome message. If used replying to media, uses that media.
+ - /setgoodbye <sometext>: set a custom goodbye message. If used replying to media, uses that media.
+ - /resetwelcome: reset to the default welcome message.
+ - /resetgoodbye: reset to the default goodbye message.
+ - /cleanwelcome <on/off>: On new member, try to delete the previous welcome message to avoid spamming the chat.
  - /cleanservice <on/off/yes/no>: deletes all service message; those are the annoying "x joined the group" you see when people join.
- - /welcomesecurity <off/soft/hard>: soft - restrict user's permission to send media files for 24 hours, hard - restict user's permission to send messages until they click on the button \"I'm not a bot\"
-
-
-Fillings:
-As mentioned, you can use certain tags to fill in your welcome message with user or chat info; there are:
-{first}: The user's first name.
-{last}: The user's last name.
-{fullname}: The user's full name.
-{username}: The user's username; if none is available, mentions the user.
-{mention}: Mentions the user, using their firstname.
-{id}: The user's id.
-{chatname}: The chat's name.
-
-An example of how to use fillings would be to set your welcome, via:
-/setwelcome Hey there {first}! Welcome to {chatname}.
-
-You can enable/disable welcome messages as such:
-/welcome off
-
-If you want to save an image, gif, or sticker, or any other data, do the following:
-/setwelcome while replying to a sticker or whatever data you'd like. This data will now be sent to welcome new users.
-
-Tip: use /welcome noformat to retrieve the unformatted welcome message.
-This will retrieve the welcome message and send it without formatting it; getting you the raw markdown, allowing you to make easy edits.
-This also works with /goodbye.
+ - /welcomesecurity <off/soft/hard>: soft - restrict user send media files for 24 hours, hard - restict user send messages while him don't click on button "I'm not bot"
 """
-
 
 __mod_name__ = "Greetings"
 
