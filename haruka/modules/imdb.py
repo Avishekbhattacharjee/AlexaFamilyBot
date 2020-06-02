@@ -102,3 +102,6 @@ async def imdb(e):
 
 __help__ = """
  - /imdb - Get full info about a movie with imdb.com
+"""
+
+__mod_name__ "IMDB"
