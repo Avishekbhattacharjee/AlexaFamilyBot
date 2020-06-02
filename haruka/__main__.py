@@ -140,19 +140,12 @@ def send_start(bot, update):
     chat = update.effective_chat  # type: Optional[Chat]
     first_name = update.effective_user.first_name 
     text = PM_START
+    
+    keyboard = [[InlineKeyboardButton(text=tld(chat.id, "Add me to your group ♥️"), url="t.me/AlexaFamilyBot?startgroup=true")]]
 
-    keyboard = [[
-        InlineKeyboardButton(text=tld(chat.id, "Joim our support group 🌍"),
-                             url="https://t.me/AlexaSupport")
-        InlineKeyboardButton(text=tld(chat.id, "Join our spam group 😉"),
-                             url="https://t.me/AlexaSupport")
-    ]]
+    keyboard += [[InlineKeyboardButton(text=tld(chat.id, "Join our support chat 🌍"), url="https://t.me/AlexaSupport")]]
     keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
-    keyboard += [[
-        InlineKeyboardButton(text=tld(chat.id, "Add me to your group ♥️"),
-                             url="t.me/AlexaFamilyBot?startgroup=true")
-    ]]
-
+    
     update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN)
 
 
