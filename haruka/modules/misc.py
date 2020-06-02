@@ -1236,7 +1236,7 @@ async def parse_ocr_space_api(event):
     else:
         await event.reply("Read Document in {} seconds. \n{}".format(ProcessingTimeInMilliseconds, ParsedText))
     os.remove(downloaded_file_name)
-    await event.reply(ParsedText)
+   
 
 
 
