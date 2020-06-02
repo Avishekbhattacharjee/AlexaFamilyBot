@@ -2,7 +2,7 @@ import io
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from haruka.events import register
-
+import random
 
 @register(pattern="^/sticklet (.*)")
 async def sticklet(event):
@@ -23,7 +23,9 @@ async def sticklet(event):
         fontsize -= 3
         font = ImageFont.truetype("/root/haruka/haruka/DejaVuSansMono.ttf", size=fontsize)
     width, height = draw.multiline_textsize(sticktext, font=font)
-    gg = 
+    gg = [red, white, green, yellow, orange, violet, cyan]
+    hh = random.choice(gg)
+    range = f'"{hh}"'
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=range)
     image_stream = io.BytesIO()
     image_stream.name = "sticker.webp"
@@ -33,6 +35,6 @@ async def sticklet(event):
 
 
 __help__ = """
- - /sticklet <text>: Turn a text into a sticker !
+ - /sticklet <text>: Turn a text into a sticker, you'll get a random colour from rainbow(out of 7 colours) !
 """
 __mod_name__ = "Sticklet"
