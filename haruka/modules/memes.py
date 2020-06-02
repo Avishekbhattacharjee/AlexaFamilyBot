@@ -443,6 +443,7 @@ Some memes command, find it all out yourself!
 /mock: Does the same as /hitler but spongemock instead
 /kim: Does the same as /hitler but with Kim Jong Un instead (O no plox dont bomb my house)
 /pidor: 4pda memes
+/foresify: Check it on your own 
 /shout: Write anything that u want it to should
 /zalgofy: reply to a message to g̫̞l̼̦i̎͡tͫ͢c̘ͭh̛̗ it out!
 """
