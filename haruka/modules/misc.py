@@ -1567,23 +1567,18 @@ def lyrics(bot: Bot, update: Update, args):
         else:
             msg.reply_text(reply)
 
+import wolframalpha 
 from haruka import WOLFRAM_ID
 
 @register(pattern=r'^/alexa (.*)')
-async def wolfram(wvent):
-    """ Wolfram Alpha API """
-    if WOLFRAM_ID is None:
-        await wvent.edit(
-            'Please set your WOLFRAM_ID first !\n'
-            'Get your API KEY from [here](https://'
-            'products.wolframalpha.com/api/)',
-            parse_mode='Markdown')
-        return
-    i = wvent.pattern_match.group(1)
-    appid = WOLFRAM_ID
-    server = f'https://api.wolframalpha.com/v1/spoken?appid={appid}&i={i}'
-    res = get(server)
-    await wvent.reply(f'**{i}**\n\n' + res.text, parse_mode='Markdown')
+async def wolfram(wvent): 
+    app_id =  WOLFRAM_ID
+    client = wolframalpha.Client(app_id) 
+    question = wvent.pattern_match.group(1)
+    res = client.query(question) 
+    answer = next(res.results).text 
+    await wvent.reply(f'**{question}**\n\n' + answer, parse_mode='Markdown')
+    
 
 import subprocess
 
