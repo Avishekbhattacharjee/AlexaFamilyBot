@@ -23,7 +23,7 @@ async def sticklet(event):
         fontsize -= 3
         font = ImageFont.truetype("/root/haruka/haruka/DejaVuSansMono.ttf", size=fontsize)
     width, height = draw.multiline_textsize(sticktext, font=font)
-    gg = [red, white, green, yellow, orange, violet, cyan]
+    gg = ["red", "white", "green", "yellow", "orange", "violet", "indigo"]
     hh = random.choice(gg)
     range = f'"{hh}"'
     draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=range)
