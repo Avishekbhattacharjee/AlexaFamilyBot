@@ -454,12 +454,6 @@ def markdown_help(bot: Bot, update: Update):
                                         "[URL](example.com) [button](buttonurl:github.com) "
                                         "[button2](buttonurl://google.com:same)"))
 
-
-@run_async
-def stats(bot: Bot, update: Update):
-    update.effective_message.reply_text("Current stats:\n" + "\n".join([mod.__stats__() for mod in STATS]))
-
-
 @run_async
 def github(bot: Bot, update: Update):
     message = update.effective_message
@@ -1627,7 +1621,6 @@ GITHUB_HANDLER = DisableAbleCommandHandler("git", github)
 REPO_HANDLER = DisableAbleCommandHandler("repo", repo, pass_args=True, admin_ok=True)
 ECHO_HANDLER = CommandHandler("echo", echo)
 MD_HELP_HANDLER = CommandHandler("markdownhelp", markdown_help, filters=Filters.private)
-STATS_HANDLER = CommandHandler("stats", stats)
 GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.private)
 PASTE_HANDLER = DisableAbleCommandHandler("paste", paste, pass_args=True)
 GET_PASTE_HANDLER = DisableAbleCommandHandler("getpaste", get_paste_content, pass_args=True)
@@ -1648,7 +1641,6 @@ dispatcher.add_handler(ECHO_HANDLER)
 dispatcher.add_handler(SHRUG_HANDLER)
 dispatcher.add_handler(CommandHandler('ud', ud, pass_args=True))
 dispatcher.add_handler(MD_HELP_HANDLER)
-dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
 dispatcher.add_handler(REPO_HANDLER)
