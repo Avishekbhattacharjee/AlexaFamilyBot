@@ -26,7 +26,8 @@ async def sticklet(event):
     gg = ["red", "white", "green", "yellow", "orange", "violet", "indigo"]
     hh = random.choice(gg)
     range = f'"{hh}"'
-    draw.multiline_text(((512-width)/2,(512-height)/2), sticktext, font=font, fill=range)
+    final = f"((512-width)/2,(512-height)/2), sticktext, font=font, fill={range}"
+    draw.multiline_text(final)
     image_stream = io.BytesIO()
     image_stream.name = "sticker.webp"
     image.save(image_stream, "WebP")
