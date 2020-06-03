@@ -56,7 +56,6 @@ async def _(event):
         end = datetime.now()
         ms = (end - start).seconds
         await event.reply("Background Removed in {} seconds".format(ms))
-        os.remove(remove_bg_image)
     else:
         await event.reply("ReMove.BG API returned Errors. Please report to @AlexaSupport\n`{}".format(output_file_name.content.decode("UTF-8")))
 
