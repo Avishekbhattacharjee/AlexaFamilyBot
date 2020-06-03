@@ -67,7 +67,7 @@ if ENV:
     WORKERS = int(os.environ.get('WORKERS', 8))
     WOLFRAM_ID = os.environ.get('WOLFRAM_ID', None)
     BAN_STICKER = os.environ.get('BAN_STICKER', 'CAADAgADEAgAAgi3GQL9YQyT_kBpQwI')
-    ALLOW_EXCL = os.environ.get('ALLOW_EXCL', True)
+    ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
     SUDO_USERS.add(OWNER_ID)
     GBAN_LOGS = os.environ.get('GBAN_LOGS', None)
     tbot = TelegramClient("haruka", API_KEY, API_HASH)
