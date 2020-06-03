@@ -443,7 +443,7 @@ Some memes command, find it all out yourself!
 /mock: Does the same as /hitler but spongemock instead
 /kim: Does the same as /hitler but with Kim Jong Un instead (O no plox dont bomb my house)
 /pidor: 4pda memes
-/foresify: Check it on your own 
+/forbesify: Correct your punctuations better use the advanged spell module 
 /shout: Write anything that u want it to should
 /zalgofy: reply to a message to g̫̞l̼̦i̎͡tͫ͢c̘ͭh̛̗ it out!
 """
@@ -455,11 +455,11 @@ BMOJI_HANDLER = DisableAbleCommandHandler("bmoji", bmoji, admin_ok=True)
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
 STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
 VAPOR_HANDLER = DisableAbleCommandHandler("vapor", vapor, pass_args=True, admin_ok=True)
-MOCK_HANDLER = DisableAbleCommandHandler("mock", spongemocktext, admin_ok=True)
-KIM_HANDLER = DisableAbleCommandHandler("kim", kimtext, admin_ok=True)
-MAFIA_HANDLER = DisableAbleCommandHandler("mafia", mafiatext, admin_ok=True)
-PIDOR_HANDLER = DisableAbleCommandHandler("pidor", pidortext, admin_ok=True)
-HITLER_HANDLER = DisableAbleCommandHandler("hitler", hitlertext, admin_ok=True)
+MOCK_HANDLER = DisableAbleCommandHandler("mock", spongemocktext, admin_ok=True, pass_args=True)
+KIM_HANDLER = DisableAbleCommandHandler("kim", kimtext, admin_ok=True, pass_args=True)
+MAFIA_HANDLER = DisableAbleCommandHandler("mafia", mafiatext, admin_ok=True, pass_args=True)
+PIDOR_HANDLER = DisableAbleCommandHandler("pidor", pidortext, admin_ok=True, pass_args=True)
+HITLER_HANDLER = DisableAbleCommandHandler("hitler", hitlertext, admin_ok=True, pass_args=True)
 ZALGO_HANDLER = DisableAbleCommandHandler("zalgofy", zalgotext)
 FORBES_HANDLER = DisableAbleCommandHandler("forbes", forbesify, admin_ok=True)
 DEEPFRY_HANDLER = DisableAbleCommandHandler("deepfry", deepfryer, admin_ok=True)
