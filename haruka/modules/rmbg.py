@@ -45,7 +45,7 @@ async def _(event):
     if "image" in contentType:
         with io.BytesIO(output_file_name.content) as remove_bg_image:
             remove_bg_image.name = "rmbg.png"
-            await event.send_file(
+            await event.client.send_file(
                 event.chat_id,
                 remove_bg_image,
                 force_document=True,
