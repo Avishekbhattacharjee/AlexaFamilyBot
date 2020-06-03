@@ -271,14 +271,14 @@ def hitlertext(bot: Bot, update: Update, args: List[str]):
     magick = """convert images/hitler.jpg -font Impact -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten images/hitlered{}.jpg""".format(
         reply_text, randint)
     os.system(magick)
-    with open('images/hitlered{}.jpg'.format(randint), 'rb') as mockedphoto:
+    with open('./images/hitlered{}.jpg'.format(randint), 'rb') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('images/hitlered{}.jpg'.format(randint))
+    os.remove('./images/hitlered{}.jpg'.format(randint))
 
 
 @run_async
