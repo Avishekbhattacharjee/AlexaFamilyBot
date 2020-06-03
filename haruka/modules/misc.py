@@ -1382,7 +1382,7 @@ from urllib.request import urlopen
 @run_async
 def news(bot: Bot, update: Update):
     message = update.effective_message
-    news_url="https://news.google.com/news/rss"
+    news_url="https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en"
     Client=urlopen(news_url)
     xml_page=Client.read()
     Client.close()
@@ -1607,6 +1607,7 @@ __help__ = """
  - /removebotkeyboard: Got a nasty bot keyboard stuck in your group?
  - /shrug: try and check it out yourself.
  - /datetime <city>: Get the present date and time information
+ - /insult: Reply to a text with /insult for insults.
 """
 
 __mod_name__ = "Misc"
