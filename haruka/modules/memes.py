@@ -162,7 +162,7 @@ def mafiatext(bot: Bot, update: Update, args: List[str]):
     magick = """convert images/mafia.jpg -font Impact -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten images/mafiaed{}.jpg""".format(
         reply_text, randint)
     os.system(magick)
-    with open('images/mafiaed{}.jpg'.format(randint), 'rb') as mockedphoto:
+    with open('./images/mafiaed{}.jpg'.format(randint), 'rb') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
