@@ -7,7 +7,7 @@ from telethon import events
 from haruka.events import register
 from haruka import REM_BG_API_KEY, TEMP_DOWNLOAD_DIRECTORY
 
-@register(pattern="^/rmbg (.*)")
+@register(pattern="^/rmbg")
 async def _(event):
     HELP_STR = "use `/rmbg` as reply to a media"
     if event.fwd_from:
