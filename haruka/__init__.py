@@ -58,7 +58,7 @@ if ENV:
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
     DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
-    STRICT_ANTISPAM = bool(os.environ.get('STRICT_ANTISPAM', False))
+    STRICT_ANTISPAM = bool(os.environ.get('STRICT_ANTISPAM', True))
     DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN', "")
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
@@ -74,6 +74,7 @@ if ENV:
     updater = tg.Updater(TOKEN, workers=WORKERS)
     dispatcher = updater.dispatcher
     SUDO_USERS = list(SUDO_USERS)
+    REM_BG_API_KEY = os.environ.get('REM_BG_API_KEY', None)
     WHITELIST_USERS = list(WHITELIST_USERS)
     IBM_WATSON_CRED_URL = os.environ.get('IBM_WATSON_CRED_URL', None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get('IBM_WATSON_CRED_PASSWORD', None)
