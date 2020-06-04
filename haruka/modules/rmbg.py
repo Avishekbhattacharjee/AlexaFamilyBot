@@ -21,7 +21,7 @@ async def _(event):
         message_id = event.reply_to_msg_id
         reply_message = await event.get_reply_message()
         # check if media message
-        await event.reply("Downloading this media ...")
+        await event.reply("Processing...")
         try:
             downloaded_file_name = await event.client.download_media(
                 reply_message,
@@ -31,7 +31,6 @@ async def _(event):
             await event.reply(str(e))
             return
         else:
-            await event.reply("sending to ReMove.BG")
             output_file_name = ReTrieveFile(downloaded_file_name)
             os.remove(downloaded_file_name)
     else:
@@ -53,7 +52,7 @@ async def _(event):
         ms = (end - start).seconds
         await event.reply("Background Removed in {} seconds".format(ms))
     else:
-        await event.reply("ReMove.BG API returned Errors. Please report to @AlexaSupport\n`{}".format(output_file_name.content.decode("UTF-8")))
+        await event.reply("remove.bg API returned Errors. Please report to @AlexaSupport\n`{}".format(output_file_name.content.decode("UTF-8")))
 
 
 # this method will call the API, and return in the appropriate format
