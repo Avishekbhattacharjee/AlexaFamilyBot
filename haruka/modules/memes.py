@@ -134,7 +134,6 @@ def vapor(bot: Bot, update: Update, args: List[str]):
 # D A N K modules by @deletescape ^^^
 # Less D A N K modules by @skittles9823 # holi fugg I did some maymays vvv
 
-
 @run_async
 def mafiatext(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
@@ -148,7 +147,7 @@ def mafiatext(bot: Bot, update: Update, args: List[str]):
         data = message.text.split(None, 1)[1]
     else:
         noreply = True
-        data = tld(chat.id, "Give some text you dumb !")
+        data = tld(chat.id, "Give some text to meme !")
 
     if not Path('/root/haruka/images/mafia.jpg').is_file():
         LOGGER.warning(
@@ -186,10 +185,11 @@ def pidortext(bot: Bot, update: Update, args: List[str]):
         data = message.text.split(None, 1)[1]
     else:
         noreply = True
-        data = tld(chat.id, "Give some text you dumb !")
+        data = tld(chat.id, "Give some text to meme !")
 
     if not Path('/root/haruka/images/4pda.jpg').is_file():
-        LOGGER.warning("/root/haruka/images/4pda.jpg not found! Pidor memes module is turned off!")
+        LOGGER.warning(
+            "/root/haruka/images/4pda.jpg not found! Pidor memes module is turned off!")
         return
     for mocked in glob.glob("/root/haruka/images/4pdaed*"):
         os.remove(mocked)
@@ -222,12 +222,13 @@ def kimtext(bot: Bot, update: Update, args: List[str]):
         data = message.text.split(None, 1)[1]
     else:
         noreply = True
-        data = tld(chat.id, "Give some text you dumb !")
+        data = tld(chat.id, "Give some text to meme !")
 
     if not Path('/root/haruka/images/kim.jpg').is_file():
-        LOGGER.warning("/root/haruka/images/kim.jpg not found! Kim memes module is turned off!")
+        LOGGER.warning(
+            "/root/haruka/images/kim.jpg not found! Kim memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/images/kimed*"):
+    for mocked in glob.glob("kimed*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
@@ -258,7 +259,7 @@ def hitlertext(bot: Bot, update: Update, args: List[str]):
         data = message.text.split(None, 1)[1]
     else:
         noreply = True
-        data = tld(chat.id, "Give some text you dumb !")
+        data = tld(chat.id, "Give some text to meme !")
 
     if not Path('/root/haruka/images/hitler.jpg').is_file():
         LOGGER.warning(
@@ -295,7 +296,7 @@ def spongemocktext(bot: Bot, update: Update, args: List[str]):
         data = message.text.split(None, 1)[1]
     else:
         noreply = True
-        data = tld(chat.id, "Give some text you dumb !")
+        data = tld(chat.id, "Give some text to meme !")
 
     if not Path('/root/haruka/images/bob.jpg').is_file():
         LOGGER.warning(
@@ -317,8 +318,6 @@ def spongemocktext(bot: Bot, update: Update, args: List[str]):
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
     os.remove('/root/haruka/images/mocked{}.jpg'.format(randint))
-
-
 
 @run_async
 def zalgotext(bot: Bot, update: Update):
