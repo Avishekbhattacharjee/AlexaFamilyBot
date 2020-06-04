@@ -15,7 +15,6 @@ async def _(event):
     if REM_BG_API_KEY is None:
         await event.reply("You need API token from remove.bg to use this plugin.")
         return False
-    input_str = event.pattern_match.group(1)
     start = datetime.now()
     message_id = event.message.id
     if event.reply_to_msg_id:
@@ -35,9 +34,6 @@ async def _(event):
             await event.reply("sending to ReMove.BG")
             output_file_name = ReTrieveFile(downloaded_file_name)
             os.remove(downloaded_file_name)
-    elif input_str:
-        await event.reply("sending to ReMove.BG")
-        output_file_name = ReTrieveURL(input_str)
     else:
         await event.reply(HELP_STR)
         return
@@ -78,22 +74,6 @@ def ReTrieveFile(input_file_name):
     )
     return r
 
-
-def ReTrieveURL(input_url):
-    headers = {
-        "X-API-Key": REM_BG_API_KEY,
-    }
-    data = {
-      "image_url": input_url
-    }
-    r = requests.post(
-        "https://api.remove.bg/v1.0/removebg",
-        headers=headers,
-        data=data,
-        allow_redirects=True,
-        stream=True
-    )
-    return r
 
 __help__ = """
  - /rmbg: Type in reply to a media to remove it's background 
