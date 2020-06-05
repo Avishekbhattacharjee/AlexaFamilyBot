@@ -51,7 +51,7 @@ if ENV:
     URL = os.environ.get('URL', "")  # Does not contain token
     API_KEY = os.environ.get("API_KEY", None)
     API_HASH = os.environ.get("API_HASH", None)
-    PORT = int(os.environ.get('PORT', 5000))
+    PORT = int(os.environ.get('PORT', 5432))
     CERT_PATH = os.environ.get("CERT_PATH")
     OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
     DATABASE_URL = os.environ.get('DATABASE_URL', None)
