@@ -9,8 +9,6 @@ feedparser
 future
 geopy
 googletrans
-dnspython
-pymongo[srv]
 hurry.filesize
 markdown2
 nltk
