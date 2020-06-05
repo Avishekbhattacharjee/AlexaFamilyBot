@@ -56,6 +56,7 @@ if ENV:
     OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
     DB_URI = os.environ.get('DATABASE_URL')
     LOAD = os.environ.get("LOAD", "").split()
+    QAPI_URL = os.environ.get("QAPI_URL", "d3d882cf-e8c3-4367-b068-75804acb01e7")
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
     DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
     STRICT_ANTISPAM = bool(os.environ.get('STRICT_ANTISPAM', True))
