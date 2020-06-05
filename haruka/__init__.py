@@ -54,7 +54,7 @@ if ENV:
     PORT = int(os.environ.get('PORT', 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
     OPENWEATHERMAP_ID = os.environ.get('OPENWEATHERMAP_ID', None)
-    DB_URI = os.environ.get('DATABASE_URL')
+    DATABASE_URL = os.environ.get('DATABASE_URL', None)
     LOAD = os.environ.get("LOAD", "").split()
     NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
     DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
