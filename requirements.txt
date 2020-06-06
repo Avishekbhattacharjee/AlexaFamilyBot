@@ -49,3 +49,4 @@ wolframalpha
 dnspython
 pymongo[srv]
 redis
+pybase64
