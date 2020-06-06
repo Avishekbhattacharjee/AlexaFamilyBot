@@ -57,7 +57,7 @@ if 1 == 1:
     }
 
     config = dict({"api_token": "d3d882cf-e8c3-4367-b068-75804acb01e7", 
-                                          "api_url": "http://api.antiddos.systems",
+                                          "api_url": "http://antiddos.systems",
                                           "username_colors": ["#fb6169", "#faa357", "#b48bf2", "#85de85",
                                                               "#62d4e3", "#65bdf3", "#ff5694"],
                                           "default_username_color": "#b48bf2"})
@@ -142,7 +142,7 @@ if 1 == 1:
             "APIKey": config["api_token"]
         })
 
-        resp = requests.post(config["api_url"] + "/api/v2/quote", data=request)
+        resp = requests.post(config["api_url"] + "/api/pp pv2/quote", data=request)
         resp.raise_for_status()
         resp = resp.json()
 
