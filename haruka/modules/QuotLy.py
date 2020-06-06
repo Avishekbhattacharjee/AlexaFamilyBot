@@ -68,7 +68,6 @@ if 1 == 1:
         """Quote a message.
         Usage: .quote [template]
         If template is missing, possible templates are fetched."""
-        await message.delete()
         args = message.raw_text.split(" ")[1:]
         if args == []:
             args = ["default"]
