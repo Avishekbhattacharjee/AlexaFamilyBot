@@ -98,21 +98,21 @@ if ENV:
     MONGOCLIENT = MongoClient(MONGO_DB_URI, 27017, serverSelectionTimeoutMS=1)
     MONGO = MONGOCLIENT.haruka
 
-def is_mongo_alive():
-    try:
+    def is_mongo_alive():
+      try:
         MONGOCLIENT.server_info()
-    except BaseException:
+      except BaseException:
         return False
-    return True
+      return True
 
 
-REDIS = StrictRedis(host='localhost', port=6379, db=0)
+    REDIS = StrictRedis(host='localhost', port=6379, db=0)
 
-def is_redis_alive():
-    try:
+    def is_redis_alive():
+      try:
         REDIS.ping()
         return True
-    except BaseException:
+      except BaseException:
         return False
 
 else:
