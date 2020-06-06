@@ -65,7 +65,7 @@ if 1 == 1:
     client = bot
 
     
-    @register(pattern="^/snap")
+    @register(pattern="^/snap$")
     async def quotecmd(message):  # noqa: C901
         """Quote a message.
         Usage: .quote [template]
