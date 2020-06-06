@@ -47,7 +47,8 @@ RUN apk add  --update \
     jpeg \
     zip \
     megatools \
-    freetype-dev
+    freetype-dev \
+    redis
 
 
 RUN python3 -m ensurepip \
