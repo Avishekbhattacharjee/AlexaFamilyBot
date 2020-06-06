@@ -154,22 +154,22 @@ def mafiatext(bot: Bot, update: Update, args: List[str]):
             "/root/haruka/images/mafia.jpg not found! Mafia memes module is turned off!")
         return
 
-    for mocked in glob.glob("/root/haruka/images/mafiaed*"):
+    for mocked in glob.glob("/root/haruka/mafiaed*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
-    randint = random.randint(1, 699)
-    magick = """convert /root/haruka/images/mafia.jpg -font Impact -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten /root/haruka/images/mafiaed{}.jpg""".format(
-        reply_text, randint)
+    
+    magick = """convert /root/haruka/images/mafia.jpg -font Impact -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten /root/haruka/mafiaed.jpg""".format(
+        reply_text)
     os.system(magick)
-    with open('/root/haruka/images/mafiaed{}.jpg'.format(randint), 'rb') as mockedphoto:
+    with open('/root/haruka/mafiaed.jpg') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/images/mafiaed{}.jpg'.format(randint))
+    os.remove('/root/haruka/mafiaed.jpg')
 
 
 @run_async
@@ -191,22 +191,22 @@ def pidortext(bot: Bot, update: Update, args: List[str]):
         LOGGER.warning(
             "/root/haruka/images/4pda.jpg not found! Pidor memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/images/4pdaed*"):
+    for mocked in glob.glob("/root/haruka/4pdaed*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
-    randint = random.randint(1, 699)
-    magick = """convert /root/haruka/images/4pda.jpg -font Impact -pointsize 50 -size 400x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/images/4pdaed{}.jpg""".format(
-        reply_text, randint)
+    
+    magick = """convert /root/haruka/images/4pda.jpg -font Impact -pointsize 50 -size 400x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/4pdaed.jpg""".format(
+        reply_text)
     os.system(magick)
-    with open('/root/haruka/images/4pdaed{}.jpg'.format(randint), 'rb') as mockedphoto:
+    with open('/root/haruka/4pdaed.jpg') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/images/4pdaed{}.jpg'.format(randint))
+    os.remove('/root/haruka/4pdaed.jpg')
 
 
 @run_async
@@ -228,22 +228,22 @@ def kimtext(bot: Bot, update: Update, args: List[str]):
         LOGGER.warning(
             "/root/haruka/images/kim.jpg not found! Kim memes module is turned off!")
         return
-    for mocked in glob.glob("kimed*"):
+    for mocked in glob.glob("/root/haruka/kimed*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
-    randint = random.randint(1, 699)
-    magick = """convert /root/haruka/images/kim.jpg -font Impact -pointsize 50 -size 480x360 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/images/kimed{}.jpg""".format(
-        reply_text, randint)
+    
+    magick = """convert /root/haruka/images/kim.jpg -font Impact -pointsize 50 -size 480x360 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/kimed.jpg""".format(
+        reply_text)
     os.system(magick)
-    with open('/root/haruka/images/kimed{}.jpg'.format(randint), 'rb') as mockedphoto:
+    with open('/root/haruka/kimed.jpg') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/images/kimed{}.jpg'.format(randint))
+    os.remove('/root/haruka/kimed.jpg')
 
 
 @run_async
@@ -265,22 +265,22 @@ def hitlertext(bot: Bot, update: Update, args: List[str]):
         LOGGER.warning(
             "/root/haruka/images/hitler.jpg not found! Hitler memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/images/hitlered*"):
+    for mocked in glob.glob("/root/haruka/hitlered*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
-    randint = random.randint(1, 699)
-    magick = """convert /root/haruka/images/hitler.jpg -font Impact -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/images/hitlered{}.jpg""".format(
-        reply_text, randint)
+    
+    magick = """convert /root/haruka/images/hitler.jpg -font Impact -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/hitlered.jpg""".format(
+        reply_text)
     os.system(magick)
-    with open('/root/haruka/images/hitlered{}.jpg'.format(randint), 'rb') as mockedphoto:
+    with open('/root/haruka/hitlered.jpg') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/images/hitlered{}.jpg'.format(randint))
+    os.remove('/root/haruka/hitlered.jpg')
 
 
 @run_async
@@ -302,22 +302,23 @@ def spongemocktext(bot: Bot, update: Update, args: List[str]):
         LOGGER.warning(
             "/root/haruka/images/bob.jpg not found! Spongemock memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/images/mocked*"):
+    for mocked in glob.glob("/root/haruka/mocked*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
-    randint = random.randint(1, 699)
-    magick = """convert /root/haruka/images/bob.jpg -font Impact -pointsize 30 -size 512x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/images/mocked{}.jpg""".format(
-        reply_text, randint)
+    
+    magick = """convert /root/haruka/images/bob.jpg -font Impact -pointsize 30 -size 512x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/mocked.jpg""".format(
+        reply_text)
     os.system(magick)
-    with open('/root/haruka/images/mocked{}.jpg'.format(randint), 'rb') as mockedphoto:
+    with open('/root/haruka/mocked.jpg') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/images/mocked{}.jpg'.format(randint))
+    os.remove('/root/haruka/mocked.jpg')
+
 
 @run_async
 def zalgotext(bot: Bot, update: Update):
