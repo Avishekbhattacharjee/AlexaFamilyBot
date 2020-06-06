@@ -5,6 +5,9 @@ from pymongo import MongoClient
 from redis import StrictRedis
 from telethon import TelegramClient
 import telegram.ext as tg
+import time
+
+StartTime = time.time()
 
 print("haruka")
 print("Starting...")
