@@ -36,6 +36,5 @@ async def sticklet(event):
 
 __help__ = """
  - /sticklet <text>: Turn a text into a sticker, you'll get a random colour from a rainbow(out of 7 colours) !
- - /snap <text>: Make a sticker of your own message along with your name and profile picture 
 """
 __mod_name__ = "Sticklet"
