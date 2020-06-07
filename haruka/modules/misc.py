@@ -1617,14 +1617,12 @@ import urllib
 import os
 
 
-class config:
-	key = "fe65b94e78fc2e3234c1c6ed1b771abd" #go to https://numverify.com/
-
 @register(pattern=r'^/phone (.*)')
-async def wolfram(event): 
+async def phone(event): 
     information = event.pattern_match.group(1)
     number = information
-    api = "http://apilayer.net/api/validate?access_key=" + config.key + "&number=" + number + "&country_code=&format=1"
+    key = "fe65b94e78fc2e3234c1c6ed1b771abd" 
+    api = "http://apilayer.net/api/validate?access_key=" + key + "&number=" + number + "&country_code=&format=1"
     output = requests.get(api)
     content = output.text
     obj = json.loads(content)
@@ -1639,7 +1637,8 @@ async def wolfram(event):
     d = "Location: " +str(location)
     e = "Carrier: " +str(carrier)
     f = "Device: " +str(line_type)
-    await event.reply(a\nb\nc\nd\ne\nf)
+    e = f"{a}\n{b}\n{c}\n{d}\n{e}\n{f}"
+    await event.reply(e)
 
 
 __help__ = """
