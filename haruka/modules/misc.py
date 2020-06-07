@@ -1204,7 +1204,27 @@ async def terminal_runner(term):
     except ImportError:
         uid = "This ain't it chief!"
 
-    if "/*" or "./" or "*" or ":(){ :|:& };:" or "/dev/null" or "/dev/sda" or "/root/haruka" or "/root/haruka/haruka" or "/root" or "crowdin.yml" or "deeppyer" or "Dockerfile" or "haruka" or "images" or "LICENSE" or "locales" or "nltk_data" or "Procfile" or "README.md" or "requirements.txt" or "runtime.txt" or "config.env" in command:
+    if "/*" in command:
+        await term.reply("`That's a dangerous operation! Not Permitted!`")
+        return
+
+    if "./" in command:
+        await term.reply("`That's a dangerous operation! Not Permitted!`")
+        return
+
+    if "*" in command:
+        await term.reply("`That's a dangerous operation! Not Permitted!`")
+        return
+
+    if ":(){ :|:& };:" in command:
+        await term.reply("`That's a dangerous operation! Not Permitted!`")
+        return    
+
+    if "/dev/null" in command:
+        await term.reply("`That's a dangerous operation! Not Permitted!`")
+        return
+
+    if "/dev/sda" in command:
         await term.reply("`That's a dangerous operation! Not Permitted!`")
         return
 
