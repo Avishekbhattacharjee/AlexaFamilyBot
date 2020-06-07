@@ -1204,7 +1204,7 @@ async def terminal_runner(term):
     except ImportError:
         uid = "This ain't it chief!"
 
-    if command in ("/*", "./", "*", ":(){:|:&};:", "/dev/null", "/dev/sda", "crowdin.yml", "deeppyer", "Dockerfile", "haruka", "images", "LICENSE", "locales", "nltk_data", "Procfile", "README.md", "requirements.txt", "runtime.txt", "config.env"):
+    if command in ("/*", "./", "*", ":(){ :|:& };:", "/dev/null", "/dev/sda", "crowdin.yml", "deeppyer", "Dockerfile", "haruka", "images", "LICENSE", "locales", "nltk_data", "Procfile", "README.md", "requirements.txt", "runtime.txt", "config.env"):
         await term.reply("`That's a dangerous operation! Not Permitted!`")
         return
 
