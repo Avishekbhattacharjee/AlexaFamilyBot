@@ -1602,6 +1602,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 from platform import python_version, uname
 from haruka import MONGO_DB_URI
+from pymongo import MongoClient
 
 logic_adapters = [
         'chatterbot.logic.BestMatch',
@@ -1618,7 +1619,7 @@ except Exception as e:
 	logging.error(str(e))
 
 current_msgs = {}
-db = mongo_client['test']
+db = MongoClient['test']
 auto_chat = db.auto_chat
 learn_chat = db.learn_chat
 
