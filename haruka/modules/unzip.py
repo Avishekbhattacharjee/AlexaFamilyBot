@@ -95,7 +95,7 @@ async def _(event):
                         # )
                     )
                 except Exception as e:
-                    await borg.send_message(
+                    await event.client.send_message(
                         event.chat_id,
                         "{} caused `{}`".format(caption_rts, str(e)),
                         reply_to=event.message.id
