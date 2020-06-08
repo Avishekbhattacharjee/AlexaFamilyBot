@@ -1645,7 +1645,6 @@ async def chat_bot(event):
 	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
 	await event.reply("Autochat mode turned off For User: "+str(reply_msg.from_id))	
 	
-
 @register(pattern="")      
 async def chat_bot_update(event):			
 	if MONGO_DB_URI is None:
@@ -1653,17 +1652,18 @@ async def chat_bot_update(event):
 	auto_chats = auto_chat.find({})
 	learn_chats = learn_chat.find({})
 	if not event.media:
-		for ch in auto_chats:
-			if event.chat_id == ch['id'] and event.from_id == ch['user']:  
-				msg = str(event.text)
-                                logic_adapters = ['chatterbot.logic.BestMatch', 'chatterbot.logic.SpecificResponseAdapter']
-                                bot= ChatBot('Bot', storage_adapter='chatterbot.storage.MongoDatabaseAdapter', database_uri=MONGO_DB_URI, logic_adapters=logic_adapters)   
-				reply = bot.get_response(msg)
-				logging.info(reply)
-				stdh = str(reply)
-				await event.reply(stdh)
+	   for ch in auto_chats:
+		if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+		    msg = str(event.text)
+                    logic_adapters = ['chatterbot.logic.BestMatch', 'chatterbot.logic.SpecificResponseAdapter']
+                    bot= ChatBot('Bot', storage_adapter='chatterbot.storage.MongoDatabaseAdapter', database_uri=MONGO_DB_URI, logic_adapters=logic_adapters)   
+		    reply = bot.get_response(msg)
+                    logging.info(reply)
+		    stdh = str(reply)
+		    await event.reply(stdh)
 	if not event.text:
 		return
+
 
 
 __help__ = """
