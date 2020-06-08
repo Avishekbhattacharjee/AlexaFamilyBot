@@ -182,8 +182,6 @@ from google_images_download import google_images_download
 from shutil import rmtree
 from urllib.error import HTTPError
 from wikipedia import summary
-from coffeehouse.lydia import LydiaAI
-from coffeehouse.api import API
 import asyncio
 from haruka import LYDIA_API_KEY
 from telethon.errors import FloodWaitError
@@ -920,51 +918,6 @@ async def get_users(show):
                 reply_to=show.id,
                 )
         os.remove("userslist.txt")
-
-ACC_LYDIA = {}
-if LYDIA_API_KEY:
-    api_key = LYDIA_API_KEY
-    api_client = API(api_key)
-    lydia = LydiaAI(api_client)
-
-@register(pattern="^/autochat$")
-async def addcf(event):
-    if event.fwd_from:
-        return
-    reply_message = await event.get_reply_message()
-    reply_msg = await event.get_reply_message()
-    if reply_msg:
-        session = lydia.create_session()
-        session_id = session.id
-        if reply_msg.from_id is None:
-            return await event.reply("Invalid user type.")
-        ACC_LYDIA.update({(event.chat_id & reply_msg.from_id): session})
-        await event.reply("Successfully created session for user: {} in chat: {}\n\n**WARNING**:This session will be automatically purged after 30 mins.To purge manually reply to the users message and type /stopchat\n\n".format(str(reply_msg.from_id), str(event.chat_id)))
-    else:
-        await event.reply("Tag any user's message to activate on them")
-
-@register(pattern="^/stopchat$")
-async def remcf(event):
-    if event.fwd_from:
-        return
-    reply_msg = await event.get_reply_message()
-    try:
-        del ACC_LYDIA[event.chat_id & reply_msg.from_id]
-        await event.reply(" Auto reply disabled for user: {} in chat: {}".format(str(reply_msg.from_id), str(event.chat_id)))
-    except Exception:
-        await event.reply("This person does not have activated auto reply on him/her.")
-@register(pattern="")
-async def user(event):
-    try:
-        session = ACC_LYDIA[event.chat_id & event.from_id]
-        msg = event.text
-        text_rep = session.think_thought(msg)
-        await event.reply(text_rep)
-        await asyncio.sleep(1800)
-        del ACC_LYDIA[event.chat_id & reply_msg.from_id]
-    except (KeyError, TypeError):
-        return
-
 
 
 import requests
