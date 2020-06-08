@@ -1604,19 +1604,6 @@ from platform import python_version, uname
 from haruka import MONGO_DB_URI
 from pymongo import MongoClient
 
-logic_adapters = [
-        'chatterbot.logic.BestMatch',
-        'chatterbot.logic.SpecificResponseAdapter'
-    ]
-
-try:	
-	bot= ChatBot('Bot', 
-		 	storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
-	    	database_uri=MONGO_DB_URI,
-	    	logic_adapters=logic_adapters
-		)   
-except Exception as e:
-	logging.error(str(e))
 
 current_msgs = {}
 client = MongoClient()
@@ -1669,31 +1656,14 @@ async def chat_bot_update(event):
 		for ch in auto_chats:
 			if event.chat_id == ch['id'] and event.from_id == ch['user']:  
 				msg = str(event.text)
+                                logic_adapters = ['chatterbot.logic.BestMatch','chatterbot.logic.SpecificResponseAdapter']
+                                bot= ChatBot('Bot', storage_adapter='chatterbot.storage.MongoDatabaseAdapter', database_uri=MONGO_DB_URI, logic_adapters=logic_adapters)   
 				reply = bot.get_response(msg)
 				logging.info(reply)
 				stdh = str(reply)
 				await event.reply(stdh)
 	if not event.text:
 		return
-	for cht in learn_chats:		
-		if event.chat_id == cht['chat_id']:	
-			msg_id = event.id	
-			current_msgs.update({event.text:msg_id})
-			logging.info(event.text+":"+str(msg_id))
-			if event.reply_to_msg_id:
-				reply_msg = await event.get_reply_message()	
-				try:
-					for msg,mid in current_msgs.copy().items():
-						if mid == event.id:	
-							correct_response = Statement(str(msg))
-							bot.learn_response(previous_statement=reply_msg.text,statement=correct_response)
-							logging.info('Response added to bot!')
-							current_msgs.pop(msg)
-				except Exception as e:
-					logging.error(str(e))
-					pass	
-			else:
-				return 
 
 
 __help__ = """
