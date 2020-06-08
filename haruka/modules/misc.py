@@ -1619,7 +1619,9 @@ except Exception as e:
 	logging.error(str(e))
 
 current_msgs = {}
-db = MongoClient['test']
+client = MongoClient()
+client = MongoClient('localhost', 27017)
+db = client['test-database']
 auto_chat = db.auto_chat
 learn_chat = db.learn_chat
 
