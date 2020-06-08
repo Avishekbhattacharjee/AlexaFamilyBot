@@ -49,5 +49,8 @@ dnspython
 pymongo[srv]
 redis
 pybase64
+selenium
+base
+async_generator
 chatterbot
 chatterbot_corpus
