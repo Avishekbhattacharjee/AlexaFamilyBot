@@ -1647,23 +1647,22 @@ async def chat_bot(event):
 	
 @register(pattern="")      
 async def chat_bot_update(event):			
-	if MONGO_DB_URI is None:
-		return
-	auto_chats = auto_chat.find({})
-	learn_chats = learn_chat.find({})
-	if not event.media:
-           for ch in auto_chats:
-	       if event.chat_id == ch['id'] and event.from_id == ch['user']:  
-		    msg = str(event.text)
+    if MONGO_DB_URI is None:
+	    return
+    auto_chats = auto_chat.find({})
+    learn_chats = learn_chat.find({})
+    if not event.media:
+        for ch in auto_chats:
+	      if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+		            msg = str(event.text)
                     logic_adapters = ['chatterbot.logic.BestMatch', 'chatterbot.logic.SpecificResponseAdapter']
                     bot= ChatBot('Bot', storage_adapter='chatterbot.storage.MongoDatabaseAdapter', database_uri=MONGO_DB_URI, logic_adapters=logic_adapters)   
-		    reply = bot.get_response(msg)
+		            reply = bot.get_response(msg)
                     logging.info(reply)
-		    stdh = str(reply)
-		    await event.reply(stdh)
-        if not event.text:
-	   return
-
+		           stdh = str(reply)
+		           await event.reply(stdh)
+    if not event.text:
+	             return
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
