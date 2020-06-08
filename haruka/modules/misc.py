@@ -1593,6 +1593,105 @@ async def phone(event):
     g = f"{a}\n{b}\n{c}\n{d}\n{e}\n{f}"
     await event.reply(g)
 
+from chatterbot import ChatBot 
+from chatterbot.conversation import Statement
+from telethon import events
+import asyncio
+import os
+import logging
+logging.basicConfig(level=logging.INFO)
+from platform import python_version, uname
+from haruka import MONGO_DB_URI
+
+logic_adapters = [
+        'chatterbot.logic.BestMatch',
+        'chatterbot.logic.SpecificResponseAdapter'
+    ]
+
+try:	
+	bot= ChatBot('Bot', 
+		 	storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
+	    	database_uri=MONGO_DB_URI,
+	    	logic_adapters=logic_adapters
+		)   
+except Exception as e:
+	logging.error(str(e))
+
+current_msgs = {}
+db = mongo_client['test']
+auto_chat = db.auto_chat
+learn_chat = db.learn_chat
+
+@register(pattern="^/autochat")
+async def chat_bot(event):
+	if event.fwd_from:
+		return  
+	if MONGO_DB_URI is None:
+		await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")	
+		return
+	if not event.from_id:
+		await event.reply("Reply To Someone's Message To add User in AutoChats..")
+		return	
+	reply_msg = await event.get_reply_message()	
+	chats = auto_chat.find({})
+	for c in chats:
+		if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
+			await event.reply("This User is Already in Auto-Chat List.")
+			return 
+	auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
+	await event.reply("Autochat mode turned on For User: "+str(reply_msg.from_id))
+
+@register(pattern="^/stopchat")
+async def chat_bot(event):
+	if event.fwd_from:
+		return  
+	if MONGO_DB_URI is None:
+		await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")	
+		return
+	if not event.from_id:
+		await event.reply("Reply To Someone's Message To Remove User in AutoChats..")
+		return		
+	reply_msg = await event.get_reply_message()	
+	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
+	await event.reply("Autochat mode turned off For User: "+str(reply_msg.from_id))	
+	
+
+@register(pattern="")      
+async def chat_bot_update(event):			
+	if MONGO_DB_URI is None:
+		return
+	auto_chats = auto_chat.find({})
+	learn_chats = learn_chat.find({})
+	if not event.media:
+		for ch in auto_chats:
+			if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+				msg = str(event.text)
+				reply = bot.get_response(msg)
+				logging.info(reply)
+				stdh = str(reply)
+				await event.reply(stdh)
+	if not event.text:
+		return
+	for cht in learn_chats:		
+		if event.chat_id == cht['chat_id']:	
+			msg_id = event.id	
+			current_msgs.update({event.text:msg_id})
+			logging.info(event.text+":"+str(msg_id))
+			if event.reply_to_msg_id:
+				reply_msg = await event.get_reply_message()	
+				try:
+					for msg,mid in current_msgs.copy().items():
+						if mid == event.id:	
+							correct_response = Statement(str(msg))
+							bot.learn_response(previous_statement=reply_msg.text,statement=correct_response)
+							logging.info('Response added to bot!')
+							current_msgs.pop(msg)
+				except Exception as e:
+					logging.error(str(e))
+					pass	
+			else:
+				return 
+
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
