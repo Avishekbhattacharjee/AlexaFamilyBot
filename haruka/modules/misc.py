@@ -1662,7 +1662,7 @@ async def chat_bot_update(event):
              "Chatbot Backed by MongoDB",
              storage_adapter="chatterbot.storage.MongoDatabaseAdapter",
              database="chatterbot_db",
-             database_uri="mongodb://172.17.0.3:27017/",
+             database_uri=MONGO_DB_URI,
              logic_adapters=[
                  'chatterbot.logic.BestMatch'
              ],
