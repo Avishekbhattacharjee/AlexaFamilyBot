@@ -1603,6 +1603,8 @@ logging.basicConfig(level=logging.INFO)
 from platform import python_version, uname
 from haruka import MONGO_DB_URI
 from pymongo import MongoClient
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
 
 
 current_msgs = {}
@@ -1655,10 +1657,24 @@ async def chat_bot_update(event):
   if not event.media:
     for ch in auto_chats: 
       if event.chat_id == ch['id'] and event.from_id == ch['user']:
-         msg = str(event.text)
-         logic = ['chatterbot.logic.BestMatch', 'chatterbot.logic.SpecificResponseAdapter']
-         bot= ChatBot('Bot', storage_adapter='chatterbot.storage.MongoDatabaseAdapter', database_uri=MONGO_DB_URI, logic_adapters=logic)
-         reply = bot.get_response(msg)
+         msg = str(event.text)      
+         chatbot = ChatBot(
+             "Chatbot Backed by MongoDB",
+             storage_adapter="chatterbot.storage.MongoDatabaseAdapter",
+             database="chatterbot_db",
+             database_uri="mongodb://172.17.0.3:27017/",
+             logic_adapters=[
+                 'chatterbot.logic.BestMatch'
+             ],
+         trainer='chatterbot.trainers.ChatterBotCorpusTrainer',
+         filters=[
+            'chatterbot.filters.RepetitiveResponseFilter'
+         ],
+         input_adapter='chatterbot.input.TerminalAdapter',
+         output_adapter='chatterbot.output.TerminalAdapter')
+         chatbot.set_trainer(ChatterBotCorpusTrainer)
+         chatbot.train("chatterbot.corpus.english")
+         reply = chatbot.get_response(msg)
          stdh = str(reply)
          await event.reply(stdh)
   if not event.text:
