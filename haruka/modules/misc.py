@@ -1620,7 +1620,7 @@ except Exception as e:
 
 current_msgs = {}
 client = MongoClient()
-client = MongoClient('localhost', 27017)
+client = MongoClient(MONGO_DB_URI, 27017, serverSelectionTimeoutMS=1)
 db = client['test-database']
 auto_chat = db.auto_chat
 learn_chat = db.learn_chat
