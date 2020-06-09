@@ -1661,7 +1661,7 @@ async def chat_bot_update(event):
          chatbot = ChatBot(
              "Chatbot Backed by MongoDB",
              storage_adapter="chatterbot.storage.MongoDatabaseAdapter",
-             database="chatterbot_db",
+             database="alexa",
              database_uri=MONGO_DB_URI,
              logic_adapters=[
                  'chatterbot.logic.BestMatch'
