@@ -1620,7 +1620,7 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 current_msgs = {}
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI, 27017, serverSelectionTimeoutMS=1)
-db = client['test-database']
+db = client['chatterbot']
 auto_chat = db.auto_chat
 learn_chat = db.learn_chat
 
@@ -1671,7 +1671,7 @@ async def chat_bot_update(event):
          chatbot = ChatBot(
              "Chatbot Backed by MongoDB",
              storage_adapter="chatterbot.storage.MongoDatabaseAdapter",
-             database="alexa",
+             database="chatterbot",
              database_uri=MONGO_DB_URI,
              logic_adapters=[
                  'chatterbot.logic.BestMatch'
