@@ -1693,6 +1693,16 @@ async def chat_bot_update(event):
   if not event.text:
      return
 
+@register(pattern="^/ping")
+async def pingme(pong):
+    """ FOr .pingme command, ping the userbot from any chat.  """
+    start = datetime.datetime.now()
+    up = await pong.reply("`Pong!`")
+    end = datetime.datetime.now()
+    duration = (end - start).microseconds / 1000
+    await up.edit("`Pong!\n%sms`" % (duration))
+
+
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
