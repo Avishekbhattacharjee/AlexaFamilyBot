@@ -1161,8 +1161,13 @@ async def terminal_runner(term):
         await term.reply("`That's a dangerous operation! Not Permitted!`")
         return
 
+    if "bash" in command:
+        await term.reply("`Permission Denied !`")
+        return
+
+
     if "./" in command:
-        await term.reply("`That's a dangerous operation! Not Permitted!`")
+        await term.reply("`Permission Denied !`")
         return
 
     if "*" in command:
