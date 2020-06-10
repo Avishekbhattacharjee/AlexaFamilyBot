@@ -94,17 +94,7 @@ if ENV:
     if ALLOW_EXCL:
        tg.CommandHandler = CustomCommandHandler
     tg.CommandHandler = GbanLockHandler
-    MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
-    MONGOCLIENT = MongoClient(MONGO_DB_URI, 27017, serverSelectionTimeoutMS=1)
-    MONGO = MONGOCLIENT.haruka
-
-    def is_mongo_alive():
-      try:
-        MONGOCLIENT.server_info()
-      except BaseException:
-        return False
-      return True
-
+    MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)   
 
     REDIS = StrictRedis(host='localhost', port=6379, db=0)
 
