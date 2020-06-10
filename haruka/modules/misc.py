@@ -1161,13 +1161,16 @@ async def terminal_runner(term):
         await term.reply("`That's a dangerous operation! Not Permitted!`")
         return
 
-    if "bash" in command:
-        await term.reply("`Permission Denied !`")
+    if command.startswith('python'):
+        await term.reply("`Executing Scripts is not permitted !`")
         return
 
+    if "bash" in command:
+        await term.reply("`Executing Scripts is not permitted !`")
+        return
 
     if "./" in command:
-        await term.reply("`Permission Denied !`")
+        await term.reply("`Executing Scripts is not permitted !`")
         return
 
     if "*" in command:
