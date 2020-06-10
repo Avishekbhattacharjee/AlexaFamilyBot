@@ -1185,6 +1185,11 @@ async def terminal_runner(term):
        await term.reply("`Hey noob I can't show my source files to you !`")
        return
 
+    if command.startswith('pwd'):
+       await term.reply("`Permission Denied !`")
+       return
+
+
     if command.startswith('cd'):
        await term.reply("`Permission Denied !`")
        return
