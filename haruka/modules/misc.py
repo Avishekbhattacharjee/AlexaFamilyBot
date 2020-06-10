@@ -1162,15 +1162,12 @@ async def terminal_runner(term):
         return
 
     if command.startswith('python'):
-        await term.reply("`Executing Scripts is not permitted !`")
         return
 
     if "bash" in command:
-        await term.reply("`Executing Scripts is not permitted !`")
         return
 
     if "./" in command:
-        await term.reply("`Executing Scripts is not permitted !`")
         return
 
     if "*" in command:
