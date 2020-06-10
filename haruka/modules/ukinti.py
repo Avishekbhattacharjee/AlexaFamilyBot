@@ -13,7 +13,7 @@ from haruka.events import register
 KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
 
 
-@register(pattern=".kickthefools")
+@register(pattern="^/kickthefools")
 async def _(event):
     if event.fwd_from:
         return
