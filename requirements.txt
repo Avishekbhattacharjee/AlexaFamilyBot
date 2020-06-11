@@ -49,4 +49,3 @@ dnspython
 pymongo[srv]
 redis
 pybase64
-chatterbot
