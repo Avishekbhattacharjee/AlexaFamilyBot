@@ -1624,17 +1624,6 @@ db = client['test']
 auto_chat = db.auto_chat
 learn_chat = db.learn_chat
 
-
-logic_adapters = [
-        'chatterbot.logic.BestMatch',
-        'chatterbot.logic.SpecificResponseAdapter']
-
-bot = ChatBot('Bot', #Prepare Bot
-	        storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
-	    	database_uri=MONGO_DB_URI,
-	    	logic_adapters=logic_adapters
-		)   
-
 @register(pattern="^/autochat")
 async def chat_bot(event):
 	if event.fwd_from:
@@ -1670,18 +1659,24 @@ async def chat_bot(event):
 	
 
 @register(pattern="")
-async def chat_bot_update(event):
+async def chat_bot_update(ebent):
   if MONGO_DB_URI is None:
      return
   auto_chats = auto_chat.find({})
   learn_chats = learn_chat.find({})
-  if not event.media:
+  if not ebent.media:
     for ch in auto_chats: 
-      if event.chat_id == ch['id'] and event.from_id == ch['user']:
+      if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
          msg = str(event.text)
+         logic_adapters = ['chatterbot.logic.BestMatch', 'chatterbot.logic.SpecificResponseAdapter']
+         bot = ChatBot('Bot', #Prepare Bot
+	        storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
+	    	database_uri=MONGO_DB_URI,
+	    	logic_adapters=logic_adapters
+		)   
          reply = bot.get_response(msg)
          gaga = str(reply)
-         await event.reply(gaga)
+         await ebent.reply(gaga)
        
   if not event.text:
      return
