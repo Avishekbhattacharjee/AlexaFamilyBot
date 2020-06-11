@@ -1614,8 +1614,8 @@ from platform import python_version, uname
 from haruka import MONGO_DB_URI
 from pymongo import MongoClient
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-
+import chatterbot
+from chatterbot import *
 
 current_msgs = {}
 client = MongoClient()
