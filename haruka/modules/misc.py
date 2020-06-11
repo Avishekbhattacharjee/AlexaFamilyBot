@@ -1620,9 +1620,20 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 current_msgs = {}
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI, 27017, serverSelectionTimeoutMS=1)
-db = client['chatterbot']
+db = client['test']
 auto_chat = db.auto_chat
 learn_chat = db.learn_chat
+
+
+logic_adapters = [
+        'chatterbot.logic.BestMatch',
+        'chatterbot.logic.SpecificResponseAdapter']
+
+bot = ChatBot('Bot', #Prepare Bot
+	        storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
+	    	database_uri=MONGO_DB_URI,
+	    	logic_adapters=logic_adapters
+		)   
 
 @register(pattern="^/autochat")
 async def chat_bot(event):
@@ -1667,26 +1678,10 @@ async def chat_bot_update(event):
   if not event.media:
     for ch in auto_chats: 
       if event.chat_id == ch['id'] and event.from_id == ch['user']:
-         msg = str(event.text)      
-         chatbot = ChatBot(
-             "Chatbot Backed by MongoDB",
-             storage_adapter="chatterbot.storage.MongoDatabaseAdapter",
-             database="chatterbot",
-             database_uri=MONGO_DB_URI,
-             logic_adapters=[
-                 'chatterbot.logic.BestMatch'
-             ],
-         trainer='chatterbot.trainers.ChatterBotCorpusTrainer',
-         filters=[
-            'chatterbot.filters.RepetitiveResponseFilter'
-         ],
-         input_adapter='chatterbot.input.TerminalAdapter',
-         output_adapter='chatterbot.output.TerminalAdapter')
-         chatbot.set_trainer(ChatterBotCorpusTrainer)
-         chatbot.train("chatterbot.corpus.english")
-         reply = chatbot.get_response(msg)
-         stdh = str(reply)
-         await event.reply(stdh)
+         msg = str(event.text)
+	 reply = bot.get_response(msg)
+	 gaga = str(reply)
+	 await event.reply(gaga)
   if not event.text:
      return
 
