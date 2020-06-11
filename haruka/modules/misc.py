@@ -1679,9 +1679,10 @@ async def chat_bot_update(event):
     for ch in auto_chats: 
       if event.chat_id == ch['id'] and event.from_id == ch['user']:
          msg = str(event.text)
-	 reply = bot.get_response(msg)
-	 gaga = str(reply)
-	 await event.reply(gaga)
+         reply = bot.get_response(msg)
+         gaga = str(reply)
+         await event.reply(gaga)
+       
   if not event.text:
      return
 
