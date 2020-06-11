@@ -50,4 +50,3 @@ pymongo[srv]
 redis
 pybase64
 chatterbot
-chatterbot_corpus
