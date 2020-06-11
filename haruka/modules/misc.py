@@ -1667,7 +1667,7 @@ async def chat_bot_update(ebent):
   if not ebent.media:
     for ch in auto_chats: 
       if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
-         msg = str(event.text)
+         msg = str(ebent.text)
          logic_adapters = ['chatterbot.logic.BestMatch', 'chatterbot.logic.SpecificResponseAdapter']
          bot = ChatBot('Bot', #Prepare Bot
 	        storage_adapter='chatterbot.storage.MongoDatabaseAdapter',
