@@ -48,7 +48,8 @@ RUN apk add  --update \
     zip \
     megatools \
     freetype-dev \
-    redis
+    redis \
+    fortune
 
 
 RUN python3 -m ensurepip \
