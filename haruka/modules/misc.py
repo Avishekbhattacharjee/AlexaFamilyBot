@@ -1656,6 +1656,70 @@ async def _(event):
     required_string = "Successfully Kicked **{}** users"
     await event.reply(required_string.format(c))
 
+from chatterbot import ChatBot 
+from chatterbot.trainers import ChatterBotCorpusTrainer 
+from pymongo import MongoClient
+from haruka import MONGO_DB_URI
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client['test']
+auto_chat = db.auto_chat
+
+@register(pattern="^/autochat")
+async def chat_bot(event):
+	if event.fwd_from:
+		return  
+	if MONGO_DB_URI is None:
+		await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")	
+		return
+	if not event.from_id:
+		await event.reply("Reply To Someone's Message To add User in AutoChats..")
+		return	
+	reply_msg = await event.get_reply_message()	
+	chats = auto_chat.find({})
+	for c in chats:
+		if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
+			await event.reply("This User is Already in Auto-Chat List.")
+			return 
+	auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
+	await event.reply("Autochat mode turned on For User: "+str(reply_msg.from_id)+"**\nThis session will automatically purge after 30 minutes !**")
+	
+
+@register(pattern="^/stopchat")
+async def chat_bot(event):
+	if event.fwd_from:
+		return  
+	if MONGO_DB_URI is None:
+		await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")	
+		return
+	if not event.from_id:
+		await event.reply("Reply To Someone's Message To Remove User in AutoChats..")
+		return		
+	reply_msg = await event.get_reply_message()	
+	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
+	await event.reply("Autochat mode turned off For User: "+str(reply_msg.from_id))
+
+@register(pattern="")
+async def chat_bot_update(event):			
+	if MONGO_DB_URI is None:
+		return
+	auto_chats = auto_chat.find({})
+	learn_chats = learn_chat.find({})
+	if not event.media:
+		for ch in auto_chats:
+			if event.chat_id == ch['id'] and event.from_id == ch['user']:  
+				msg = str(event.text)
+                                chatbot=ChatBot('Alexa') 
+                                trainer = ChatterBotCorpusTrainer(chatbot) 
+                                trainer.train("chatterbot.corpus.english.greetings", "chatterbot.corpus.english.conversations")
+				response = chatbot.get_response(msg)
+				let = str(response)
+				await event.reply(let)
+	if not event.text
+		return
+
+
 
 
 __help__ = """
