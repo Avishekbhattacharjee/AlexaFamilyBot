@@ -1705,12 +1705,12 @@ async def chat_bot_update(event):
 	if MONGO_DB_URI is None:
 		return
 	auto_chats = auto_chat.find({})
-	learn_chats = learn_chat.find({})
 	if not event.media:
 		for ch in auto_chats:
 			if event.chat_id == ch['id'] and event.from_id == ch['user']:  
 				msg = str(event.text)
-                                chatbot=ChatBot('Alexa') 
+                                chatbot=ChatBot('Alexa')
+                                 
                                 trainer = ChatterBotCorpusTrainer(chatbot) 
                                 trainer.train("chatterbot.corpus.english.greetings", "chatterbot.corpus.english.conversations")
 				response = chatbot.get_response(msg)
@@ -1718,8 +1718,6 @@ async def chat_bot_update(event):
 				await event.reply(let)
 	if not event.text
 		return
-
-
 
 
 __help__ = """
