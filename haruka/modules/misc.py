@@ -1701,24 +1701,23 @@ async def chat_bot(event):
 	await event.reply("Autochat mode turned off For User: "+str(reply_msg.from_id))
 
 @register(pattern="")
-async def chat_bot_update(event):			
-	if MONGO_DB_URI is None:
-		return
-	auto_chats = auto_chat.find({})
-	if not event.media:
-		for ch in auto_chats:
-			if event.chat_id == ch['id'] and event.from_id == ch['user']:  
-				msg = str(event.text)
-                                chatbot=ChatBot('Alexa')
-                                 
-                                trainer = ChatterBotCorpusTrainer(chatbot) 
-                                trainer.train("chatterbot.corpus.english.greetings", "chatterbot.corpus.english.conversations")
-				response = chatbot.get_response(msg)
-				let = str(response)
-				await event.reply(let)
-	if not event.text
-		return
-
+async def chat_bot_update(ebent):
+   if MONGO_DB_URI is None:
+      return
+   auto_chats = auto_chat.find({})
+   if not event.media:
+      for ch in auto_chats:
+          if event.chat_id == ch['id'] and event.from_id == ch['user']:
+             msg = str(event.text)
+             chatbot=ChatBot('Alexa')
+             trainer = ChatterBotCorpusTrainer(chatbot) 
+             trainer.train("chatterbot.corpus.english.greetings", "chatterbot.corpus.english.conversations")
+             response = chatbot.get_response(msg)
+             let = str(response)
+             await event.reply(let)
+   if not event.text:
+      return
+             
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
