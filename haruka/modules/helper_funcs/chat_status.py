@@ -6,6 +6,7 @@ from telegram import User, Chat, ChatMember, Update, Bot
 from haruka import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
 import haruka.modules.sql.admin_sql as admin_sql
 from haruka.modules.translations.strings import tld
+from tg_bot.modules.helper_funcs.extraction import extract_user # needed
 
 
 def can_delete(chat: Chat, bot_id: int) -> bool:
@@ -82,20 +83,36 @@ def can_promote(func):
         else:
             update.effective_message.reply_text("I can't promote/demote people here! "
                                                 "Make sure I'm admin and can appoint new admins.")
-
     return promote_rights
 
 
 def can_restrict(func):
     @wraps(func)
-    def promote_rights(bot: Bot, update: Update, *args, **kwargs):
-        if update.effective_chat.get_member(bot.id).can_restrict_members:
-            return func(bot, update, *args, **kwargs)
-        else:
-            update.effective_message.reply_text("I can't restrict people here! "
-                                                "Make sure I'm admin and can appoint new admins.")
+    def restrict_rights(bot: Bot, update: Update, *args, **kwargs):
+        chat = update.effective_chat
+        update_chat_title = chat.title
+        message_chat_title = update.effective_message.chat.title
 
-    return promote_rights
+        whois = extract_user(update.effective_message, args) # get the user
+
+        user = bot.get_chat(whois) # extract the user 
+
+        if update_chat_title == message_chat_title:
+            cant_restrict = f"I can't restrict people here!\nMake sure I'm admin and can restrict users."
+        else:
+            cant_restrict = f"I can't restrict people in <b>{update_chat_title}</b>!\nMake sure I'm admin there and can restrict users."
+     
+        if chat.get_member(bot.id).can_restrict_members:
+           return func(bot, update, *args, **kwargs)
+
+        elif chat.get_member(user.id).can_restrict_members: # get the user id 
+           update.effective_message.reply_text("You are missing the following rights to use this command: CanRestrictMembers")
+           return # simply return
+
+        else:
+            update.effective_message.reply_text(cant_restrict, parse_mode=ParseMode.HTML)
+
+    return restrict_rights   
 
 
 def bot_admin(func):
