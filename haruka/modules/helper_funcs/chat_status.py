@@ -153,3 +153,31 @@ def user_not_admin(func):
             return func(bot, update, *args, **kwargs)
 
     return is_not_admin
+
+
+from haruka.modules import connection
+connected = connection.connected
+
+def user_can_ban(func):
+    @wraps(func)
+    def user_is_banhammer(bot: Bot, update: Update, *args, **kwargs):
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+        if not (member.can_restrict_members or member.status == "creator") and not user in SUDO_USERS:
+            update.effective_message.reply_text("Sorry you don't have sufficient rights !")
+            return ""
+        return func(bot, update, *args, **kwargs)
+    
+    return user_is_banhammer
+
+def user_can_restrict(func):
+    @wraps(func)
+    def user_is_banhammer(bot: Bot, update: Update, *args, **kwargs):
+        user = update.effective_user.id
+        member = update.effective_chat.get_member(user)
+        if not (member.can_restrict_members or member.status == "creator") and not user in SUDO_USERS:
+            update.effective_message.reply_text("Sorry you don't have sufficient rights !")
+            return ""
+        return func(bot, update, *args, **kwargs)
+    
+    return user_is_banhammer
