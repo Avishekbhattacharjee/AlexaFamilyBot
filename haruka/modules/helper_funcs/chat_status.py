@@ -172,7 +172,7 @@ def user_can_ban(func):
 
 def user_can_restrict(func):
     @wraps(func)
-    def user_is_banhammer(bot: Bot, update: Update, *args, **kwargs):
+    def user_is_retrict(bot: Bot, update: Update, *args, **kwargs):
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
         if not (member.can_promote_members or member.status == "creator") and not user in SUDO_USERS:
@@ -180,4 +180,4 @@ def user_can_restrict(func):
             return ""
         return func(bot, update, *args, **kwargs)
     
-    return user_is_banhammer
+    return user_is_restrict
