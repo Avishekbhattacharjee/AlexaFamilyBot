@@ -1693,7 +1693,9 @@ async def chat_bot(event):
 			await event.reply("This User is Already in Auto-Chat List.")
 			return 
 	auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
-	await event.reply("Autochat mode turned on For User: "+str(reply_msg.from_id)+"**\nThis session will automatically purge after 30 minutes !**")
+        await asyncio.sleep(1800)
+        auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
+	await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+"**\nThis session will automatically purge after 30 minutes !**")
 	
 
 @register(pattern="^/stopchat")
@@ -1708,7 +1710,7 @@ async def chat_bot(event):
 		return		
 	reply_msg = await event.get_reply_message()	
 	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-	await event.reply("Autochat mode turned off For User: "+str(reply_msg.from_id))
+	await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id))
 
 @register(pattern="")
 async def chat_bot_update(ebent):
@@ -1717,7 +1719,7 @@ async def chat_bot_update(ebent):
    auto_chats = auto_chat.find({})
    if not ebent.media:
       for ch in auto_chats:
-          if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
+          if ebent.from_id == ch['user']:
              msg = str(ebent.text)
              chatbot=ChatBot('Alexa')
              trainer = ChatterBotCorpusTrainer(chatbot) 
