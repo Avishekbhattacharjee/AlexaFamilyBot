@@ -1693,10 +1693,10 @@ async def chat_bot(event):
                    await event.reply("This User is Already in Auto-Chat List.")
                    return 
                auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
+               await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+"in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
                await asyncio.sleep(1800)
                auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-               await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+"in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
-
+               
 
 
 @register(pattern="^/stopchat")
