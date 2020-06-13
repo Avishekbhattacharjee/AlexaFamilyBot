@@ -1693,7 +1693,7 @@ async def chat_bot(event):
                    await event.reply("This User is Already in Auto-Chat List.")
                    return 
                auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
-               await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+"in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
+               await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+" in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
                await asyncio.sleep(1800)
                auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
                
@@ -1710,8 +1710,13 @@ async def chat_bot(event):
 		await event.reply("Reply To Someone's Message To Remove User in AutoChats..")
 		return		
 	reply_msg = await event.get_reply_message()	
+        chats = auto_chat.find({})
+        for c in chats:
+              if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
+                 await event.reply("This User is not in Auto-Chat List.")
+                 return
 	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-	await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+"in this chat.")
+	await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+" in this chat.")
 
 @register(pattern="")
 async def chat_bot_update(ebent):
@@ -1730,6 +1735,7 @@ async def chat_bot_update(ebent):
              await ebent.reply(let)
    if not ebent.text:
       return
+
 
 @register(pattern="^/listautochat")
 async def list_db(event):
