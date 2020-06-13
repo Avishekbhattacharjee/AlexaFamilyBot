@@ -1697,26 +1697,26 @@ async def chat_bot(event):
                await asyncio.sleep(1800)
                auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
                
-
-
 @register(pattern="^/stopchat")
 async def chat_bot(event):
-	if event.fwd_from:
-		return  
-	if MONGO_DB_URI is None:
-		await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")	
-		return
-	if not event.from_id:
-		await event.reply("Reply To Someone's Message To Remove User in AutoChats..")
-		return		
-	reply_msg = await event.get_reply_message()	
-        chats = auto_chat.find({})
-        for c in chats:
+      if event.fwd_from:
+          return  
+      if MONGO_DB_URI is None:
+          await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
+          return
+      if not event.from_id:
+          await event.reply("Reply To Someone's Message To Remove User in AutoChats..")
+          return
+      reply_msg = await event.get_reply_message()
+      chats = auto_chat.find({})
+      for c in chats:
               if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
                  await event.reply("This User is not in Auto-Chat List.")
                  return
-	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-	await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+" in this chat.")
+      auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
+      await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+" in this chat.")
+
+
 
 @register(pattern="")
 async def chat_bot_update(ebent):
