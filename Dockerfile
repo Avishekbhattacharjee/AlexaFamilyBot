@@ -40,7 +40,6 @@ RUN apk add  --update \
     sqlite \
     ffmpeg \
     sqlite-dev \
-    sudo \
     chromium \
     chromium-chromedriver \
     zlib-dev \
@@ -49,7 +48,8 @@ RUN apk add  --update \
     megatools \
     freetype-dev \
     redis \
-    fortune
+    fortune \
+    cowsay
 
 
 RUN python3 -m ensurepip \
@@ -63,4 +63,5 @@ RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1
 RUN mkdir /root/haruka/bin/
 WORKDIR /root/haruka/
 
+RUN pip3 install -r requirements.txt
 CMD ["bash","init/start.sh"]
