@@ -1692,10 +1692,10 @@ async def chat_bot(event):
                if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
                    await event.reply("This User is Already in Auto-Chat List.")
                    return 
-               auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
-               await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+" in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
-               await asyncio.sleep(1800)
-               auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
+         auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
+         await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+" in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
+         await asyncio.sleep(1800)
+         auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
                
 @register(pattern="^/stopchat")
 async def chat_bot(event):
@@ -1710,7 +1710,7 @@ async def chat_bot(event):
       reply_msg = await event.get_reply_message()
       chats = auto_chat.find({})
       for c in chats:
-              if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
+              if not event.chat_id == c['id'] and reply_msg.from_id == c['user']:
                  await event.reply("This User is not in Auto-Chat List.")
                  return
       auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
