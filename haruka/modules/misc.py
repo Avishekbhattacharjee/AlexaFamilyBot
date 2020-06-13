@@ -1723,7 +1723,7 @@ async def chat_bot_update(ebent):
              msg = str(ebent.text)
              chatbot=ChatBot('Alexa')
              trainer = ChatterBotCorpusTrainer(chatbot) 
-             trainer.train("chatterbot.corpus.english.greetings", "chatterbot.corpus.english.conversations")
+             trainer.train("chatterbot.corpus.english")
              response = chatbot.get_response(msg)
              let = str(response)
              await ebent.reply(let)
