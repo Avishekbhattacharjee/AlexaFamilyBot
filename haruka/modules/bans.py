@@ -49,7 +49,7 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You are missing the following rights to use this command: CanRestrictMembers")
+           update.effective_message.reply_text("You don't have sufficient rights !")
            return # simply return
 
     if is_user_ban_protected(chat, user_id, member):
@@ -121,8 +121,8 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You are missing the following rights to use this command: CanRestrictMembers")
-           return # simply return
+           update.effective_message.reply_text("You don't have sufficient rights !")
+           return
 
     if not reason:
         message.reply_text(tld(chat.id, "You haven't specified a time to ban this person for!"))
@@ -207,7 +207,7 @@ def kick(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You are missing the following rights to use this command: CanRestrictMembers")
+           update.effective_message.reply_text("You don't have sufficient rights !")
            return # simply return
 
     if is_user_ban_protected(chat, user_id):
@@ -316,7 +316,7 @@ def unban(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You are missing the following rights to use this command: CanRestrictMembers")
+           update.effective_message.reply_text("You don't have sufficient rights !")
            return # simply return
 
     if is_user_in_chat(chat, user_id):
@@ -372,7 +372,7 @@ def sban(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You are missing the following rights to use this command: CanRestrictMembers")
+           update.effective_message.reply_text("You don't have sufficient rights !")
            return # simply return
 
     log = "<b>{}:</b>" \
