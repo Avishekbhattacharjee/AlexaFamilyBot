@@ -1754,7 +1754,7 @@ async def list_db(event):
 	msg = "**List of autochat users:\n**"
 
 	for i in autos:
-		msg += "User: "+str(i['user'])+"\nChat: "+str(i['id'])+"\n"
+		msg += "User: "+str(i['user'])+"\nChat: "+str(i['id'])+"\n\n"
 	
 	await event.reply(msg)
 
