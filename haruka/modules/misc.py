@@ -1720,7 +1720,7 @@ async def chat_bot_update(ebent):
    auto_chats = auto_chat.find({})
    if not ebent.media:
       for ch in auto_chats:
-          if ebent.chat_id == ch['id'] ebent.from_id == ch['user']:
+          if ebent.chat_id == ch['id'] and ebent.from_id == ch['user']:
              msg = str(ebent.text)
              chatbot=ChatBot('Alexa')
              trainer = ChatterBotCorpusTrainer(chatbot) 
