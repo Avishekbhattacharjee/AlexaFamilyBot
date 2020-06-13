@@ -1166,7 +1166,11 @@ async def terminal_runner(term):
         return
 
     if "bash" in command:
-        await term.reply("`For security reasons executing python scripts isn't allowed`")
+        await term.reply("`For security reasons executing bash scripts isn't allowed`")
+        return
+
+    if "sh" in command:
+        await term.reply("`For security reasons executing shell scripts isn't allowed`")
         return
 
     if "apk" in command:
@@ -1177,7 +1181,8 @@ async def terminal_runner(term):
         await term.reply("`For security reasons adding packages isn't allowed`")
         return
     
-    if "./" in command:
+    if command.startswith('./'):
+        await term.reply("`For security reasons executing shell scripts isn't allowed`")
         return
 
     if "*" in command:
