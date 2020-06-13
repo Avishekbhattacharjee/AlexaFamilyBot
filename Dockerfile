@@ -49,7 +49,8 @@ RUN apk add  --update \
     freetype-dev \
     redis \
     fortune \
-    cowsay
+    cowsay \
+    imagemagick
 
 
 RUN python3 -m ensurepip \
@@ -63,5 +64,6 @@ RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1
 RUN mkdir /root/haruka/bin/
 WORKDIR /root/haruka/
 
+RUN pip3 install wheel
 RUN pip3 install -r requirements.txt
 CMD ["bash","init/start.sh"]
