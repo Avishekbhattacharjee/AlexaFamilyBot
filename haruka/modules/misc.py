@@ -1725,7 +1725,7 @@ async def chat_bot_update(ebent):
              response = chatbot.get_response(msg)
              let = str(response)
              await ebent.reply(let)
-   if not event.text:
+   if not ebent.text:
       return
              
 
