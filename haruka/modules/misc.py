@@ -1695,7 +1695,7 @@ async def chat_bot(event):
                auto_chat.insert_one({'id':event.chat_id,'user':reply_msg.from_id})
                await asyncio.sleep(1800)
                auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-               await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+"**\nThis session will automatically purge after 30 minutes !**")
+               await event.reply("Chatterbot module turned on For User: "+str(reply_msg.from_id)+"in this chat."+"**\nThis session will automatically purge after 30 minutes !**")
 
 
 
@@ -1711,7 +1711,7 @@ async def chat_bot(event):
 		return		
 	reply_msg = await event.get_reply_message()	
 	auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-	await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id))
+	await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+"in this chat.")
 
 @register(pattern="")
 async def chat_bot_update(ebent):
@@ -1720,7 +1720,7 @@ async def chat_bot_update(ebent):
    auto_chats = auto_chat.find({})
    if not ebent.media:
       for ch in auto_chats:
-          if ebent.from_id == ch['user']:
+          if ebent.chat_id == ch['id'] ebent.from_id == ch['user']:
              msg = str(ebent.text)
              chatbot=ChatBot('Alexa')
              trainer = ChatterBotCorpusTrainer(chatbot) 
@@ -1730,7 +1730,22 @@ async def chat_bot_update(ebent):
              await ebent.reply(let)
    if not ebent.text:
       return
-             
+
+@register(pattern="^/listautochat")
+async def list_db(event):
+	if event.fwd_from:
+		return
+	if MONGO_DB_URI is None:
+		await event.reply("Critical Error: Add Your MongoDB connection String in Env vars.")
+		return
+	autos = auto_chat.find({})
+	msg = "**List of autochat users:\n**"
+
+	for i in autos:
+		msg += "User: "+str(i['user'])+"\nChat: "+str(i['id'])+"\n"
+	
+	await event.reply(msg)
+
 
 __help__ = """
  - /id: get the current group id. If used by replying to a message, gets that user's id.
