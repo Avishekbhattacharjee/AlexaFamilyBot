@@ -1,7 +1,5 @@
-#### Bot lib ####
 git+https://gitlab.com/HarukaNetwork/OSS/PTB.git
 telethon
-#################
 aiohttp
 bleach
 emoji
