@@ -1,3 +1,4 @@
+chatterbot
 git+https://gitlab.com/HarukaNetwork/OSS/PTB.git
 telethon
 aiohttp
