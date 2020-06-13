@@ -9,7 +9,7 @@ from telegram.utils.helpers import mention_html
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, User, CallbackQuery
 
 from haruka import dispatcher, LOGGER, SUDO_USERS
-from haruka.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_admin, can_restrict
+from haruka.modules.helper_funcs.chat_status import bot_admin, user_admin, is_user_admin, can_restrict, user_can_ban
 from haruka.modules.helper_funcs.extraction import extract_user, extract_user_and_text
 from haruka.modules.helper_funcs.string_handling import extract_time
 from haruka.modules.log_channel import loggable
@@ -22,6 +22,7 @@ from haruka.modules.disable import DisableAbleCommandHandler
 @run_async
 @bot_admin
 @user_admin
+@user_can_ban
 @loggable
 def mute(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -79,6 +80,7 @@ def mute(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @user_admin
+@user_can_ban
 @loggable
 def unmute(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -131,6 +133,7 @@ def unmute(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
+@user_can_ban
 @can_restrict
 @user_admin
 @loggable
@@ -222,6 +225,7 @@ def temp_mute(bot: Bot, update: Update, args: List[str]) -> str:
 @run_async
 @bot_admin
 @user_admin
+@user_can_ban
 @loggable
 def nomedia(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
@@ -278,6 +282,7 @@ def nomedia(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
+@user_can_ban
 @user_admin
 @loggable
 def media(bot: Bot, update: Update, args: List[str]) -> str:
@@ -330,6 +335,7 @@ def media(bot: Bot, update: Update, args: List[str]) -> str:
 
 @run_async
 @bot_admin
+@user_can_ban
 @can_restrict
 @user_admin
 @loggable
