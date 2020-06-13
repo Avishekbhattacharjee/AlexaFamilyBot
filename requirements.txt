@@ -3,7 +3,6 @@ git+https://gitlab.com/HarukaNetwork/OSS/PTB.git
 telethon
 #################
 aiohttp
-thinc
 bleach
 emoji
 feedparser
