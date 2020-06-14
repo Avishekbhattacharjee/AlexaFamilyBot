@@ -776,33 +776,33 @@ from google_images_download import google_images_download
 
 
 @register(pattern="^/img (.*)")
-async def _(event):
-    if event.fwd_from:
-        return
-    await event.reply("Processing ...")
-    input_str = event.pattern_match.group(1)
+async def img_sampler(event):
+    """ For .img command, search and return images matching the query. """
+    await event.reply("Processing...")
+    query = event.pattern_match.group(1)
+    lim = findall(r"lim=\d+", query)
+    try:
+        lim = lim[0]
+        lim = lim.replace("lim=", "")
+        query = query.replace("lim=" + lim[0], "")
+    except IndexError:
+        lim = 2
     response = google_images_download.googleimagesdownload()
-    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-    lim = 5
+
+    # creating list of arguments
     arguments = {
-        "keywords": input_str,
+        "keywords": query,
         "limit": lim,
         "format": "jpg",
-        "delay": 1,
-        "safe_search": True,
-        "output_directory": TEMP_DOWNLOAD_DIRECTORY
+        "no_directory": "no_directory"
     }
+
+    # passing the arguments to the function
     paths = response.download(arguments)
-    lst = paths[input_str]
+    lst = paths[0][query]
     await event.client.send_file(
-        event.chat_id,
-        lst,
-        caption=input_str,
-        reply_to=event.message.id
-    )
-    for each_file in lst:
-        os.remove(each_file)
+        await event.client.get_input_entity(event.chat_id), lst)
+    rmtree(os.path.dirname(os.path.abspath(lst[0])))
 
 
 @run_async
