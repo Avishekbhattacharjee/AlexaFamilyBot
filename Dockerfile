@@ -25,13 +25,11 @@ RUN apk add  --update \
     libxslt-dev \
     linux-headers \
     musl \
-    neofetch \
     openssl-dev \
     postgresql \
     postgresql-client \
     postgresql-dev \
     openssl \
-    pv \
     jq \
     wget \
     python3 \
@@ -44,13 +42,11 @@ RUN apk add  --update \
     chromium-chromedriver \
     zlib-dev \
     jpeg \
-    zip \
     megatools \
     freetype-dev \
     redis \
     fortune \
-    cowsay \
-    imagemagick
+    cowsay 
 
 
 RUN python3 -m ensurepip \
