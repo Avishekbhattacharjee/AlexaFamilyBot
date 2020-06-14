@@ -5,6 +5,13 @@ from telethon import custom
 from haruka.events import register
 from haruka import LOGGER
 from haruka.modules.translations.strings import tld
+import re
+import json
+
+from bs4 import BeautifulSoup
+from requests import get
+
+GITHUB = 'https://github.com'
 
 from requests import get
 import rapidjson as json
