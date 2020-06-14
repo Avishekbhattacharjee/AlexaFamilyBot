@@ -61,7 +61,6 @@ RUN mkdir /root/haruka/bin/
 
 ADD ./requirements.txt /root/haruka/
 WORKDIR /root/haurka
-RUN pip install -r requirements.txt
 RUN pip3 install -r requirements.txt
 ADD . /root/haruka
 
