@@ -178,7 +178,6 @@ from telethon import events
 from telethon.errors import YouBlockedUserError
 import asyncio
 from re import findall
-from haruka.google_images_download import googleimagesdownload
 from shutil import rmtree
 from urllib.error import HTTPError
 from wikipedia import summary
@@ -772,38 +771,47 @@ async def figlet(event):
     input_str = event.pattern_match.group(1)
     result = pyfiglet.figlet_format(input_str)
     await event.respond("`{}`".format(result))
-   
+
+from google_images_download import google_images_download
+
 
 @register(pattern="^/img (.*)")
-async def img_sampler(event):
-    """ For .img command, search and return images matching the query. """
-    await event.reply("Processing...")
-    query = event.pattern_match.group(1)
-    lim = findall(r"lim=\d+", query)
+async def _(event):
+    if event.fwd_from:
+        return
+    await event.reply("Processing ...")
+    input_str = event.pattern_match.group(1)
+    response = google_images_download.googleimagesdownload()
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+    lim = findall(r"lim=\d+", input_str)
     try:
         lim = lim[0]
         lim = lim.replace("lim=", "")
-        query = query.replace("lim=" + lim[0], "")
+        query = input_str.replace("lim=" + lim[0], "")
     except IndexError:
         lim = 5
-    response = googleimagesdownload()
-
-    # creating list of arguments
     arguments = {
-        "keywords": query,
+        "keywords": input_str,
         "limit": lim,
         "format": "jpg",
-        "no_directory": "no_directory"
+        "delay": 1,
+        "safe_search": True,
+        "output_directory": TEMP_DOWNLOAD_DIRECTORY
     }
-
-    # passing the arguments to the function
     paths = response.download(arguments)
-    lst = paths[0][query]
+    lst = paths[input_str]
     await event.client.send_file(
-        await event.client.get_input_entity(event.chat_id), lst)
-    shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
+        event.chat_id,
+        lst,
+        caption=input_str,
+        reply_to=event.message.id,
+        progress_callback=progress
+    )
+    for each_file in lst:
+        os.remove(each_file)
 
-            
+
 @run_async
 def shrug(bot: Bot, update: Update):
     default_msg = "¯\_(ツ)_/¯"
