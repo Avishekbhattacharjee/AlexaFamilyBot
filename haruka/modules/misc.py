@@ -805,8 +805,7 @@ async def _(event):
         event.chat_id,
         lst,
         caption=input_str,
-        reply_to=event.message.id,
-        progress_callback=progress
+        reply_to=event.message.id
     )
     for each_file in lst:
         os.remove(each_file)
