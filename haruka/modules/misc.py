@@ -773,9 +773,11 @@ async def figlet(event):
     result = pyfiglet.figlet_format(input_str)
     await event.respond("`{}`".format(result))
    
+
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
     """ For .img command, search and return images matching the query. """
+    await event.reply("Processing...")
     query = event.pattern_match.group(1)
     lim = findall(r"lim=\d+", query)
     try:
@@ -783,8 +785,8 @@ async def img_sampler(event):
         lim = lim.replace("lim=", "")
         query = query.replace("lim=" + lim[0], "")
     except IndexError:
-        lim = 4
-    response = google_images_download.googleimagesdownload()
+        lim = 5
+    response = googleimagesdownload()
 
     # creating list of arguments
     arguments = {
@@ -799,8 +801,8 @@ async def img_sampler(event):
     lst = paths[0][query]
     await event.client.send_file(
         await event.client.get_input_entity(event.chat_id), lst)
-    rmtree(os.path.dirname(os.path.abspath(lst[0])))
-    await event.delete()
+    shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
+
             
 @run_async
 def shrug(bot: Bot, update: Update):
