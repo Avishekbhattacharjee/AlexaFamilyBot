@@ -69,7 +69,7 @@ async def device_info(request):
     elif textx:
         codename = textx.text
     else:
-        await request.reply("`Usage: .device <codename> / <model>`")
+        await request.reply("`Usage: /device <codename> / <model>`")
         return
     data = json.loads(
         get("https://raw.githubusercontent.com/androidtrackers/"
@@ -99,7 +99,7 @@ async def codename_info(request):
         brand = textx.text.split(' ')[0]
         device = ' '.join(textx.text.split(' ')[1:])
     else:
-        await request.reply("`Usage: .codename <brand> <device>`")
+        await request.reply("`Usage: /codename <brand> <device>`")
         return
 
     data = json.loads(
@@ -137,7 +137,7 @@ async def devices_specifications(request):
         brand = textx.text.split(' ')[0]
         device = ' '.join(textx.text.split(' ')[1:])
     else:
-        await request.reply("`Usage: .specs <brand> <device>`")
+        await request.reply("`Usage: /specs <brand> <device>`")
         return
     all_brands = BeautifulSoup(
         get('https://www.devicespecifications.com/en/brand-more').content,
@@ -188,7 +188,7 @@ async def twrp(request):
     elif textx:
         device = textx.text.split(' ')[0]
     else:
-        await request.reply("`Usage: .twrp <codename>`")
+        await request.reply("`Usage: /twrp <codename>`")
         return
     url = get(f'https://dl.twrp.me/{device}/')
     if url.status_code == 404:
