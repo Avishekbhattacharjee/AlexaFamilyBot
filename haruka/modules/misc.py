@@ -784,13 +784,7 @@ async def _(event):
     response = google_images_download.googleimagesdownload()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-    lim = findall(r"lim=\d+", input_str)
-    try:
-        lim = lim[0]
-        lim = lim.replace("lim=", "")
-        query = input_str.replace("lim=" + lim[0], "")
-    except IndexError:
-        lim = 5
+    lim = 5
     arguments = {
         "keywords": input_str,
         "limit": lim,
