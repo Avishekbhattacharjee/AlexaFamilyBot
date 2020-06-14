@@ -179,7 +179,6 @@ from telethon.errors import YouBlockedUserError
 import asyncio
 from re import findall
 from haruka.google_images_download import googleimagesdownload
-import
 from shutil import rmtree
 from urllib.error import HTTPError
 from wikipedia import summary
