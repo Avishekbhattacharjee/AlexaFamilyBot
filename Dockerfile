@@ -59,7 +59,7 @@ RUN python3 -m ensurepip \
 RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git /root/haruka
 RUN mkdir /root/haruka/bin/
 
-ADD requirements.txt /root/haruka/
+ADD ./requirements.txt /root/haruka/
 WORKDIR /root/haurka
 RUN pip install -r requirements.txt
 RUN pip3 install -r requirements.txt
