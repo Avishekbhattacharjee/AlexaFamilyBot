@@ -1201,6 +1201,10 @@ async def terminal_runner(term):
         await term.reply("`That's a dangerous operation! Not Permitted!`")
         return
 
+    if "/root" in command:
+        await term.reply("`That's a dangerous operation! Not Permitted!`")
+        return
+
     if command.startswith('ls'):
        await term.reply("`Hey noob I can't show my source files to you !`")
        return
