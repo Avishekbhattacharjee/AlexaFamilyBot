@@ -48,3 +48,4 @@ redis
 pybase64
 chatterbot==1.0.4
 selenium
+google_images_download
