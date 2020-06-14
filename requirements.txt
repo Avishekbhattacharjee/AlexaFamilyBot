@@ -49,4 +49,4 @@ redis
 pybase64
 chatterbot==1.0.4
 selenium
-google_images_download
+git+https://github.com/voins/google-images-download.git
