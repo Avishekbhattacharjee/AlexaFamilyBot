@@ -61,7 +61,7 @@ RUN mkdir /root/haruka/bin/
 
 ADD requirements.txt /root/haruka/
 WORKDIR /root/haruka
-RUN pip3 install -r requirements.txt
+RUN pip3 install wheel && pip3 install -r requirements.txt
 ADD . /root/haruka
 
 CMD ["bash","init/start.sh"]
