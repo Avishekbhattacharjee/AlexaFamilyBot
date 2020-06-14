@@ -27,7 +27,6 @@ gTTs
 gTTs-token
 search-engine-parser
 pyfiglet
-git+https://github.com/voins/google-images-download.git@2cd68173c961324a2c41c61e8b6f40a49663ce60
 beautifulsoup4
 pytz
 speedtest-cli
