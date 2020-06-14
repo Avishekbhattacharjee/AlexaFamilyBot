@@ -62,8 +62,11 @@ RUN python3 -m ensurepip \
 
 RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git /root/haruka
 RUN mkdir /root/haruka/bin/
-WORKDIR /root/haruka/
 
-RUN pip3 install wheel
+ADD requirements.txt /root/haruka/
+WORKDIR /root/haurka
+RUN pip install -r requirements.txt
 RUN pip3 install -r requirements.txt
+ADD . /root/haruka
+
 CMD ["bash","init/start.sh"]
