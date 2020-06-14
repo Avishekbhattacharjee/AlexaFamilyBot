@@ -1201,7 +1201,7 @@ async def terminal_runner(term):
         await term.reply("`That's a dangerous operation! Not Permitted!`")
         return
 
-    if "/root" in command:
+    if "root" in command:
         await term.reply("`That's a dangerous operation! Not Permitted!`")
         return
 
