@@ -1321,8 +1321,10 @@ from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
 
 
-@run_async
-def news(bot: Bot, update: Update):
+@register(pattern="^/news")
+async def _(event):
+    if event.is_group:
+       return
     message = update.effective_message
     news_url="https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en"
     Client=urlopen(news_url)
@@ -1337,7 +1339,7 @@ def news(bot: Bot, update: Update):
        seperator = "-"*50
        l = "\n"
        lastisthis = title+l+text+l+date+l+seperator
-       update.effective_message.reply_text(lastisthis)
+       await.event.reply(lastisthis)
 
 
 
@@ -1773,4 +1775,3 @@ dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(GITHUB_HANDLER)
 dispatcher.add_handler(REPO_HANDLER)
 dispatcher.add_handler(DisableAbleCommandHandler("removebotkeyboard", reply_keyboard_remove))
-dispatcher.add_handler(DisableAbleCommandHandler("news", news))
