@@ -23,8 +23,6 @@ def afk(bot: Bot, update: Update):
         reason = args[1]
     else:
         reason = ""
-    global start_time 
-    start_time = time.time()
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     update.effective_message.reply_text(tld(chat.id, f"{fname} is now AFK!"))
@@ -77,12 +75,10 @@ def check_afk(bot, update, user_id, fst_name):
     chat = update.effective_chat  # type: Optional[Chat]
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
-        elapsed_time = time.time() - start_time
-        final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
         if not user.reason:
-            res = tld(chat.id, f"{fst_name} is AFK !\n\nLast seen {final} ago ")
+            res = tld(chat.id, f"{fst_name} is AFK !")
         else:
-            res = tld(chat.id, f"{fst_name} is AFK !\n\nSays it's because of:\n{user.reason}\n\nLast seen {final} ago ")
+            res = tld(chat.id, f"{fst_name} is AFK !\n\nSays it's because of:\n{user.reason}")
         update.effective_message.reply_text(res)
 
 
