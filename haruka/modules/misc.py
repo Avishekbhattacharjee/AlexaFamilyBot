@@ -1539,13 +1539,22 @@ async def tor_search(event):
    response = telegraph.create_page(seta, html_content=op)
    await event.reply('Magnet Links for {}:\n\nhttps://telegra.ph/{}'.format(str,response['path']), link_preview=False) 
 
+from haruka import *
+
+@register(pattern="^/helptorrent")
+async def helptorrent(event):
+   if event.fwd_from:
+      return 
+   file = "/root/haruka/Tutorial_For_Torrent.mp4"
+   await event.client.send_file(event.chat_id, file, caption="Tutorial For Torrent Module", reply_to=event.id)
+   
+
 import sys
 import requests
 import json
 import time
 import urllib
 import os
-
 
 @register(pattern=r'^/phone (.*)')
 async def phone(event): 
