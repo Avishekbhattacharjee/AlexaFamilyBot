@@ -1545,7 +1545,8 @@ from haruka import *
 async def helptorrent(event):
    if event.fwd_from:
       return 
-   file = "/root/haruka/Tutorial_For_Torrent.mp4"
+   topa = "/root/haruka/Tutorial_For_Torrent.mp4"
+   file = await event.client.upload_file(topa) 
    await event.client.send_file(event.chat_id, file, caption="Tutorial For Torrent Module", reply_to=event.id)
    
 
