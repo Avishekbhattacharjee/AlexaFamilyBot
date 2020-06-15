@@ -1533,7 +1533,7 @@ async def tor_search(event):
    if event.fwd_from:
       return 
    str = event.pattern_match.group(1)
-   geta = f'we-get -s {str} -J'
+   geta = f'we-get -s "{str}" -J'
    hit = subprocess.getoutput(geta)
    sit = hit.replace("{", "")
    pit = sit.replace("}", "")
