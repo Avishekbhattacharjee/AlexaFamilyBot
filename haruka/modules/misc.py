@@ -1339,7 +1339,7 @@ async def _(event):
        seperator = "-"*50
        l = "\n"
        lastisthis = title+l+text+l+date+l+seperator
-       await.event.reply(lastisthis)
+       await event.reply(lastisthis)
 
 
 
