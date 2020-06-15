@@ -1532,8 +1532,11 @@ async def tor_search(event):
         str = event.pattern_match.group(1)
         geta = f'we-get -s {str} -J'
         hit = subprocess.getoutput(geta)
+        sit = hit.replace("{", "")
+        pit = sit.replace("}", "")
+        op = pit.replace(",", "")
         seta = f"Magnets for {str} are below:"
-        response = telegraph.create_page(seta, html_content=geta)
+        response = telegraph.create_page(seta, html_content=op)
         await event.reply('Magnet Links for {}:\n\nhttps://telegra.ph/{}'.format(str,response['path']), link_preview=False) 
 
 
