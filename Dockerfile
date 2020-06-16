@@ -46,8 +46,8 @@ RUN apk add  --update \
     freetype-dev \
     redis \
     fortune \
-    cowsay 
-
+    cowsay \
+    imagemagick
 
 RUN python3 -m ensurepip \
     && pip3 install --upgrade pip setuptools \
