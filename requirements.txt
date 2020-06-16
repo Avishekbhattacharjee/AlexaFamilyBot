@@ -1,4 +1,4 @@
-git+https://gitlab.com/HarukaNetwork/OSS/PTB.git
+python-telegram-bot==11.1.0
 telethon
 aiohttp
 bleach
