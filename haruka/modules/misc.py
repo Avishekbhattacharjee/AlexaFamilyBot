@@ -773,7 +773,9 @@ async def figlet(event):
     await event.respond("`{}`".format(result))
 
 from bing_image_downloader import downloader
-import glob
+
+from os.path import join
+from glob import glob
 
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
@@ -790,15 +792,12 @@ async def img_sampler(event):
     
     # creating list of arguments
     downloader.download(query, limit=lim)
-    os.chdir(f'dataset/bing/{query}')
-    for listed in glob.glob("*.jpg"):
-        await event.client.send_file(event.chat_id, listed)
-    for listed in glob.glob("*.png"):
-        await event.client.send_file(event.chat_id, listed)
-    for listed in glob.glob("*.jpeg"):
-        await event.client.send_file(event.chat_id, listed)
+    files = []
+    for ext in ('*.jpg', '*.png', '*.jpeg'):
+        files.extend(glob(join(f"dataset/bing/{query}", ext)))
+    await event.client.send_file(event.chat_id, files)
     os.system('rm -rf dataset')
-    os.chdir('/root/haruka')
+
 
 
 @run_async
