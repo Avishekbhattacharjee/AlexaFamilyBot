@@ -1320,15 +1320,14 @@ from urllib.request import urlopen
 async def _(event):
   if event.is_group:
      return
-  else:
-    message = update.effective_message
-    news_url="https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en"
-    Client=urlopen(news_url)
-    xml_page=Client.read()
-    Client.close()
-    soup_page=soup(xml_page,"xml")
-    news_list=soup_page.findAll("item")
-    for news in news_list:
+  message = update.effective_message
+  news_url="https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en"
+  Client=urlopen(news_url)
+  xml_page=Client.read()
+  Client.close()
+  soup_page=soup(xml_page,"xml")
+  news_list=soup_page.findAll("item")
+  for news in news_list:
        title = news.title.text
        text = news.link.text
        date = news.pubDate.text
