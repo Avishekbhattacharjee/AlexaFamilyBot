@@ -772,8 +772,8 @@ async def figlet(event):
     result = pyfiglet.figlet_format(input_str)
     await event.respond("`{}`".format(result))
 
-from google_images_download import google_images_download
-
+from bing_image_downloader import downloader
+import glob
 
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
@@ -786,23 +786,19 @@ async def img_sampler(event):
         lim = lim.replace("lim=", "")
         query = query.replace("lim=" + lim[0], "")
     except IndexError:
-        lim = 2
-    response = google_images_download.googleimagesdownload()
-
+        lim = 5
+    
     # creating list of arguments
-    arguments = {
-        "keywords": query,
-        "limit": lim,
-        "format": "jpg",
-        "no_directory": "no_directory"
-    }
-
-    # passing the arguments to the function
-    paths = response.download(arguments)
-    lst = paths[0][query]
-    await event.client.send_file(
-        await event.client.get_input_entity(event.chat_id), lst)
-    rmtree(os.path.dirname(os.path.abspath(lst[0])))
+    downloader.download(query, limit=lim)
+    os.chdir(f'dataset/bing/{query}')
+    for listed in glob.glob("*.jpg"):
+        await event.client.send_file(event.chat_id, listed)
+    for listed in glob.glob("*.png"):
+        await event.client.send_file(event.chat_id, listed)
+    for listed in glob.glob("*.jpeg"):
+        await event.client.send_file(event.chat_id, listed)
+    os.system('rm -rf dataset')
+    os.chdir('/root/haruka')
 
 
 @run_async
