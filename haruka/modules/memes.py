@@ -160,7 +160,7 @@ def mafiatext(bot: Bot, update: Update, args: List[str]):
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/mafia.jpg -font OpenSans-Bold -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten /root/haruka/mafiaed.jpg""".format(
+    magick = """convert /root/haruka/images/mafia.jpg -font Open-Sans-Bold -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten /root/haruka/mafiaed.jpg""".format(
         reply_text)
     os.system(magick)
     with open('/root/haruka/mafiaed.jpg', 'rb') as mockedphoto:
@@ -197,7 +197,7 @@ def pidortext(bot: Bot, update: Update, args: List[str]):
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/4pda.jpg -font OpenSans-Bold -pointsize 50 -size 400x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/4pdaed.jpg""".format(
+    magick = """convert /root/haruka/images/4pda.jpg -font Open-Sans-Bold -pointsize 50 -size 400x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/4pdaed.jpg""".format(
         reply_text)
     os.system(magick)
     with open('/root/haruka/4pdaed.jpg', 'rb') as mockedphoto:
@@ -234,7 +234,7 @@ def kimtext(bot: Bot, update: Update, args: List[str]):
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/kim.jpg -font OpenSans-Bold -pointsize 50 -size 480x360 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/kimed.jpg""".format(
+    magick = """convert /root/haruka/images/kim.jpg -font Open-Sans-Bold -pointsize 50 -size 480x360 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/kimed.jpg""".format(
         reply_text)
     os.system(magick)
     with open('/root/haruka/kimed.jpg', 'rb') as mockedphoto:
@@ -271,7 +271,7 @@ def hitlertext(bot: Bot, update: Update, args: List[str]):
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/hitler.jpg -font OpenSans-Bold -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/hitlered.jpg""".format(
+    magick = """convert /root/haruka/images/hitler.jpg -font Open-Sans-Bold -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/hitlered.jpg""".format(
         reply_text)
     os.system(magick)
     with open('/root/haruka/hitlered.jpg', 'rb') as mockedphoto:
@@ -308,7 +308,7 @@ def spongemocktext(bot: Bot, update: Update, args: List[str]):
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/bob.jpg -font OpenSans-Bold -pointsize 30 -size 512x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/mocked.jpg""".format(
+    magick = """convert /root/haruka/images/bob.jpg -font Open-Sans-Bold -pointsize 30 -size 512x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/mocked.jpg""".format(
         reply_text)
     os.system(magick)
     with open('/root/haruka/mocked.jpg', 'rb') as mockedphoto:
