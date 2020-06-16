@@ -155,9 +155,6 @@ def user_not_admin(func):
     return is_not_admin
 
 
-from haruka.modules import connection
-connected = connection.connected
-
 def user_can_ban(func):
     @wraps(func)
     def user_is_banhammer(bot: Bot, update: Update, *args, **kwargs):
