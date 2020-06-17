@@ -1320,7 +1320,8 @@ from urllib.request import urlopen
 async def _(event):
   if event.is_group:
      return
-  message = update.effective_message
+  if event.fwd_from:
+     return
   news_url="https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en"
   Client=urlopen(news_url)
   xml_page=Client.read()
@@ -1335,7 +1336,6 @@ async def _(event):
        l = "\n"
        lastisthis = title+l+text+l+date+l+seperator
        await event.reply(lastisthis)
-
 
 
 from telethon.tl.types import InputMediaDice
