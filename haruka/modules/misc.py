@@ -1675,13 +1675,9 @@ async def chat_bot(event):
       reply_msg = await event.get_reply_message()
       chats = auto_chat.find({})
       for c in chats:
-              if not event.chat_id == c['id'] and reply_msg.from_id == c['user']:
-                 await event.reply("This User is not in Auto-Chat List.")
-                 return
-              else:
-                 auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
-                 await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+" in this chat.")
-
+        if event.chat_id == c['id'] and reply_msg.from_id == c['user']:
+           auto_chat.delete_one({'id':event.chat_id,'user':reply_msg.from_id})
+           await event.reply("Chatterbot module turned off For User: "+str(reply_msg.from_id)+" in this chat.")
 
 
 @register(pattern="")
