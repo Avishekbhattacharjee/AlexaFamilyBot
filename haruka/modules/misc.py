@@ -667,22 +667,19 @@ async def wiki(wiki_q):
     await wiki_q.reply("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
 
 
-@register(pattern=r"^/google(?: |$)(.*)")
+@register(pattern="^/google (.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
-    textx = await q_event.get_reply_message()
+
     query = q_event.pattern_match.group(1)
 
     if query:
         pass
-    elif textx:
-        query = textx.text
     else:
-        await q_event.reply("`Pass a query as an argument or reply "
-                           "to a message for Google search!`")
+        await q_event.reply("`Pass a query as an argument plox`")
         return
 
-    search_args = (str(query), 1)
+    search_args = str(query)
     googsearch = GoogleSearch()
     gresults = await googsearch.async_search(*search_args)
     msg = ""
