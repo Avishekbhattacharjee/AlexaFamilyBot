@@ -164,7 +164,7 @@ from telegram import ParseMode, ReplyKeyboardRemove, InlineKeyboardMarkup, Inlin
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 from telegram.error import BadRequest
-from search_engine_parser import GoogleSearch
+
 from haruka import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS, tbot, OPENWEATHERMAP_ID, YOUTUBE_API_KEY, TEMP_DOWNLOAD_DIRECTORY
 from haruka.__main__ import GDPR
 from haruka.__main__ import STATS, USER_INFO
