@@ -666,32 +666,30 @@ async def wiki(wiki_q):
         return
     await wiki_q.reply("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
 
-
-@register(pattern="^/google (.*)")
+@register(pattern=r"^/google (.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
-
-    query = q_event.pattern_match.group(1)
-
-    if query:
-        pass
-    else:
-        await q_event.reply("`Pass a query as an argument plox`")
-        return
-
-    search_args = str(query)
-    googsearch = GoogleSearch()
-    gresults = await googsearch.async_search(*search_args)
+    match = q_event.pattern_match.group(1)
+    page = findall(r"page=\d+", match)
+    try:
+        page = page[0]
+        page = page.replace("page=", "")
+        match = match.replace("page=" + page[0], "")
+    except IndexError:
+        page = 1
+    search_args = (str(match), int(page))
+    gsearch = GoogleSearch()
+    gresults = await gsearch.async_search(*search_args)
     msg = ""
-    for i in range(1, 9):
+    for i in range(9):
         try:
             title = gresults["titles"][i]
             link = gresults["links"][i]
             desc = gresults["descriptions"][i]
-            msg += f"{i}. [{title}]({link})\n`{desc}`\n\n"
+            msg += f"[{title}]({link})\n`{desc}`\n\n"
         except IndexError:
             break
-    await q_event.reply("**Search Query:**\n`" + query + "`\n\n**Results:**\n" +
+    await q_event.reply("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
                        msg,
                        link_preview=False)
 
