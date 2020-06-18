@@ -667,7 +667,7 @@ async def wiki(wiki_q):
     await wiki_q.reply("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
 
 
-
+from search_engine_parser.engines.bing import Search as BingSearch
 
 @register(pattern=r"^/google(?: |$)(.*)")
 async def gsearch(q_event):
@@ -683,7 +683,7 @@ async def gsearch(q_event):
         await q_event.reply("`Pass a query as an argument or reply to a message for Google search!`")
         return
     search_args = (str(query), 1)
-    googsearch = GoogleSearch()
+    googsearch = BingSearch()
     gresults = await googsearch.async_search(*search_args)
     msg = ""
     for i in range(1, 9):
