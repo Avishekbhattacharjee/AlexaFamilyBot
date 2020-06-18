@@ -667,7 +667,7 @@ async def wiki(wiki_q):
     await wiki_q.reply("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
 
 
-from search_engine_parser.engines.bing import Search as BingSearch
+from search_engine_parser import BingSearch
 
 @register(pattern=r"^/google(?: |$)(.*)")
 async def gsearch(q_event):
