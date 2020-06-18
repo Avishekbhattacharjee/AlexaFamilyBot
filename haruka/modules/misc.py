@@ -170,7 +170,6 @@ from haruka.__main__ import GDPR
 from haruka.__main__ import STATS, USER_INFO
 from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.extraction import extract_user
-from search_engine_parser import GoogleSearch
 from haruka.modules.translations.strings import tld
 from haruka.events import register
 from requests import get
