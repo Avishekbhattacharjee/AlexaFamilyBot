@@ -25,7 +25,7 @@ wikipedia
 zalgo-text
 gTTs 
 gTTs-token
-search-engine-parser
+bingscraper
 pyfiglet
 beautifulsoup4
 pytz
