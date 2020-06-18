@@ -674,9 +674,10 @@ async def gsearch(q_event):
     
     search = f'"{match}"'
 
-    last  = hola.scrape(search).text() #
+    last  = hola.scrape(search).text() 
+    dotenv = str(last)
     await q_event.reply("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
-                       last,
+                       dotenv,
                        link_preview=False)
 
 
