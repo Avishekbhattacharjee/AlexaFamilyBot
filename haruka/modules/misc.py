@@ -666,31 +666,18 @@ async def wiki(wiki_q):
         return
     await wiki_q.reply("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
 
+import bingscraper as bs
+
 @register(pattern=r"^/google (.*)")
-async def gsearch(q_event):
+async def gsearch(event):
     """ For .google command, do a Google search. """
     match = q_event.pattern_match.group(1)
-    page = findall(r"page=\d+", match)
-    try:
-        page = page[0]
-        page = page.replace("page=", "")
-        match = match.replace("page=" + page[0], "")
-    except IndexError:
-        page = 1
-    search_args = (str(match), int(page))
-    gsearch = GoogleSearch()
-    gresults = await gsearch.async_search(*search_args)
-    msg = ""
-    for i in range(9):
-        try:
-            title = gresults["titles"][i]
-            link = gresults["links"][i]
-            desc = gresults["descriptions"][i]
-            msg += f"[{title}]({link})\n`{desc}`\n\n"
-        except IndexError:
-            break
+    
+    search = f'"{match}"'
+
+    last  = bs.scrape(search).text() #
     await q_event.reply("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
-                       msg,
+                       last,
                        link_preview=False)
 
 
