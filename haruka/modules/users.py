@@ -235,7 +235,7 @@ __mod_name__ = "SUDO"
 
 BROADCAST_HANDLER = CommandHandler("broadcast", broadcast, filters=Filters.user(OWNER_ID))
 USER_HANDLER = MessageHandler(Filters.all & Filters.group, log_user)
-CHATLIST_HANDLER = CommandHandler("chatlist", chats)
+CHATLIST_HANDLER = CommandHandler("chatlist", chats, filters=Filters.user(OWNER_ID))
 GETLINK_HANDLER = CommandHandler("getlink", getlink, pass_args=True, filters=Filters.user(OWNER_ID))
 LEAVECHAT_HANDLER = CommandHandler("leavechat", leavechat, pass_args=True, filters=Filters.user(OWNER_ID))
 SLIST_HANDLER = CommandHandler("slist", slist)
