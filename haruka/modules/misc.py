@@ -668,7 +668,7 @@ async def wiki(wiki_q):
 import bingscraper as bs
 
 @register(pattern=r"^/google (.*)")
-async def gsearch(event):
+async def gsearch(q_event):
     """ For .google command, do a Google search. """
     match = q_event.pattern_match.group(1)
     
