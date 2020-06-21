@@ -7,9 +7,6 @@ RUN CPUCOUNT=$(cat /proc/cpuinfo | grep '^processor.*:' | wc -l)
 
 ENV OPENCV_VERSION 3.1.0
 
-ADD aiwplain1.jpg /opt/aiwplain1.jpg
-ADD ocr1.py /opt/ocr1.py
-
 # update the repositories mirrors to workaround unsatisfiable constraints issue
 RUN echo "http://dl-1.alpinelinux.org/alpine/v3.3/main" >> /etc/apk/repositories && \
 	echo "http://dl-2.alpinelinux.org/alpine/v3.3/main" >> /etc/apk/repositories && \
