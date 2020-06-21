@@ -3,7 +3,7 @@ lxml
 chromedriver>=2.21
 numpy
 mapper
-opencv_python
+opencv-python
 python-telegram-bot==11.1.0
 telethon
 aiohttp
