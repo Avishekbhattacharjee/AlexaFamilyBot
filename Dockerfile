@@ -1,5 +1,7 @@
-FROM alpine:edge
+FROM alpine:3.7
 
+RUN echo 'manylinux1_compatible = True' > /usr/local/lib/python3.7/site-packages/_manylinux.py
+RUN python -c 'import sys; sys.path.append(r"/_manylinux.py")'
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 RUN apk add --no-cache --update \
@@ -58,7 +60,7 @@ RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1
 RUN mkdir /root/haruka/bin/
 WORKDIR /root/haruka
 RUN pip3 install wheel
-RUN git clone https://github.com/janjongboom/alpine-opencv-docker.git && cd alpine-opencv-docker && mv opencv-prebuilt/cv2.so /usr/lib/cv2.so && mkdir /usr/local/include/opencv && mv opencv-prebuilt/include-opencv /usr/local/include/opencv && mkdir /usr/local/include/opencv2 && mv opencv-prebuilt/include-opencv2 /usr/local/include/opencv2 && mv opencv-prebuilt/local-lib/* /usr/local/lib && rm -rf alpine-opencv-docker
+RUN pip3 install opencv-python
 RUN pip3 install -r requirements.txt
 
 CMD ["bash","init/start.sh"]
