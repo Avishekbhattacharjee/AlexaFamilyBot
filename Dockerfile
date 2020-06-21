@@ -1,7 +1,5 @@
 FROM alpine:edge
 
-RUN touch /usr/local/lib/python3.8/site-packages/_manylinux.py && echo 'manylinux1_compatible = True' > /usr/local/lib/python3.8/site-packages/_manylinux.py
-RUN python3 -c 'import sys; sys.path.append(r"/_manylinux.py")'
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 RUN apk add --no-cache --update \
@@ -59,6 +57,8 @@ RUN python3 -m ensurepip \
 RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git /root/haruka
 RUN mkdir /root/haruka/bin/
 WORKDIR /root/haruka
+RUN touch /usr/local/lib/python3.8/site-packages/_manylinux.py && echo 'manylinux1_compatible = True' > /usr/local/lib/python3.8/site-packages/_manylinux.py
+RUN python3 -c 'import sys; sys.path.append(r"/_manylinux.py")'
 RUN pip3 install --upgrade wheel
 RUN pip3 install -r requirements.txt
 
