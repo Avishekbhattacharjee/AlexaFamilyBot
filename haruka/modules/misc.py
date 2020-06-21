@@ -1418,7 +1418,7 @@ async def helptorrent(event):
  if event.fwd_from or event.is_group:
     return 
  else:
-   topa = "/root/haruka/haruka/Tutorial_For_Torrent.mp4"
+   topa = "./haruka/Tutorial_For_Torrent.mp4"
    file = await event.client.upload_file(topa) 
    await event.client.send_file(event.chat_id, file, caption="Tutorial For Torrent Module", reply_to=event.id)
    
