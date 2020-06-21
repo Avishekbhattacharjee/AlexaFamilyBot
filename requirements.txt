@@ -3,6 +3,7 @@ lxml
 chromedriver>=2.21
 numpy
 mapper
+scipy
 opencv-python-headless
 opencv-contrib-python-headless
 python-telegram-bot==11.1.0
