@@ -4,6 +4,7 @@ chromedriver>=2.21
 numpy
 mapper
 opencv-python
+opencv-contrib-python
 python-telegram-bot==11.1.0
 telethon
 aiohttp
