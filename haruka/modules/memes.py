@@ -150,27 +150,27 @@ def mafiatext(bot: Bot, update: Update, args: List[str]):
         noreply = True
         data = tld(chat.id, "Give some text to meme !")
 
-    if not Path('/root/haruka/images/mafia.jpg').is_file():
+    if not Path('./images/mafia.jpg').is_file():
         LOGGER.warning(
-            "/root/haruka/images/mafia.jpg not found! Mafia memes module is turned off!")
+            "./images/mafia.jpg not found! Mafia memes module is turned off!")
         return
 
-    for mocked in glob.glob("/root/haruka/mafiaed*"):
+    for mocked in glob.glob("./mafiaed*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/mafia.jpg -font Open-Sans-Bold -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten /root/haruka/mafiaed.jpg""".format(
+    magick = """convert ./images/mafia.jpg -font Open-Sans-Bold -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten ./mafiaed.jpg""".format(
         reply_text)
     os.system(magick)
-    with open('/root/haruka/mafiaed.jpg', 'rb') as mockedphoto:
+    with open('./mafiaed.jpg', 'rb') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/mafiaed.jpg')
+    os.remove('./mafiaed.jpg')
 
 
 @run_async
@@ -188,26 +188,26 @@ def pidortext(bot: Bot, update: Update, args: List[str]):
         noreply = True
         data = tld(chat.id, "Give some text to meme !")
 
-    if not Path('/root/haruka/images/4pda.jpg').is_file():
+    if not Path('./images/4pda.jpg').is_file():
         LOGGER.warning(
-            "/root/haruka/images/4pda.jpg not found! Pidor memes module is turned off!")
+            "./images/4pda.jpg not found! Pidor memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/4pdaed*"):
+    for mocked in glob.glob("./4pdaed*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/4pda.jpg -font Open-Sans-Bold -pointsize 50 -size 400x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/4pdaed.jpg""".format(
+    magick = """convert ./images/4pda.jpg -font Open-Sans-Bold -pointsize 50 -size 400x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./4pdaed.jpg""".format(
         reply_text)
     os.system(magick)
-    with open('/root/haruka/4pdaed.jpg', 'rb') as mockedphoto:
+    with open('./4pdaed.jpg', 'rb') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/4pdaed.jpg')
+    os.remove('./4pdaed.jpg')
 
 
 @run_async
@@ -225,26 +225,26 @@ def kimtext(bot: Bot, update: Update, args: List[str]):
         noreply = True
         data = tld(chat.id, "Give some text to meme !")
 
-    if not Path('/root/haruka/images/kim.jpg').is_file():
+    if not Path('./images/kim.jpg').is_file():
         LOGGER.warning(
-            "/root/haruka/images/kim.jpg not found! Kim memes module is turned off!")
+            "./images/kim.jpg not found! Kim memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/kimed*"):
+    for mocked in glob.glob("./kimed*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/kim.jpg -font Open-Sans-Bold -pointsize 50 -size 480x360 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/kimed.jpg""".format(
+    magick = """convert ./images/kim.jpg -font Open-Sans-Bold -pointsize 50 -size 480x360 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./kimed.jpg""".format(
         reply_text)
     os.system(magick)
-    with open('/root/haruka/kimed.jpg', 'rb') as mockedphoto:
+    with open('./kimed.jpg', 'rb') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/kimed.jpg')
+    os.remove('./kimed.jpg')
 
 
 @run_async
@@ -262,26 +262,26 @@ def hitlertext(bot: Bot, update: Update, args: List[str]):
         noreply = True
         data = tld(chat.id, "Give some text to meme !")
 
-    if not Path('/root/haruka/images/hitler.jpg').is_file():
+    if not Path('./images/hitler.jpg').is_file():
         LOGGER.warning(
-            "/root/haruka/images/hitler.jpg not found! Hitler memes module is turned off!")
+            "./images/hitler.jpg not found! Hitler memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/hitlered*"):
+    for mocked in glob.glob("./hitlered*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/hitler.jpg -font Open-Sans-Bold -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/hitlered.jpg""".format(
+    magick = """convert ./images/hitler.jpg -font Open-Sans-Bold -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./hitlered.jpg""".format(
         reply_text)
     os.system(magick)
-    with open('/root/haruka/hitlered.jpg', 'rb') as mockedphoto:
+    with open('./hitlered.jpg', 'rb') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/hitlered.jpg')
+    os.remove('./hitlered.jpg')
 
 
 @run_async
@@ -299,26 +299,26 @@ def spongemocktext(bot: Bot, update: Update, args: List[str]):
         noreply = True
         data = tld(chat.id, "Give some text to meme !")
 
-    if not Path('/root/haruka/images/bob.jpg').is_file():
+    if not Path('./images/bob.jpg').is_file():
         LOGGER.warning(
-            "/root/haruka/images/bob.jpg not found! Spongemock memes module is turned off!")
+            "./images/bob.jpg not found! Spongemock memes module is turned off!")
         return
-    for mocked in glob.glob("/root/haruka/mocked*"):
+    for mocked in glob.glob("./mocked*"):
         os.remove(mocked)
     reply_text = spongemock.mock(data)
 
     
-    magick = """convert /root/haruka/images/bob.jpg -font Open-Sans-Bold -pointsize 30 -size 512x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten /root/haruka/mocked.jpg""".format(
+    magick = """convert ./images/bob.jpg -font Open-Sans-Bold -pointsize 30 -size 512x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./mocked.jpg""".format(
         reply_text)
     os.system(magick)
-    with open('/root/haruka/mocked.jpg', 'rb') as mockedphoto:
+    with open('./mocked.jpg', 'rb') as mockedphoto:
         if noreply:
             message.reply_photo(photo=mockedphoto,
                                 reply=message.reply_to_message)
         else:
             message.reply_to_message.reply_photo(
                 photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('/root/haruka/mocked.jpg')
+    os.remove('./mocked.jpg')
 
 
 @run_async
@@ -486,4 +486,3 @@ dispatcher.add_handler(FORBES_HANDLER)
 dispatcher.add_handler(DEEPFRY_HANDLER)
 dispatcher.add_handler(KIM_HANDLER)
 dispatcher.add_handler(HITLER_HANDLER)
-
