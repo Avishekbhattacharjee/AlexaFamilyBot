@@ -57,7 +57,7 @@ RUN python3 -m ensurepip \
 RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git /root/haruka
 RUN mkdir /root/haruka/bin/
 WORKDIR /root/haruka
-RUN git clone https://github.com/janjongboom/alpine-opencv-docker.git && cd alpine-opencv-docker && mv opencv-prebuilt/cv2.so /usr/lib/python3.8/site-packages && mkdir /usr/local/include/opencv && mv opencv-prebuilt/include-opencv/* /usr/local/include/opencv && mkdir /usr/local/include/opencv2 && mv opencv-prebuilt/include-opencv2/* /usr/local/include/opencv2 && mv opencv-prebuilt/local-lib/* /usr/local/lib && cd .. && rm -rf alpine-opencv-docker
+RUN git clone https://github.com/janjongboom/alpine-opencv-docker.git && cd alpine-opencv-docker && mv opencv-prebuilt/cv2.so /usr/lib/python3.8/site-packages && mkdir /usr/local/include && mkdir /usr/local/include/opencv && mv opencv-prebuilt/include-opencv/* /usr/local/include/opencv && mkdir /usr/local/include/opencv2 && mv opencv-prebuilt/include-opencv2/* /usr/local/include/opencv2 && mv opencv-prebuilt/local-lib/* /usr/local/lib && cd .. && rm -rf alpine-opencv-docker
 RUN pip3 install --upgrade wheel
 RUN pip3 install -r requirements.txt
 
