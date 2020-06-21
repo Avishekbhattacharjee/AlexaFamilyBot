@@ -1606,10 +1606,9 @@ async def asciiart(event):
   files = []
   for ext in ('*.jpg'):
       files.extend(glob(join("./", ext)))
-      omg = await event.client.upload_file(files)
-
-  await event.client.send_file(event.chat_id, omg)
-  os.remove("./scanned.pdf")
+      
+  await event.client.send_file(event.chat_id, files)
+  os.remove(files)
 
 
 __help__ = """
