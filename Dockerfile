@@ -1,7 +1,7 @@
-FROM python:3.8-alpine
+FROM alpine:edge
 
-RUN echo 'manylinux1_compatible = True' > /usr/local/lib/python3.7/site-packages/_manylinux.py
-RUN python -c 'import sys; sys.path.append(r"/_manylinux.py")'
+RUN echo 'manylinux1_compatible = True' > /usr/local/lib/python3.8/site-packages/_manylinux.py
+RUN python3 -c 'import sys; sys.path.append(r"/_manylinux.py")'
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 RUN apk add --no-cache --update \
