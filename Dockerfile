@@ -57,8 +57,7 @@ RUN python3 -m ensurepip \
 RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git /root/haruka
 RUN mkdir /root/haruka/bin/
 WORKDIR /root/haruka
-RUN touch /usr/local/lib/python3.8/site-packages/_manylinux.py && echo 'manylinux1_compatible = True' > /usr/local/lib/python3.8/site-packages/_manylinux.py
-RUN python3 -c 'import sys; sys.path.append(r"/_manylinux.py")'
+RUN git clone https://github.com/janjongboom/alpine-opencv-docker.git && cd alpine-opencv-docker && mv opencv-prebuilt/cv2.so /usr/lib/python3.8/site-packages/cv2.so && mkdir /usr/local/include/opencv && mv opencv-prebuilt/include-opencv /usr/local/include/opencv && mkdir /usr/local/include/opencv2 && mv opencv-prebuilt/include-opencv2 /usr/local/include/opencv2 && mv opencv-prebuilt/local-lib/* /usr/local/lib/ && rm -rf alpine-opencv-docker
 RUN pip3 install --upgrade wheel
 RUN pip3 install -r requirements.txt
 
