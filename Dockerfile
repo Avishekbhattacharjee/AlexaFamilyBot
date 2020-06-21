@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM julianbei/alpine-opencv-microimage:p3-3.1
 
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
@@ -63,6 +63,3 @@ RUN pip3 install --upgrade wheel
 RUN pip3 install -r requirements.txt
 
 CMD ["bash","init/start.sh"]
-
-FROM julianbei/alpine-opencv-microimage:p3-3.1
-RUN echo "ALL DONE"
