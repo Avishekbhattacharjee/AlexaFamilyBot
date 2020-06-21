@@ -40,8 +40,8 @@ async def carbon_api(e):
     code = e.pattern_match.group(1)
     await gg.edit("`Processing..\n25%`")
     os.chdir("/root/haruka/bin")
-    if os.path.isfile("/root/haruka/bin/carbon.png"):
-       os.remove("/root/haruka/bin/carbon.png")
+    if os.path.isfile("./carbon.png"):
+       os.remove("./carbon.png")
     url = CARBON.format(code=code, lang=CARBONLANG)
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -50,13 +50,13 @@ async def carbon_api(e):
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-gpu")
-    prefs = {'download.default_directory': '/root/haruka/bin'}
+    prefs = {'download.default_directory': './'}
     chrome_options.add_experimental_option('prefs', prefs)
     driver = webdriver.Chrome(executable_path=CHROME_DRIVER,
                               options=chrome_options)
     driver.get(url)
     await gg.edit("`Processing..\n50%`")
-    download_path = '/root/haruka/bin'
+    download_path = './'
     driver.command_executor._commands["send_command"] = (
         "POST", '/session/$sessionId/chromium/send_command')
     params = {
@@ -72,7 +72,7 @@ async def carbon_api(e):
     while not os.path.isfile("/root/haruka/bin/carbon.png"):
           await asyncio.sleep(1)
     await gg.edit("`Processing..\n100%`")
-    file = '/root/haruka/bin/carbon.png'
+    file = './carbon.png'
     await e.edit("`Uploading..`")
     await e.client.send_file(
         e.chat_id,
@@ -80,7 +80,7 @@ async def carbon_api(e):
         caption="Made using [Carbon](https://carbon.now.sh/about/),\
         \na project by [Dawn Labs](https://dawnlabs.io/)",
         force_document=True)
-    os.remove('/root/haruka/bin/carbon.png')
+    os.remove('./carbon.png')
     driver.quit()
 
 __help__ = """
