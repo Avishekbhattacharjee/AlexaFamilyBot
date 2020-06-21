@@ -1,5 +1,5 @@
 FROM julianbei/alpine-opencv-microimage:p3-3.1
-
+FROM alpine:edge
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 
