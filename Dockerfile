@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.9
 
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
@@ -120,8 +120,6 @@ RUN python3 -m ensurepip \
 RUN git clone https://6c90e9fc05bb18518038e167c3d362ed34f83a06@github.com/Ayush1311/newbot.git /root/haruka
 RUN mkdir /root/haruka/bin/
 WORKDIR /root/haruka
-
-
 
 RUN pip3 install -r requirements.txt
 
