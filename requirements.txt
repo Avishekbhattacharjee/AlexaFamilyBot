@@ -51,3 +51,4 @@ selenium
 bing_image_downloader
 git+https://github.com/rachmadaniHaryono/we-get.git
 numpy
+mapper
