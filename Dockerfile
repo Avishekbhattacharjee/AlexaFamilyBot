@@ -3,58 +3,6 @@ FROM alpine:edge
 RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/repositories
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories
 
-ENV OPENCV_VER 3.3.0
-ENV OPENCV https://github.com/opencv/opencv/archive/${OPENCV_VER}.tar.gz
-
-# build dependencies
-RUN apk add -U --no-cache --virtual=build-dependencies \
-    build-base \
-    clang \
-    clang-dev ninja \
-    cmake \
-    freetype-dev \
-    g++ \
-    jpeg-dev \
-    lcms2-dev \
-    libffi-dev \
-    libgcc \
-    libxml2-dev \
-    libxslt-dev \
-    linux-headers \
-    make \
-    musl \
-    musl-dev \
-    openjpeg-dev \
-    openssl-dev \
-    python3-dev \
-    zlib-dev \
-    && apk add --no-cache \
-    curl \
-    freetype \
-    gcc \
-    jpeg \
-    libjpeg \
-    openjpeg \
-    python3 \
-    tesseract-ocr \
-    zlib
-
-# build opencv from source
-RUN mkdir opencv && cd opencv && \
-    curl -L $OPENCV | tar zx && \
-    cd opencv-$OPENCV_VER && \
-    mkdir build && cd build && \
-    cmake -G Ninja \
-          -D CMAKE_BUILD_TYPE=RELEASE \
-          -D CMAKE_INSTALL_PREFIX=/usr/local \
-          -D WITH_FFMPEG=NO \
-          -D WITH_IPP=NO \
-          -D PYTHON_EXECUTABLE=/usr/bin/python3 \
-          -D WITH_OPENEXR=NO .. && \
-    ninja && ninja install && \
-    cp -p $(find /usr/local/lib/python3.8/site-packages -name cv2.*) /usr/lib/python3.8/site-packages/cv2.so
-
-
 RUN apk add --no-cache --update \
     coreutils \
     bash \
@@ -114,3 +62,6 @@ WORKDIR /root/haruka
 RUN pip3 install -r requirements.txt
 
 CMD ["bash","init/start.sh"]
+
+FROM julianbei/alpine-opencv-microimage:p3-3.1
+RUN echo "ALL DONE"
