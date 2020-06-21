@@ -40,7 +40,7 @@ RUN apk add -U --no-cache --virtual=build-dependencies \
     zlib
 
 # build opencv from source
-RUN mkdir /opt && cd /opt && \
+RUN mkdir opencv && cd opencv && \
     curl -L $OPENCV | tar zx && \
     cd opencv-$OPENCV_VER && \
     mkdir build && cd build && \
@@ -49,7 +49,7 @@ RUN mkdir /opt && cd /opt && \
           -D CMAKE_INSTALL_PREFIX=/usr/local \
           -D WITH_FFMPEG=NO \
           -D WITH_IPP=NO \
-          -D PYTHON_EXECUTABLE=/usr/bin/python3.8 \
+          -D PYTHON_EXECUTABLE=/usr/bin/python3 \
           -D WITH_OPENEXR=NO .. && \
     ninja && ninja install && \
     cp -p $(find /usr/local/lib/python3.8/site-packages -name cv2.*) /usr/lib/python3.8/site-packages/cv2.so
