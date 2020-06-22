@@ -7,7 +7,10 @@ scipy
 matplotlib
 opencv-python-headless
 opencv-contrib-python-headless
-image-to-scan
+pyimagesearch
+skimage
+argparse
+imutils
 python-telegram-bot==11.1.0
 telethon
 aiohttp
