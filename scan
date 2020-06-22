@@ -35,7 +35,7 @@ for c in cnts:
         break
 
 print("STEP 2: Find contours of paper")
-cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
+cv2.drawContours(image, screenCnt, -1, (0, 255, 0), 2)
 
 warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
 warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
