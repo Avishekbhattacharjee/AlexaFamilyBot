@@ -6,8 +6,6 @@ mapper
 scipy
 matplotlib
 opencv-contrib-python
-opencv-python-headless
-git+https://github.com/opencv/opencv.git
 scikit-image
 argparse
 imutils
