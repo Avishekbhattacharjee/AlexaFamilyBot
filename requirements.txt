@@ -7,7 +7,6 @@ scipy
 matplotlib
 opencv-python-headless
 opencv-contrib-python-headless
-pyimagesearch
 skimage
 argparse
 imutils
