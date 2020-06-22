@@ -5,7 +5,6 @@ numpy
 mapper
 scipy
 matplotlib
-opencv
 opencv-contrib-python-headless
 opencv-python-headless
 scikit-image
