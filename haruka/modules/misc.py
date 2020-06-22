@@ -1598,6 +1598,12 @@ async def asciiart(event):
   if not event.from_id:
      await event.reply("Reply To A Image Plox..")
      return
+
+  lol = []
+  for pop in ('*.jpg'):
+      lol.extend(glob(join("./", pop)))
+  os.remove(lol)
+
   reply_msg = await event.get_reply_message()
   downloaded_file_name = await event.client.download_media(reply_msg, './')
 
