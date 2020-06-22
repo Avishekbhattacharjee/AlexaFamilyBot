@@ -32,6 +32,7 @@ for c in cnts:
     
     if (len(approx) == 4):
         screenCnt = approx
+    else:
         break
 
     print("STEP 2: Find contours of paper")
