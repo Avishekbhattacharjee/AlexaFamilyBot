@@ -21,7 +21,8 @@ edged = cv2.Canny(gray, 75, 200)
 
 print("STEP 1: Edge Detection")
 
-(_, cnts, _) = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+cnts = cv2.findContours(edged.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+cnts = imutils.grab_contours(cnts)
 cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:5]
 for c in cnts:
     peri = cv2.arcLength(c, True)
