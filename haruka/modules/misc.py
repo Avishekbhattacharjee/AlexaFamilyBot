@@ -1590,6 +1590,7 @@ async def list_db(event):
 	await event.reply(msg)
 
 import os
+import sys
 
 @register(pattern="^/camscanner")
 async def asciiart(event):
@@ -1598,23 +1599,32 @@ async def asciiart(event):
   if not event.from_id:
      await event.reply("Reply To A Image Plox..")
      return
-
-  lol = []
-  for pop in ('*.jpg'):
-      lol.extend(glob(join("./", pop)))
-  os.remove(lol)
-
+  directory = "./"
+  test = os.listdir(directory)
+  for item in test:
+    if item.endswith(".jpg"):
+        os.remove(os.path.join(directory, item))
+    elif item.endswith(".png"):
+        os.remove(os.path.join(directory, item))
+    elif item.endswith(".jpeg"):
+        os.remove(os.path.join(directory, item))
   reply_msg = await event.get_reply_message()
   downloaded_file_name = await event.client.download_media(reply_msg, './')
-
   os.system(f"image-to-scan {downloaded_file_name}")
-  
   files = []
   for ext in ('*.jpg'):
       files.extend(glob(join("./", ext)))
-      
   await event.client.send_file(event.chat_id, files)
-  os.remove(files)
+  directory = "./"
+  test = os.listdir(directory)
+  for item in test:
+    if item.endswith(".jpg"):
+        os.remove(os.path.join(directory, item))
+    elif item.endswith(".png"):
+        os.remove(os.path.join(directory, item))
+    elif item.endswith(".jpeg"):
+        os.remove(os.path.join(directory, item))
+    
 
 
 __help__ = """
