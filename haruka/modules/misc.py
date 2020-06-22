@@ -1610,11 +1610,9 @@ async def asciiart(event):
         os.remove(os.path.join(directory, item))
   reply_msg = await event.get_reply_message()
   downloaded_file_name = await event.client.download_media(reply_msg, './')
-  os.system(f"image-to-scan {downloaded_file_name}")
-  files = []
-  for ext in ('*.jpg'):
-      files.extend(glob(join("./", ext)))
-  await event.client.send_file(event.chat_id, files)
+  os.system(f"python scan --image {downloaded_file_name}")
+  fuck = await event.client.upload_file("./scanned.jpg")
+  await event.client.send_file(event.chat_id, fuck)
   directory = "./"
   test = os.listdir(directory)
   for item in test:
