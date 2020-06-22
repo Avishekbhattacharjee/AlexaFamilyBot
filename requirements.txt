@@ -5,9 +5,9 @@ numpy
 mapper
 scipy
 matplotlib
-opencv-python-headless
 opencv-contrib-python-headless
-skimage
+opencv-python-headless
+scikit-image
 argparse
 imutils
 python-telegram-bot==11.1.0
