@@ -1,6 +1,6 @@
 from pyimagesearch.transform import four_point_transform
 import imutils
-from skimage.filters import threshold_adaptive
+from skimage.filters import threshold_local
 import numpy as np
 import argparse
 import cv2
@@ -36,7 +36,7 @@ cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 2)
 
 warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
 warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
-warped = threshold_adaptive(warped, 251, offset=10)
+warped = threshold_local(warped, 251, offset=10)
 warped = warped.astype("uint8") * 255
 
 print("STEP 3: Apply perspective transform")
