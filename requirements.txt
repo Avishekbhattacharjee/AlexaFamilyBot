@@ -1,6 +1,6 @@
 wheel
 lxml
-chromedriver>=2.21
+chromedriver
 numpy
 mapper
 scipy
@@ -9,7 +9,7 @@ opencv-python-headless
 scikit-image
 argparse
 imutils
-python-telegram-bot==11.1.0
+python-telegram-bot
 telethon
 aiohttp
 bleach
@@ -57,7 +57,7 @@ dnspython
 pymongo[srv]
 redis
 pybase64
-chatterbot==1.0.4
+chatterbot
 selenium
 bing_image_downloader
 git+https://github.com/rachmadaniHaryono/we-get.git
