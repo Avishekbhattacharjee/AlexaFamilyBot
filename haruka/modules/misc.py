@@ -671,13 +671,10 @@ import bingscraper as hola
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
     match = q_event.pattern_match.group(1)
-    
     search = f'"{match}"'
-
-    last  = hola.scrape(search).text() 
-    dotenv = str(last)
+    let = subprocess.check_output(f"""python3 -c 'import bingscraper as hola; hola.scrape({search}).text()'""", shell=True)
     await q_event.reply("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
-                       dotenv,
+                       let,
                        link_preview=False)
 
 
