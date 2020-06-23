@@ -40,7 +40,6 @@ bingscraper
 pyfiglet
 beautifulsoup4
 pytz
-speedtest-cli
 youtube.dl
 google-api-python-client
 pyDownload
