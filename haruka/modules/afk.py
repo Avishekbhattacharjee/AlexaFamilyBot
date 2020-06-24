@@ -26,7 +26,7 @@ def afk(bot: Bot, update: Update):
 
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
-    update.effective_message.reply_text(tld(chat.id, f"{fname} is now taking rest in the Virtual World. That is.. f"{fst_name} is now Away From Keyboard![Afk!]"))
+    update.effective_message.reply_text(tld(chat.id, f"{fname} is now AFK!"))
 
 
 @run_async
@@ -40,7 +40,7 @@ def no_longer_afk(bot: Bot, update: Update):
     res = sql.rm_afk(user.id)
     if res:
         firstname = update.effective_user.first_name
-        update.effective_message.reply_text(tld(chat.id, f"{firstname} is back to Virtual World! That is.. f"{fst_name} is no longerAway From Keyboard![AFK!]"))
+        update.effective_message.reply_text(tld(chat.id, f"{firstname} is no longer AFK!"))
 
 
 @run_async
@@ -77,9 +77,9 @@ def check_afk(bot, update, user_id, fst_name):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
         if not user.reason:
-            res = tld(chat.id, f"{fst_name} is Away From Keyboard![AFK!]")
+            res = tld(chat.id, f"{fst_name} is AFK!")
         else:
-            res = tld(chat.id, f"{fst_name} is now Away From Keyboard[Afk]! says its because of this following reason:\n{user.reason}")
+            res = tld(chat.id, f"{fst_name} is AFK! says its because of:\n{user.reason}")
         update.effective_message.reply_text(res)
 
 
