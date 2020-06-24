@@ -3,7 +3,7 @@ from typing import Optional
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity, ParseMode
 from telegram.ext import Filters, MessageHandler, run_async
-import time
+
 from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
 from haruka.modules.sql import afk_sql as sql
@@ -23,11 +23,10 @@ def afk(bot: Bot, update: Update):
         reason = args[1]
     else:
         reason = ""
-    global start_time 
-    start_time = time.time()
+
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
-    update.effective_message.reply_text(tld(chat.id, f"{fname} is now AFK!"))
+    update.effective_message.reply_text(tld(chat.id, f"{fname} is now taking rest in the Virtual World. That is.. f"{fst_name} is now Away From Keyboard![Afk!]"))
 
 
 @run_async
@@ -41,7 +40,7 @@ def no_longer_afk(bot: Bot, update: Update):
     res = sql.rm_afk(user.id)
     if res:
         firstname = update.effective_user.first_name
-        update.effective_message.reply_text(tld(chat.id, f"{firstname} is no longer AFK!"))
+        update.effective_message.reply_text(tld(chat.id, f"{firstname} is back to Virtual World! That is.. f"{fst_name} is no longerAway From Keyboard![AFK!]"))
 
 
 @run_async
@@ -77,12 +76,10 @@ def check_afk(bot, update, user_id, fst_name):
     chat = update.effective_chat  # type: Optional[Chat]
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
-        elapsed_time = time.time() - start_time
-        final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
         if not user.reason:
-            res = tld(chat.id, f"{fst_name} is AFK !\n\nLast seen {final} ago")
+            res = tld(chat.id, f"{fst_name} is Away From Keyboard![AFK!]")
         else:
-            res = tld(chat.id, f"{fst_name} is AFK !\n\nSays it's because of:\n{user.reason}\n\nLast seen {final} ago")
+            res = tld(chat.id, f"{fst_name} is now Away From Keyboard[Afk]! says its because of this following reason:\n{user.reason}")
         update.effective_message.reply_text(res)
 
 
