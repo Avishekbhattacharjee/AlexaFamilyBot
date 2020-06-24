@@ -49,7 +49,7 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You don't have sufficient rights !")
+           update.effective_message.reply_text("Sorry I can't ban another admin !")
            return # simply return
 
     if is_user_ban_protected(chat, user_id, member):
@@ -121,8 +121,8 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You don't have sufficient rights !")
-           return
+           update.effective_message.reply_text("Sorry I can't ban another admin !")
+            return
 
     if not reason:
         message.reply_text(tld(chat.id, "You haven't specified a time to ban this person for!"))
@@ -207,8 +207,8 @@ def kick(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You don't have sufficient rights !")
-           return # simply return
+           update.effective_message.reply_text("Sorry I can't kick another admin !")
+           return
 
     if is_user_ban_protected(chat, user_id):
         message.reply_text("Why would I kick an Admin? That sounds like a pretty dumb idea.")
@@ -316,8 +316,8 @@ def unban(bot: Bot, update: Update, args: List[str]) -> str:
         return ""
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
-           update.effective_message.reply_text("You don't have sufficient rights !")
-           return # simply return
+           update.effective_message.reply_text("Why will I unban someone who is already in the chat as admin ?")
+           return
 
     if is_user_in_chat(chat, user_id):
         message.reply_text("Why are you trying to unban someone that's already in the chat?")
