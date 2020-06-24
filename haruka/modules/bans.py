@@ -122,7 +122,7 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
 
     if chat.get_member(user_id).can_restrict_members: # get the user id           
            update.effective_message.reply_text("Sorry I can't ban another admin !")
-            return
+           return
 
     if not reason:
         message.reply_text(tld(chat.id, "You haven't specified a time to ban this person for!"))
