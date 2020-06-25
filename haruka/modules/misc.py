@@ -666,19 +666,40 @@ async def wiki(wiki_q):
         return
     await wiki_q.reply("**Search:**\n`" + match + "`\n\n**Result:**\n" + result)
 
-import bingscraper as hola
+from search_engine_parser import GoogleSearch
 
-@register(pattern="^/google (.*)")
+@register(pattern=r"^/google(?: |$)(.*)")
 async def gsearch(q_event):
     """ For .google command, do a Google search. """
-    match = q_event.pattern_match.group(1)
-    search = f'"{match}"'
-    let = subprocess.check_output(f"""python3 -c 'import bingscraper as hola; hola.scrape({search}).text()'""", shell=True)
-    bbc = str(let)
-    await q_event.reply("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
-                       bbc,
-                       link_preview=False)
+    textx = await q_event.get_reply_message()
+    query = q_event.pattern_match.group(1)
 
+    if query:
+        pass
+    elif textx:
+        query = textx.text
+    else:
+        await q_event.reply("`Pass a query as an argument or reply "
+                           "to a message for Google search!`")
+        return
+
+    q_event.edit("`Searching...`")
+
+    search_args = (str(query), 1)
+    googsearch = GoogleSearch()
+    gresults = await googsearch.async_search(*search_args)
+    msg = ""
+    for i in range(1, 6):
+        try:
+            title = gresults["titles"][i]
+            link = gresults["links"][i]
+            desc = gresults["descriptions"][i]
+            msg += f"{i}. [{title}]({link})\n`{desc}`\n\n"
+        except IndexError:
+            break
+    await q_event.reply("**Search Query:**\n`" + query + "`\n\n**Results:**\n" +
+                       msg,
+                       link_preview=False)
 
 import aiohttp
 import io
@@ -959,7 +980,7 @@ async def rm_deletedacc(show):
     con = show.pattern_match.group(1).lower()
     del_u = 0
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
-    if not event.can_ban_userss:
+    if not event.chat.admin_rights.ban_users
         return
     if con != "clean":
         await show.reply("`Searching for zombie accounts...`")
@@ -1477,7 +1498,7 @@ from telethon.tl.functions.channels import (EditAdminRequest,
 async def _(event):
     if event.fwd_from:
         return
-    if not event.can_ban_userss:
+    if not event.chat.admin_rights.ban_users
         return
     chat = await event.get_chat()
     admin = chat.admin_rights
