@@ -5,6 +5,7 @@ import random
 from random import randrange
 import time
 import pyowm
+from telethon.tl.types import ChannelParticipantsAdmins
 import re
 import html
 import wikipedia
@@ -980,7 +981,7 @@ async def rm_deletedacc(show):
     con = show.pattern_match.group(1).lower()
     del_u = 0
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
-    if not event.chat.admin_rights.ban_users
+    if not event.chat.admin_rights.ban_users:
         return
     if con != "clean":
         await show.reply("`Searching for zombie accounts...`")
@@ -1498,7 +1499,7 @@ from telethon.tl.functions.channels import (EditAdminRequest,
 async def _(event):
     if event.fwd_from:
         return
-    if not event.chat.admin_rights.ban_users
+    if not event.chat.admin_rights.ban_users:
         return
     chat = await event.get_chat()
     admin = chat.admin_rights
