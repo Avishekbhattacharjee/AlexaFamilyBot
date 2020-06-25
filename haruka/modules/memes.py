@@ -136,192 +136,6 @@ def vapor(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-def mafiatext(bot: Bot, update: Update, args: List[str]):
-    message = update.effective_message
-    chat = update.effective_chat
-
-    noreply = False
-    if message.reply_to_message:
-        data = message.reply_to_message.text
-    elif args:
-        noreply = True
-        data = message.text.split(None, 1)[1]
-    else:
-        noreply = True
-        data = tld(chat.id, "Give some text to meme !")
-
-    if not Path('./images/mafia.jpg').is_file():
-        LOGGER.warning(
-            "./images/mafia.jpg not found! Mafia memes module is turned off!")
-        return
-
-    for mocked in glob.glob("./mafiaed*"):
-        os.remove(mocked)
-    reply_text = spongemock.mock(data)
-
-    
-    magick = """convert ./images/mafia.jpg -font Open-Sans-Bold -pointsize 50 -size 1280x720 -stroke white -strokewidth 1 -fill black -background none -gravity north caption:"{}" -flatten ./mafiaed.jpg""".format(
-        reply_text)
-    os.system(magick)
-    with open('./mafiaed.jpg', 'rb') as mockedphoto:
-        if noreply:
-            message.reply_photo(photo=mockedphoto,
-                                reply=message.reply_to_message)
-        else:
-            message.reply_to_message.reply_photo(
-                photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('./mafiaed.jpg')
-
-
-@run_async
-def pidortext(bot: Bot, update: Update, args: List[str]):
-    message = update.effective_message
-    chat = update.effective_chat
-
-    noreply = False
-    if message.reply_to_message:
-        data = message.reply_to_message.text
-    elif args:
-        noreply = True
-        data = message.text.split(None, 1)[1]
-    else:
-        noreply = True
-        data = tld(chat.id, "Give some text to meme !")
-
-    if not Path('./images/4pda.jpg').is_file():
-        LOGGER.warning(
-            "./images/4pda.jpg not found! Pidor memes module is turned off!")
-        return
-    for mocked in glob.glob("./4pdaed*"):
-        os.remove(mocked)
-    reply_text = spongemock.mock(data)
-
-    
-    magick = """convert ./images/4pda.jpg -font Open-Sans-Bold -pointsize 50 -size 400x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./4pdaed.jpg""".format(
-        reply_text)
-    os.system(magick)
-    with open('./4pdaed.jpg', 'rb') as mockedphoto:
-        if noreply:
-            message.reply_photo(photo=mockedphoto,
-                                reply=message.reply_to_message)
-        else:
-            message.reply_to_message.reply_photo(
-                photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('./4pdaed.jpg')
-
-
-@run_async
-def kimtext(bot: Bot, update: Update, args: List[str]):
-    message = update.effective_message
-    chat = update.effective_chat
-
-    noreply = False
-    if message.reply_to_message:
-        data = message.reply_to_message.text
-    elif args:
-        noreply = True
-        data = message.text.split(None, 1)[1]
-    else:
-        noreply = True
-        data = tld(chat.id, "Give some text to meme !")
-
-    if not Path('./images/kim.jpg').is_file():
-        LOGGER.warning(
-            "./images/kim.jpg not found! Kim memes module is turned off!")
-        return
-    for mocked in glob.glob("./kimed*"):
-        os.remove(mocked)
-    reply_text = spongemock.mock(data)
-
-    
-    magick = """convert ./images/kim.jpg -font Open-Sans-Bold -pointsize 50 -size 480x360 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./kimed.jpg""".format(
-        reply_text)
-    os.system(magick)
-    with open('./kimed.jpg', 'rb') as mockedphoto:
-        if noreply:
-            message.reply_photo(photo=mockedphoto,
-                                reply=message.reply_to_message)
-        else:
-            message.reply_to_message.reply_photo(
-                photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('./kimed.jpg')
-
-
-@run_async
-def hitlertext(bot: Bot, update: Update, args: List[str]):
-    message = update.effective_message
-    chat = update.effective_chat
-
-    noreply = False
-    if message.reply_to_message:
-        data = message.reply_to_message.text
-    elif args:
-        noreply = True
-        data = message.text.split(None, 1)[1]
-    else:
-        noreply = True
-        data = tld(chat.id, "Give some text to meme !")
-
-    if not Path('./images/hitler.jpg').is_file():
-        LOGGER.warning(
-            "./images/hitler.jpg not found! Hitler memes module is turned off!")
-        return
-    for mocked in glob.glob("./hitlered*"):
-        os.remove(mocked)
-    reply_text = spongemock.mock(data)
-
-    
-    magick = """convert ./images/hitler.jpg -font Open-Sans-Bold -pointsize 50 -size 615x409 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./hitlered.jpg""".format(
-        reply_text)
-    os.system(magick)
-    with open('./hitlered.jpg', 'rb') as mockedphoto:
-        if noreply:
-            message.reply_photo(photo=mockedphoto,
-                                reply=message.reply_to_message)
-        else:
-            message.reply_to_message.reply_photo(
-                photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('./hitlered.jpg')
-
-
-@run_async
-def spongemocktext(bot: Bot, update: Update, args: List[str]):
-    message = update.effective_message
-    chat = update.effective_chat
-
-    noreply = False
-    if message.reply_to_message:
-        data = message.reply_to_message.text
-    elif args:
-        noreply = True
-        data = message.text.split(None, 1)[1]
-    else:
-        noreply = True
-        data = tld(chat.id, "Give some text to meme !")
-
-    if not Path('./images/bob.jpg').is_file():
-        LOGGER.warning(
-            "./images/bob.jpg not found! Spongemock memes module is turned off!")
-        return
-    for mocked in glob.glob("./mocked*"):
-        os.remove(mocked)
-    reply_text = spongemock.mock(data)
-
-    
-    magick = """convert ./images/bob.jpg -font Open-Sans-Bold -pointsize 30 -size 512x300 -stroke black -strokewidth 1 -fill white -background none -gravity north caption:"{}" -flatten ./mocked.jpg""".format(
-        reply_text)
-    os.system(magick)
-    with open('./mocked.jpg', 'rb') as mockedphoto:
-        if noreply:
-            message.reply_photo(photo=mockedphoto,
-                                reply=message.reply_to_message)
-        else:
-            message.reply_to_message.reply_photo(
-                photo=mockedphoto, reply=message.reply_to_message)
-    os.remove('./mocked.jpg')
-
-
-@run_async
 def zalgotext(bot: Bot, update: Update):
     message = update.effective_message
     if message.reply_to_message:
@@ -442,11 +256,6 @@ Some memes command, find it all out yourself!
 /bmoji: Type in reply to a message and see magic
 /copypasta: Type in reply to a message and see magic
 /vapor: owo vapor dis
-/hitler: Quote a message and type this command to make a caption of hitler
-/mock: Does the same as /hitler but spongemock instead
-/kim: Does the same as /hitler but with Kim Jong Un instead (O no plox dont bomb my house)
-/pidor: 4pda memes
-/mafia: That's how a mafia works
 /forbesify: Correct your punctuations better use the advanged spell module 
 /shout: Write anything that u want it to should
 /zalgofy: reply to a message to g̫̞l̼̦i̎͡tͫ͢c̘ͭh̛̗ it out!
@@ -459,30 +268,21 @@ BMOJI_HANDLER = DisableAbleCommandHandler("bmoji", bmoji, admin_ok=True)
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
 STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
 VAPOR_HANDLER = DisableAbleCommandHandler("vapor", vapor, pass_args=True, admin_ok=True)
-MOCK_HANDLER = DisableAbleCommandHandler("mock", spongemocktext, admin_ok=True, pass_args=True)
-KIM_HANDLER = DisableAbleCommandHandler("kim", kimtext, admin_ok=True, pass_args=True)
-MAFIA_HANDLER = DisableAbleCommandHandler("mafia", mafiatext, admin_ok=True, pass_args=True)
-PIDOR_HANDLER = DisableAbleCommandHandler("pidor", pidortext, admin_ok=True, pass_args=True)
-HITLER_HANDLER = DisableAbleCommandHandler("hitler", hitlertext, admin_ok=True, pass_args=True)
 ZALGO_HANDLER = DisableAbleCommandHandler("zalgofy", zalgotext)
 FORBES_HANDLER = DisableAbleCommandHandler("forbes", forbesify, admin_ok=True)
 DEEPFRY_HANDLER = DisableAbleCommandHandler("deepfry", deepfryer, admin_ok=True)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, pass_args=True)
 FORBES_HANDLER = DisableAbleCommandHandler("forbesify", forbesify, admin_ok=True)
 
-dispatcher.add_handler(MAFIA_HANDLER)
+
 dispatcher.add_handler(COPYPASTA_HANDLER)
 dispatcher.add_handler(CLAPMOJI_HANDLER)
 dispatcher.add_handler(BMOJI_HANDLER)
-dispatcher.add_handler(PIDOR_HANDLER)
 dispatcher.add_handler(SHOUT_HANDLER)
 dispatcher.add_handler(OWO_HANDLER)
 dispatcher.add_handler(FORBES_HANDLER)
 dispatcher.add_handler(STRETCH_HANDLER)
 dispatcher.add_handler(VAPOR_HANDLER)
-dispatcher.add_handler(MOCK_HANDLER)
 dispatcher.add_handler(ZALGO_HANDLER)
 dispatcher.add_handler(FORBES_HANDLER)
 dispatcher.add_handler(DEEPFRY_HANDLER)
-dispatcher.add_handler(KIM_HANDLER)
-dispatcher.add_handler(HITLER_HANDLER)
