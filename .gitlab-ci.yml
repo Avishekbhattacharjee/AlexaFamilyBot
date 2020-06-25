@@ -1,0 +1,9 @@
+deploy:
+  stage: deploy
+  variables:
+    HEROKU_APP: alexaisasexybot
+  only:
+    - master
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_TOKEN
