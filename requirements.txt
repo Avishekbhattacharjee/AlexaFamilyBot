@@ -36,7 +36,7 @@ wikipedia
 zalgo-text
 gTTs 
 gTTs-token
-bingscraper
+search_engine_parser
 pyfiglet
 beautifulsoup4
 pytz
