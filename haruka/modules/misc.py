@@ -674,8 +674,9 @@ async def gsearch(q_event):
     match = q_event.pattern_match.group(1)
     search = f'"{match}"'
     let = subprocess.check_output(f"""python3 -c 'import bingscraper as hola; hola.scrape({search}).text()'""", shell=True)
+    bbc = str(let)
     await q_event.reply("**Search Query:**\n`" + match + "`\n\n**Results:**\n" +
-                       let,
+                       bbc,
                        link_preview=False)
 
 
