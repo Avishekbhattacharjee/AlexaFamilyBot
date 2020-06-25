@@ -1,7 +1,7 @@
 deploy:
   stage: deploy
   variables:
-    HEROKU_APP: alexaisasexybo
+    HEROKU_APP: alexaisasexybot
     HEROKU_TOKEN: 7e64da3c-4174-4dd6-92a0-a35a7762dba3
   only:
     - master
