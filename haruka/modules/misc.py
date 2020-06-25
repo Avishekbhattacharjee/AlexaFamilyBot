@@ -684,8 +684,6 @@ async def gsearch(q_event):
                            "to a message for Google search!`")
         return
 
-    q_event.edit("`Searching...`")
-
     search_args = (str(query), 1)
     googsearch = GoogleSearch()
     gresults = await googsearch.async_search(*search_args)
@@ -981,8 +979,13 @@ async def rm_deletedacc(show):
     con = show.pattern_match.group(1).lower()
     del_u = 0
     del_status = "`No deleted accounts found, Group is cleaned as Hell`"
-    if not event.chat.admin_rights.ban_users:
+    chat = await show.get_chat()
+    admin = chat.admin_rights
+    creator = chat.creator
+    
+    if not show.chat.admin_rights.ban_users:
         return
+        
     if con != "clean":
         await show.reply("`Searching for zombie accounts...`")
         async for user in show.client.iter_participants(show.chat_id):
@@ -997,9 +1000,6 @@ async def rm_deletedacc(show):
         return
 
     # Here laying the sanity check
-    chat = await show.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
 
     # Well
     if not admin and not creator:
@@ -1499,11 +1499,11 @@ from telethon.tl.functions.channels import (EditAdminRequest,
 async def _(event):
     if event.fwd_from:
         return
-    if not event.chat.admin_rights.ban_users:
-        return
     chat = await event.get_chat()
     admin = chat.admin_rights
     creator = chat.creator
+    if not event.chat.admin_rights.ban_users:
+        return
     if not admin and not creator:
         await event.reply("I am not admin here !")
         return
