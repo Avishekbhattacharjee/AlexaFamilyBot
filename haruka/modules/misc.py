@@ -36,6 +36,7 @@ from pyDownload import Downloader
 import datetime
 import time
 import os
+from haruka.modules.helper_funcs.telethon.chat_status import user_is_ban_protectedd, user_is_adminn, is_user_adminn, haruka_is_adminn, is_user_in_chatt, can_delete_messagess, can_change_infoo, can_ban_userss, can_invite_userss, can_add_adminss, can_pin_messagess
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 import pytz
@@ -950,8 +951,7 @@ async def univsaye(cowmsg):
 
         await cowmsg.reply(f"`{cheese.milk(text).replace('`', '´')}`")
  
-@user_admin
-@bot_admin
+@can_ban_userss
 @register(pattern="^/zombies(?: |$)(.*)")
 async def rm_deletedacc(show):
     """ For .delusers command, list all the ghost/deleted accounts in a chat. """
@@ -1470,7 +1470,7 @@ from telethon import *
 from telethon.tl.functions.channels import (EditAdminRequest,
                                             EditBannedRequest,
                                             EditPhotoRequest)
-
+@can_ban_userss
 @register(pattern="^/kickthefools")
 async def _(event):
     if event.fwd_from:
