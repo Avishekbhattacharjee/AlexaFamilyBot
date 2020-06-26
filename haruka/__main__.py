@@ -16,15 +16,15 @@ from haruka.modules.helper_funcs.misc import *
 from haruka.modules.translations.strings import tld, tld_help 
 from haruka.modules.connection import connected
 
-PM_START = """Hello my name is *Alexa* 👩‍🔧
+PM_START = """Hello my name is *Anie* 👩‍🔧
 
-I'mma group management bot 🤖
+I'm a powerful group management bot 🤖
 
 I have all the possible commands that you need to control your group 😊
 
 Take me to your group, and start giving me commands I am always at your service ♥️
 
-[#include <std/disclaimer.h>](https://telegra.ph/ALEXA-05-19)
+[#include <std/disclaimer.h>](https://telegra.ph/Anie-Robot-05-27)
 """
 
 IMPORTED = {}
@@ -141,9 +141,9 @@ def send_start(bot, update):
     first_name = update.effective_user.first_name 
     text = PM_START
     
-    keyboard = [[InlineKeyboardButton(text=tld(chat.id, "Add me to your group ♥️"), url="t.me/AlexaFamilyBot?startgroup=true")]]
+    keyboard = [[InlineKeyboardButton(text=tld(chat.id, "Add me to your group ♥️"), url="t.me/AnieroBot?startgroup=true")]]
 
-    keyboard += [[InlineKeyboardButton(text=tld(chat.id, "Join our support chat 🌍"), url="https://t.me/AlexaSupport")]]
+    keyboard += [[InlineKeyboardButton(text=tld(chat.id, "Join our support chat 🌍"), url="https://t.me/AnieSupport")]]
     keyboard += [[InlineKeyboardButton(text="My Commands ⚙️", callback_data="help_back")]]
     
     update.effective_message.reply_text(PM_START.format(escape_markdown(first_name), bot.first_name), reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=False, parse_mode=ParseMode.MARKDOWN)
